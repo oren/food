@@ -10,6 +10,6 @@ Now you can open it on your mobile phone
 ## Deploy
 ```
 npx sapper export --basepath /food
-cp -r __sapper__/export ~/p/oren.github.io/food
+cp -r __sapper__/export/food/* ~/p/oren.github.io/food/
 ```
 

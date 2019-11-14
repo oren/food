@@ -1,16 +1,28 @@
-<style>
-</style>
-
 <svelte:head>
 	<title>Food</title>
 </svelte:head>
+
+<style>
+	span {
+		margin-right: 5px
+	}
+	ul {
+		list-style-type: none
+	}
+	.total {
+		background-color: #ffe9f4;
+		margin-bottom: 10px;
+	}
+	.today {
+		margin-top: 20px
+	}
+</style>
 
 <script>
 	import { onMount } from 'svelte';
 
 	let foodIAte = []
 	let food = []
-	let macros = {}
 	let protein = 0
 	let carbs = 0
 	let fat = 0
@@ -37,9 +49,15 @@
 		countCalories(foodIAte)
 	})
 
-	const countCalories = (food) => {
-		let macros = {}
+	function handleClear(food) {
+		localStorage.removeItem('ate')
+		protein = 0
+		carbs = 0
+		fat = 0
+		foodIAte = []
+	}
 
+	const countCalories = (food) => {
 		function sumProtein(total, f) {
 			return total + (f.protein * f.count)
 		}
@@ -56,16 +74,25 @@
 		carbs = Number(foodIAte.reduce(sumCarb, 0))
 		fat = Number(foodIAte.reduce(sumFat, 0))
 	}
-
 </script>
 
-<h1>Macros</h1>
-Calories: {calories}
-Protein:{protein}
-Carbs:{carbs}
-Fat:{fat}
+<div class='total'>
+	<span>Calories: {calories}</span>
+	<span>Protein:{protein}</span>
+	<span>Carbs:{carbs}</span>
+	<span>Fat:{fat}</span>
+</div>
 
-<h1>Food I Ate</h1>
+{#if calories !== 0}
+<div>
+	<button on:click={handleClear}>Clear</button>
+</div>
+{/if}
+
+<h1 class='today'>Today</h1>
+{#if calories === 0}
+	Nothing yet... Feed your muscles!
+{/if}
 
 <ul>
 	{#each foodIAte as { id, name, count }, i}
@@ -77,10 +104,6 @@ Fat:{fat}
 
 <h1>Food</h1>
 
-<ul>
-	{#each food as { id, name }, i}
-		<li>
-			<button on:click={() => handleFoodClick(food[i])}>{name}</button>
-		</li>
-	{/each}
-</ul>
+{#each food as { id, name }, i}
+		<button on:click={() => handleFoodClick(food[i])}>{name}</button>
+{/each}
