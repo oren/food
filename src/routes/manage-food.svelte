@@ -18,9 +18,55 @@
 	let food = []
 	let mode = 'add'
 	let oldName = ''
+	let errorMessage = ''
 	$: buttonValue = mode === 'add'? 'Add' : 'Update'
 
+	function validate() {
+		errorMessage = ''
+
+		if(name === '') {
+			errorMessage = 'Name is missing'
+			return false
+		}
+
+		if(protein === '') {
+			errorMessage = 'Protein is missing'
+			return false
+		}
+
+		if(!Number.isInteger(Number(protein))) {
+			errorMessage = 'Protein should be a number'
+			return false
+		}
+
+		if(carbs === '') {
+			errorMessage = 'Carbs is missing'
+			return false
+		}
+
+		if(!Number.isInteger(Number(carbs))) {
+			errorMessage = 'Carbs should be a number'
+			return false
+		}
+
+		if(fat === '') {
+			errorMessage = 'Fat is missing'
+			return false
+		}
+
+		if(!Number.isInteger(Number(fat))) {
+			errorMessage = 'Fat should be a number'
+			return false
+		}
+
+		return true
+	}
+
 	function handleAddUpdate() {
+		let valid = validate()
+		if(!valid) {
+			return
+		}
 
 		if(mode === 'add') {
 			// save in the browser
@@ -78,6 +124,10 @@
 <h1>Add Food</h1>
 {:else}
 <h1>Update Food</h1>
+{/if}
+
+{#if errorMessage !== ''}
+{errorMessage}
 {/if}
 
 <form>
