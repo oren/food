@@ -6,6 +6,12 @@
 	.food {
 		margin-top: 20px
 	}
+	.success {
+		color: green;
+	}
+	.error {
+		color: red;
+	}
 </style>
 
 <script>
@@ -19,6 +25,8 @@
 	let mode = 'add'
 	let oldName = ''
 	let errorMessage = ''
+	let successMessage = ''
+
 	$: buttonValue = mode === 'add'? 'Add' : 'Update'
 
 	function validate() {
@@ -63,6 +71,9 @@
 	}
 
 	function handleAddUpdate() {
+		successMessage = ''
+		errorMessage = ''
+
 		let valid = validate()
 		if(!valid) {
 			return
@@ -74,6 +85,11 @@
 			allFood.push({name, protein, carbs, fat})
 			localStorage.setItem('food', JSON.stringify(allFood))
 			food = allFood
+			name = ''
+			protein = ''
+			carbs = ''
+			fat = ''
+			successMessage = 'Food was added'
 			event.preventDefault()
 			return
 		}
@@ -89,6 +105,7 @@
 		food[index].fat = fat
 
 		localStorage.setItem('food', JSON.stringify(food))
+		successMessage = 'Food was updated'
 	}
 
 	onMount(async () => {
@@ -96,6 +113,9 @@
 	})
 
 	function handleFoodClick(food) {
+		successMessage = ''
+		errorMessage = ''
+
 		oldName = food.name
 		name = food.name
 		protein = food.protein
@@ -105,6 +125,8 @@
 	}
 
 	function handleDelete() {
+		successMessage = ''
+		errorMessage = ''
 		let filtered = food.filter(function(f, index, arr){
 			return f.name !== name;
 		});
@@ -116,6 +138,7 @@
 		protein = ''
 		carbs = ''
 		fat = ''
+		successMessage = 'Food was deleted'
 	}
 </script>
 
@@ -126,8 +149,12 @@
 <h1>Update Food</h1>
 {/if}
 
+{#if successMessage !== ''}
+	<p class='success'>{successMessage}</p>
+{/if}
+
 {#if errorMessage !== ''}
-{errorMessage}
+	<p class='error'>{errorMessage}</p>
 {/if}
 
 <form>
