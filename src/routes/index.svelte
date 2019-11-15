@@ -89,7 +89,7 @@
 </div>
 {/if}
 
-<h1 class='today'>Today</h1>
+<h1 class='today'>Today I Ate</h1>
 {#if calories === 0}
 	Nothing yet... Feed your muscles!
 {/if}
@@ -102,7 +102,7 @@
 	{/each}
 </ul>
 
-<h1>Food</h1>
+<h1>Add Food</h1>
 
 {#each food as { id, name }, i}
 		<button on:click={() => handleFoodClick(food[i])}>{name}</button>

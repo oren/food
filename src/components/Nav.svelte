@@ -50,8 +50,8 @@
 
 <nav>
 	<ul>
-		<li><a class='{segment === undefined ? "selected" : ""}' href='.'>Home</a></li>
-		<li><a class='{segment === "add-food" ? "selected" : ""}' href='add-food'>Add Food</a></li>
-		<li><a class='{segment === "about" ? "selected" : ""}' href='about'>About</a></li>
+		<li><a class='{segment === undefined ? "selected" : ""}' href='.'>Eat</a></li>
+		<li><a class='{segment === "manage-food" ? "selected" : ""}' href='manage-food'>Food</a></li>
+		<li><a class='{segment === "settings" ? "selected" : ""}' href='settings'>Settings</a></li>
 	</ul>
 </nav>
