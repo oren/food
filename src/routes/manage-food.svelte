@@ -96,10 +96,11 @@
 	{/if}
 </form>
 
-<h1 class='food'>Food</h1>
-<p>
-Click food to update
-</p>
+{#if food.length !== 0}
+	<h1 class='food'>Food</h1>
+	<p>Click food to update</p>
+{/if}
+
 
 {#each food as { id, name }, i}
 	<button on:click={() => handleFoodClick(food[i])}>{name}</button>
