@@ -17,29 +17,36 @@
 	<title>Add Food</title>
 </svelte:head>
 
+<style>
+	.labels { grid-area: labels; }
+	.inputs { grid-area: inputs; }
+	.grid-container {
+		display: grid;
+		grid-template-areas:
+			'labels inputs';
+		grid-gap: 10px;
+		background-color: #2196F3;
+		padding: 10px;
+	}
+	.grid-container > div {
+		background-color: rgba(255,255,255,0.8);
+		text-align: center;
+	}
+</style>
+
 <h1>Add Food!</h1>
 
 <form on:submit|preventDefault={handleClick}>
-	<label>
-		Name:
-		<input type="text" bind:value={name} />
-	</label>
+		<input type="text" bind:value={name} placeholder="Name"/>
 	<br />
-	<label>
-		Protein:
-		<input type="text" bind:value={protein} />
-	</label>
+		<input type="text" bind:value={protein} placeholder="Protein"/>
 	<br />
-	<label>
-		Carbs:
-		<input type="text" bind:value={carbs} />
-	</label>
+		<input type="text" bind:value={carbs} placeholder="Carbs"/>
 	<br />
-	<label>
-		Fat:
-		<input type="text"  bind:value={fat} />
-	</label>
+		<input type="text"  bind:value={fat} placeholder="Fat"/>
 	<br />
 	<br />
 	<input type="submit" value="Add" />
 </form>
+
+<h1>Food</h1>
