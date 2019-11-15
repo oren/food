@@ -1,7 +1,6 @@
 <svelte:head>
-	<title>About</title>
+	<title>Settings</title>
 </svelte:head>
-
 
 <h2>Settings</h2>
 <p>Not sure what setting I need (:</p>

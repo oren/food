@@ -1,3 +1,13 @@
+<svelte:head>
+	<title>Food</title>
+</svelte:head>
+
+<style>
+	.food {
+		margin-top: 20px
+	}
+</style>
+
 <script>
 	import { onMount } from 'svelte';
 
@@ -63,15 +73,6 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Add Food</title>
-</svelte:head>
-
-<style>
-	.food {
-		margin-top: 20px
-	}
-</style>
 
 {#if mode === "add"}
 <h1>Add Food</h1>
