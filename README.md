@@ -4,8 +4,7 @@ npm install
 HOST=XXX.XXX.XXX.XXX PORT=XXXX npm run dev
 ```
 
-Now you can open it on your mobile phone
-
+Open localhost:3000 on your laptop or mobile phone
 
 ## Deploy
 ```
