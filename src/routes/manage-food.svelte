@@ -12,6 +12,9 @@
 	.error {
 		color: red;
 	}
+	input[type='number'] {
+		width: 70px;
+	}
 </style>
 
 <script>
@@ -140,6 +143,22 @@
 		fat = ''
 		successMessage = 'Food was deleted'
 	}
+
+	function validateProtein() {
+		// only 4 chars are allowed - 43.22
+		let tmp = String(protein)
+		protein = Number(tmp.substring(0,5))
+	}
+	function validateCarbs() {
+		// only 4 chars are allowed - 43.22
+		let tmp = String(carbs)
+		carbs = Number(tmp.substring(0,5))
+	}
+	function validateFat() {
+		// only 4 chars are allowed - 43.22
+		let tmp = String(fat)
+		fat = Number(tmp.substring(0,5))
+	}
 </script>
 
 
@@ -159,9 +178,9 @@
 
 <form>
 	<input type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/>
-	<input type="number" bind:value={protein} placeholder="Protein" min="0" max="999"/>
-	<input type="number" bind:value={carbs} placeholder="Carbs" min="0" max="999"/>
-	<input type="number"  bind:value={fat} placeholder="Fat" min="0" max="999"/>
+	<input type="number" bind:value={protein} placeholder="Protein" on:keyup={validateProtein} min="0" max="999"/>
+	<input type="number" bind:value={carbs} placeholder="Carbs" on:keyup={validateCarbs} min="0" max="999"/>
+	<input type="number"  bind:value={fat} placeholder="Fat" on:keyup={validateFat} min="0" max="999"/>
 	<br />
 	<br />
 	<input type="button" value={buttonValue} on:click={handleAddUpdate} maxlength="2" size="2" />
@@ -175,7 +194,6 @@
 	<h1 class='food'>Food</h1>
 	<p>Click food to update</p>
 {/if}
-
 
 {#each food as { id, name }, i}
 	<button on:click={() => handleFoodClick(food[i])}>{name}</button>
