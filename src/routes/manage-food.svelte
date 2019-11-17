@@ -158,11 +158,14 @@
 {/if}
 
 <form>
-		<input type="text" bind:value={name} placeholder="Name" required minlength="1" maxlength="20" size="20"/>
-		<input type="number" bind:value={protein} placeholder="Protein" min="0" max="100"/>
-		<input type="number" bind:value={carbs} placeholder="Carbs" min="0" max="100"/>
-		<input type="number"  bind:value={fat} placeholder="Fat" min="0" max="100"/>
-	<input type="button" value={buttonValue} on:click={handleAddUpdate} />
+	<input type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/>
+	<input type="number" bind:value={protein} placeholder="Protein" min="0" max="999"/>
+	<input type="number" bind:value={carbs} placeholder="Carbs" min="0" max="999"/>
+	<input type="number"  bind:value={fat} placeholder="Fat" min="0" max="999"/>
+	<br />
+	<br />
+	<input type="button" value={buttonValue} on:click={handleAddUpdate} maxlength="2" size="2" />
+
 	{#if mode === "update"}
 		<input type="button" value="delete" on:click={handleDelete} /> />
 	{/if}
