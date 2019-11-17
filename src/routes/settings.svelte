@@ -15,8 +15,8 @@
 	let goal = 2000
 
 	onMount(async () => {
-		isGoal = localStorage.getItem('isGoal') || 2000
-		goal = localStorage.getItem('goal') || ''
+		isGoal = localStorage.getItem('isGoal') || false
+		goal = localStorage.getItem('goal') || 2000
 		console.log('isGoal', isGoal)
 	})
 
