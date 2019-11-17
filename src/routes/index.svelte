@@ -9,18 +9,25 @@
 	ul {
 		list-style-type: none
 	}
-	.total {
+	.total, .goal {
 		background-color: #ffe9f4;
 		margin-bottom: 10px;
 	}
 	.today {
 		margin-top: 20px
 	}
+	.remaining {
+
+		background-color: red;
+	}
 </style>
 
 <script>
 	import { onMount } from 'svelte';
 
+	let isGoal = false
+	let goal = 2000
+	$: remaining = goal-calories <=0 ? 'remaining' : ''
 	let foodIAte = []
 	let food = []
 	let protein = 0
@@ -44,6 +51,8 @@
 	}
 
 	onMount(async () => {
+		isGoal = localStorage.getItem('isGoal') || false
+		goal = localStorage.getItem('goal') || 2000
 		food = JSON.parse(localStorage.getItem('food')) || []
 		foodIAte = JSON.parse(localStorage.getItem('ate')) || []
 		countCalories(foodIAte)
@@ -76,6 +85,13 @@
 	}
 </script>
 
+{#if isGoal}
+<div class='goal'>
+	<span>Calories Goal: {goal}</span>
+	<span>Remaining:</span><span class={remaining}> {goal-calories}</span>
+</div>
+{/if}
+
 <div class='total'>
 	<span>Calories: {calories}</span>
 	<span>Protein:{protein}</span>
@@ -83,13 +99,14 @@
 	<span>Fat:{fat}</span>
 </div>
 
+
+<h1 class='today'>Today I Ate</h1>
 {#if calories !== 0}
 <div>
 	<button on:click={handleClear}>Clear</button>
 </div>
 {/if}
 
-<h1 class='today'>Today I Ate</h1>
 {#if calories === 0}
 	Nothing yet... Feed your muscles!
 {/if}

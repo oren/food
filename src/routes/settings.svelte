@@ -17,7 +17,6 @@
 	onMount(async () => {
 		isGoal = localStorage.getItem('isGoal') || false
 		goal = localStorage.getItem('goal') || 2000
-		console.log('isGoal', isGoal)
 	})
 
 	function toggleGoal () {
@@ -35,7 +34,7 @@
 		// uncheck if 0 or empty
 		if(goal === '' || Number(goal) === 0) {
 			localStorage.removeItem('goal')
-			localStorage.setItem('isGoal', false)
+			localStorage.removeItem('isGoal')
 			isGoal = false
 			return
 		}
