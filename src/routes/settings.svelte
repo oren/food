@@ -2,8 +2,57 @@
 	<title>Settings</title>
 </svelte:head>
 
-<h2>Settings</h2>
-<p>Not sure what setting I need (:</p>
+<style>
+	.about {
+		margin-top: 10px
+	}
+</style>
 
-<h2>About</h2>
+<script>
+	import { onMount } from 'svelte';
+
+	let isGoal = false
+	let goal = 2000
+
+	onMount(async () => {
+		isGoal = localStorage.getItem('isGoal') || 2000
+		goal = localStorage.getItem('goal') || ''
+		console.log('isGoal', isGoal)
+	})
+
+	function toggleGoal () {
+		if(isGoal) {
+			isGoal = false
+			localStorage.removeItem('isGoal')
+			return
+		}
+
+		isGoal = true
+		localStorage.setItem('isGoal', true)
+	}
+
+	function goalChange () {
+		// uncheck if 0 or empty
+		if(goal === '' || Number(goal) === 0) {
+			localStorage.removeItem('goal')
+			localStorage.setItem('isGoal', false)
+			isGoal = false
+			return
+		}
+
+		localStorage.setItem('goal', Number(goal))
+	}
+</script>
+
+<h2>Settings</h2>
+
+{#if isGoal}
+<input type="checkbox" name="goal" checked value="yes" on:change={toggleGoal} >Calories Goal
+{:else}
+<input type="checkbox" name="goal" value="no" on:change={toggleGoal} >Calories Goal
+{/if}
+
+<input type="text" name="goal-text" bind:value={goal} on:keyup={goalChange} disabled={isGoal ? "" : "disabled"} maxlength="4" size="2">
+
+<h2 class='about'>About</h2>
 <p>This is a simple and fast calorie counter app. If you have feature request contact me: <a href="mailto:orengolan@gmail.com?subject=I love the calorie counter app!">orengolan@gmail.com</a><p/>
