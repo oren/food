@@ -19,3 +19,7 @@ cp -r __sapper__/export/food/* ~/p/oren.github.io/food/
 * [ ] Create Meal
 * [ ] Mass deletion
 * [ ] Import and export food
+
+## Links
+* https://developers.google.com/web/tools/chrome-devtools/remote-debugging
+* https://codelabs.developers.google.com/codelabs/your-first-pwapp/#4
