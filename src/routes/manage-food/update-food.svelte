@@ -9,8 +9,11 @@
 	.error {
 		color: red;
 	}
+	input, button {
+		font-size: 100%;
+	}
 	input[type='number'] {
-		width: 70px;
+		width: 100px;
 	}
 	.food {
 		margin-bottom: 0px;

@@ -6,6 +6,9 @@
 	.about {
 		margin-top: 30px
 	}
+	.goal {
+		font-size: 100%;
+	}
 </style>
 
 <script>
@@ -51,7 +54,7 @@
 <input type="checkbox" name="goal" value="no" on:change={toggleGoal} >Calories Goal
 {/if}
 
-<input type="text" name="goal-text" bind:value={goal} on:keyup={goalChange} disabled={isGoal ? "" : "disabled"} maxlength="4" size="2">
+<input class='goal' type="text" name="goal-text" bind:value={goal} on:keyup={goalChange} disabled={isGoal ? "" : "disabled"} maxlength="4" size="2">
 
 <h2 class='about'>About</h2>
 <p>This is a simple and fast calorie counter app. If you have feature request contact me: <a href="mailto:orengolan@gmail.com?subject=I love the calorie counter app!">orengolan@gmail.com</a><p/>

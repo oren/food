@@ -9,8 +9,16 @@
 	.error {
 		color: red;
 	}
+
+	input {
+		font-size: 100%;
+	}
+
 	input[type='number'] {
-		width: 70px;
+		width: 100px;
+	}
+	.add {
+		margin-top: 20px;
 	}
 </style>
 
@@ -129,5 +137,5 @@
 	<input type="number" bind:value={carbs} placeholder="Carbs" on:keyup={validateCarbs} min="0" max="999"/>
 	<input type="number"  bind:value={fat} placeholder="Fat" on:keyup={validateFat} min="0" max="999"/>
 	<br />
-	<input type="button" value="Add" on:click={handleAddUpdate} maxlength="2" size="2" />
+	<input class='add' type="button" value="Add" on:click={handleAddUpdate} maxlength="2" size="2" />
 </form>
