@@ -25,4 +25,6 @@
 	<a class="box a" href="/food/manage-food/add-food"><div>Add Food</div></a>
 	<a class="box b" href="/food/manage-food/update-food"><div>Update Food</div></a>
 	<a class="box c" href="/food/manage-food/add-meal"><div>Add Meal</div></a>
+	<a class="box d" href="/food/manage-food/export"><div>Export</div></a>
+	<a class="box e" href="/food/manage-food/import"><div>Import</div></a>
 </div>
