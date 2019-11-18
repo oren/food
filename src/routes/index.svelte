@@ -3,14 +3,11 @@
 </svelte:head>
 
 <style>
-	input, button {
+	button {
 		font-size: 100%;
 	}
 	span {
 		margin-right: 5px
-	}
-	ul {
-		list-style-type: none
 	}
 	.total, .goal {
 		background-color: #ffe9f4;
@@ -105,36 +102,39 @@
 	}
 </script>
 
-{#if isGoal}
-<div class='goal'>
-	<span>Calories Goal: {goal}</span>
-	<span>Remaining:</span><span class={remaining}> {goal-calories}</span>
-</div>
+{#if food.length === 0}
+<p>You have no food. <a href="/food/manage-food/add-food">Add some food first</a>.</p>
+{:else}
+
+	{#if isGoal}
+	<div class='goal'>
+		<span>Calories Goal: {goal}</span>
+		<span>Remaining:</span><span class={remaining}> {goal-calories}</span>
+	</div>
+	{/if}
+
+	<div class='total'>
+		<span>Calories: {calories}</span>
+		<span>Protein:{protein}</span>
+		<span>Carbs:{carbs}</span>
+		<span>Fat:{fat}</span>
+	</div>
+
+	<h2 class='today'>Today I Ate:<button class='clear' on:click={handleClear}>Clear</button></h2>
+
+	{#if calories === 0}
+		Nothing yet... Feed your muscles!
+	{/if}
+
+	{#each foodIAte as { id, name, count }, i}
+	<div> {count} {name} </div>
+	{/each}
+
+	<h2 class='add'>Add Food</h2>
+
+	<div class="wrapper">
+	{#each food as { id, name }, i}
+		<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button>
+	{/each}
+	</div>
 {/if}
-
-<div class='total'>
-	<span>Calories: {calories}</span>
-	<span>Protein:{protein}</span>
-	<span>Carbs:{carbs}</span>
-	<span>Fat:{fat}</span>
-</div>
-
-<h2 class='today'>Today I Ate:<button class='clear' on:click={handleClear}>Clear</button></h2>
-{#if calories !== 0}
-{/if}
-
-{#if calories === 0}
-	Nothing yet... Feed your muscles!
-{/if}
-
-{#each foodIAte as { id, name, count }, i}
-<div> {count} {name} </div>
-{/each}
-
-<h2 class='add'>Add Food</h2>
-
-<div class="wrapper">
-{#each food as { id, name }, i}
-	<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button>
-{/each}
-</div>
