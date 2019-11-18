@@ -172,8 +172,11 @@
 {:else}
 <form>
 	<input type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/>
+	<br />
 	<input type="number" bind:value={protein} placeholder="Protein" on:keyup={validateProtein} min="0" max="999"/>
+	<br />
 	<input type="number" bind:value={carbs} placeholder="Carbs" on:keyup={validateCarbs} min="0" max="999"/>
+	<br />
 	<input type="number"  bind:value={fat} placeholder="Fat" on:keyup={validateFat} min="0" max="999"/>
 	<br />
 
@@ -183,7 +186,7 @@
 	{/if}
 </form>
 
-<p class='food'>Click on the food you want to update:</p>
+<p class='food'>Pick food to update:</p>
 
 <div class="wrapper">
 {#each food as { id, name }, i}

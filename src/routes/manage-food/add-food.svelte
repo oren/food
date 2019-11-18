@@ -133,8 +133,11 @@
 
 <form>
 	<input type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/>
+	<br />
 	<input type="number" bind:value={protein} placeholder="Protein" on:keyup={validateProtein} min="0" max="999"/>
+	<br />
 	<input type="number" bind:value={carbs} placeholder="Carbs" on:keyup={validateCarbs} min="0" max="999"/>
+	<br />
 	<input type="number"  bind:value={fat} placeholder="Fat" on:keyup={validateFat} min="0" max="999"/>
 	<br />
 	<input class='add' type="button" value="Add" on:click={handleAddUpdate} maxlength="2" size="2" />

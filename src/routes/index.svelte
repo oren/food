@@ -21,11 +21,14 @@
 		margin-top: 20px;
 	}
 	.clear {
-		margin-left: 10pk;
+		float: right;
 	}
 	.remaining {
 
 		background-color: red;
+	}
+	.add {
+		margin-top: 20px;
 	}
 	.wrapper {
 		display: grid;
@@ -116,12 +119,8 @@
 	<span>Fat:{fat}</span>
 </div>
 
-
-<h2 class='today'>Today I Ate:</h2>
+<h2 class='today'>Today I Ate:<button class='clear' on:click={handleClear}>Clear</button></h2>
 {#if calories !== 0}
-<div>
-	<button on:click={handleClear}>Clear</button>
-</div>
 {/if}
 
 {#if calories === 0}
@@ -132,7 +131,7 @@
 <div> {count} {name} </div>
 {/each}
 
-<h2>Add Food</h2>
+<h2 class='add'>Add Food</h2>
 
 <div class="wrapper">
 {#each food as { id, name }, i}
