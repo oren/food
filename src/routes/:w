@@ -18,10 +18,7 @@
 		font-size: 70%;
 	}
 	.today {
-		margin-top: 20px;
-	}
-	.clear {
-		margin-left: 10pk;
+		margin-top: 20px
 	}
 	.remaining {
 
@@ -35,7 +32,7 @@
 
 	.box {
 		border: 1px solid black;
-		padding: 10px;
+		padding: 20px;
 	}
 </style>
 
@@ -117,7 +114,7 @@
 </div>
 
 
-<h2 class='today'>Today I Ate:</h2>
+<h2 class='today'>Today I Ate<button class='clear' on:click={handleClear}>Clear</button></h2>
 {#if calories !== 0}
 <div>
 	<button on:click={handleClear}>Clear</button>
@@ -129,7 +126,7 @@
 {/if}
 
 {#each foodIAte as { id, name, count }, i}
-<div> {count} {name} </div>
+	{count} {name}
 {/each}
 
 <h2>Add Food</h2>

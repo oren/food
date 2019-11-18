@@ -18,6 +18,16 @@
 	.food {
 		margin-bottom: 0px;
 	}
+	.wrapper {
+		display: grid;
+		grid-template-columns: fit-content;
+		grid-gap: 5px;
+	}
+
+	.box {
+		border: 1px solid black;
+		padding: 10px;
+	}
 </style>
 
 <script>
@@ -175,8 +185,9 @@
 
 <p class='food'>Click on the food you want to update:</p>
 
+<div class="wrapper">
 {#each food as { id, name }, i}
-	<button on:click={() => handleFoodClick(food[i])}>{name}</button>
+	<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button>
 {/each}
+</div>
 {/if}
-
