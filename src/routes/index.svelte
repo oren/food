@@ -101,7 +101,7 @@
 </div>
 
 
-<h1 class='today'>Today I Ate</h1>
+<h2 class='today'>Today I Ate</h2>
 {#if calories !== 0}
 <div>
 	<button on:click={handleClear}>Clear</button>
@@ -120,7 +120,7 @@
 	{/each}
 </ul>
 
-<h1>Add Food</h1>
+<h2>Add Food</h2>
 
 {#each food as { id, name }, i}
 		<button on:click={() => handleFoodClick(food[i])}>{name}</button>

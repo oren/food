@@ -113,7 +113,7 @@
 </script>
 
 
-<h1>Add Food</h1>
+<h2>Add Food</h2>
 
 {#if successMessage !== ''}
 	<p class='success'>{successMessage}</p>

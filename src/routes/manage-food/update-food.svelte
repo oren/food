@@ -144,7 +144,7 @@
 </script>
 
 
-<h1>Update Food</h1>
+<h2>Update Food</h2>
 
 {#if successMessage !== ''}
 	<p class='success'>{successMessage}</p>
