@@ -3,11 +3,6 @@
 </svelte:head>
 
 <style>
-	input[type=button] {
-		display: block;
-    width: 100%;
-	}
-
 	.wrapper {
 		display: grid;
 		grid-template-columns: fit-content;
@@ -15,7 +10,6 @@
 	}
 
 	.box {
-
 		border: 1px solid black;
 		padding: 20px;
 	}
@@ -24,28 +18,6 @@
 		text-decoration: none;
 	}
 </style>
-
-<script>
-	import { onMount } from 'svelte';
-
-	let name = ''
-	let protein = ''
-  let carbs = ''
-  let fat = ''
-	let food = []
-	let mode = 'add'
-	let oldName = ''
-	let errorMessage = ''
-	let successMessage = ''
-
-	$: buttonValue = mode === 'add'? 'Add' : 'Update'
-
-	onMount(async () => {
-	})
-
-	function handleDelete() {
-	}
-</script>
 
 <h2>Manage Food</h2>
 

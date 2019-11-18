@@ -129,6 +129,5 @@
 	<input type="number" bind:value={carbs} placeholder="Carbs" on:keyup={validateCarbs} min="0" max="999"/>
 	<input type="number"  bind:value={fat} placeholder="Fat" on:keyup={validateFat} min="0" max="999"/>
 	<br />
-	<br />
 	<input type="button" value="Add" on:click={handleAddUpdate} maxlength="2" size="2" />
 </form>

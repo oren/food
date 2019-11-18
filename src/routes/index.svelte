@@ -12,6 +12,7 @@
 	.total, .goal {
 		background-color: #ffe9f4;
 		margin-bottom: 10px;
+		font-size: 70%;
 	}
 	.today {
 		margin-top: 20px
