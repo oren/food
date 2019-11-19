@@ -85,20 +85,20 @@
 
 	const countCalories = (food) => {
 		function sumProtein(total, f) {
-			return total + Number(f.protein * f.count).toFixed(1)
+			return total + (f.protein * f.count)
 		}
 
 		function sumCarb(total, f) {
-			return total + Number(f.carbs * f.count).toFixed(1)
+			return total + (f.carbs * f.count)
 		}
 
 		function sumFat(total, f) {
-			return total + Number(f.fat * f.count).toFixed(1)
+			return total + (f.fat * f.count)
 		}
 
-		protein = Number(foodIAte.reduce(sumProtein, 0))
-		carbs = Number(foodIAte.reduce(sumCarb, 0))
-		fat = Number(foodIAte.reduce(sumFat, 0))
+		protein = Number(foodIAte.reduce(sumProtein, 0)).toFixed(1)
+		carbs = Number(foodIAte.reduce(sumCarb, 0)).toFixed(1)
+		fat = Number(foodIAte.reduce(sumFat, 0)).toFixed(1)
 	}
 </script>
 
