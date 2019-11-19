@@ -4,15 +4,14 @@
 
 <style>
 	button {
-		font-size: 100%;
+		font-size: 70%;
 	}
 	span {
 		margin-right: 5px
 	}
 	.total, .goal {
 		background-color: #ffe9f4;
-		margin-bottom: 10px;
-		font-size: 70%;
+		margin-bottom: 3px;
 	}
 	.today {
 		margin-top: 20px;
@@ -32,7 +31,6 @@
 		grid-template-columns: fit-content;
 		grid-gap: 5px;
 	}
-
 	.box {
 		border: 1px solid black;
 		padding: 10px;
@@ -121,7 +119,7 @@
 		<span>Fat:{fat}</span>
 	</div>
 
-	<h2 class='today'>Today I Ate:<button class='clear' on:click={handleClear}>Clear</button></h2>
+	<h2 class='today'>I Ate:<button class='clear' on:click={handleClear}>Clear</button></h2>
 
 	{#if calories === 0}
 		Nothing yet... Feed your muscles!

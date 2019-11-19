@@ -15,7 +15,6 @@ cp -r __sapper__/export/food/* ~/p/oren.github.io/food/
 ## Features
 
 * [ ] Improve UX of managing food
-* [ ] Set Calory and macro goals
 * [ ] Create Meal
 * [ ] Mass deletion
 * [ ] Import and export food
