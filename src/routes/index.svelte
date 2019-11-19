@@ -50,7 +50,7 @@
 	let protein = 0
 	let carbs = 0
 	let fat = 0
-	$: calories = Number(protein*4 + carbs*4 + fat*9).toFixed(1)
+	$: calories = parseFloat(Number(protein*4 + carbs*4 + fat*9).toFixed(1))
 
 	function handleFoodClick(food) {
 		let index = foodIAte.findIndex(f => f.name === food.name);
@@ -96,9 +96,9 @@
 			return total + (f.fat * f.count)
 		}
 
-		protein = Number(foodIAte.reduce(sumProtein, 0)).toFixed(1)
-		carbs = Number(foodIAte.reduce(sumCarb, 0)).toFixed(1)
-		fat = Number(foodIAte.reduce(sumFat, 0)).toFixed(1)
+		protein = parseFloat(Number(foodIAte.reduce(sumProtein, 0)).toFixed(1))
+		carbs = parseFloat(Number(foodIAte.reduce(sumCarb, 0)).toFixed(1))
+		fat = parseFloat(Number(foodIAte.reduce(sumFat, 0)).toFixed(1))
 	}
 </script>
 
