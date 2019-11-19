@@ -26,6 +26,10 @@
 	.add {
 		margin-top: 20px;
 	}
+	.filter {
+		font-size: 100%;
+		margin-bottom: 5px;
+	}
 	.wrapper {
 		display: grid;
 		grid-template-columns: fit-content;
@@ -49,6 +53,8 @@
 	let carbs = 0
 	let fat = 0
 	$: calories = parseFloat(Number(protein*4 + carbs*4 + fat*9).toFixed(1))
+	let filter = ''
+	let filteredFood = []
 
 	function handleFoodClick(food) {
 		let index = foodIAte.findIndex(f => f.name === food.name);
@@ -69,6 +75,7 @@
 		isGoal = localStorage.getItem('isGoal') || false
 		goal = localStorage.getItem('goal') || 2000
 		food = JSON.parse(localStorage.getItem('food')) || []
+		filteredFood = food
 		foodIAte = JSON.parse(localStorage.getItem('ate')) || []
 		countCalories(foodIAte)
 	})
@@ -79,6 +86,15 @@
 		carbs = 0
 		fat = 0
 		foodIAte = []
+	}
+
+	function handleFilter() {
+
+		if(filter === '') {
+			filteredFood = food
+		}
+
+		filteredFood = food.filter(f => f.name.includes(filter));
 	}
 
 	const countCalories = (food) => {
@@ -131,8 +147,10 @@
 
 	<h2 class='add'>Add Food</h2>
 
+	<input bind:value={filter} class='filter' type='text' placeholder='filter' on:input={handleFilter} />
+
 	<div class="wrapper">
-	{#each food as { id, name }, i}
+	{#each filteredFood as { id, name }, i}
 		<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button>
 	{/each}
 	</div>
