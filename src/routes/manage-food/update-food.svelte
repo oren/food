@@ -15,15 +15,14 @@
 	input[type='number'] {
 		width: 100px;
 	}
-	.food {
-		margin-bottom: 0px;
+	.update {
+		margin-top: 20px;
 	}
 	.wrapper {
 		display: grid;
 		grid-template-columns: fit-content;
 		grid-gap: 5px;
 	}
-
 	.box {
 		border: 1px solid black;
 		padding: 10px;
@@ -32,6 +31,7 @@
 
 <script>
 	import { onMount } from 'svelte';
+	import { validate } from './validate.js';
 
 	let name = ''
 	let protein = ''
@@ -42,60 +42,22 @@
 	let oldName = ''
 	let errorMessage = ''
 	let successMessage = ''
-
-	function validate() {
-		errorMessage = ''
-
-		if(name === '') {
-			errorMessage = 'Name is missing'
-			return false
-		}
-
-		if(protein === '') {
-			errorMessage = 'Protein is missing'
-			return false
-		}
-
-		if(!Number.isInteger(Number(protein))) {
-			errorMessage = 'Protein should be a number'
-			return false
-		}
-
-		if(carbs === '') {
-			errorMessage = 'Carbs is missing'
-			return false
-		}
-
-		if(!Number.isInteger(Number(carbs))) {
-			errorMessage = 'Carbs should be a number'
-			return false
-		}
-
-		if(fat === '') {
-			errorMessage = 'Fat is missing'
-			return false
-		}
-
-		if(!Number.isInteger(Number(fat))) {
-			errorMessage = 'Fat should be a number'
-			return false
-		}
-
-		return true
-	}
+	let showUpdateForm = false
 
 	function handleUpdate() {
+		let validReturn = {}
+
 		successMessage = ''
 		errorMessage = ''
 
-		let valid = validate()
-		if(!valid) {
+		validReturn = validate({name, protein, carbs, fat})
+
+		if(!validReturn.valid) {
+			errorMessage = validReturn.message
 			return
 		}
 
 		let index = food.findIndex(f => f.name === oldName);
-		console.log(index)
-		console.log(oldName)
 
 		food[index].name = name
 		food[index].protein = protein
@@ -104,6 +66,7 @@
 
 		localStorage.setItem('food', JSON.stringify(food))
 		successMessage = 'Food was updated'
+		showUpdateForm = false
 	}
 
 	onMount(async () => {
@@ -111,6 +74,8 @@
 	})
 
 	function handleFoodClick(food) {
+		showUpdateForm = true
+
 		successMessage = ''
 		errorMessage = ''
 
@@ -137,6 +102,7 @@
 		carbs = ''
 		fat = ''
 		successMessage = 'Food was deleted'
+		showUpdateForm = false
 	}
 
 	function validateProtein() {
@@ -168,29 +134,32 @@
 {/if}
 
 {#if food.length === 0}
-<p>You have no food. <a href="/food/manage-food/add-food">Add some food first</a>.</p>
+	<p>You have no food.<p>
+	<p> <a href="/food/manage-food/add-food">Add some food first</a>.</p>
 {:else}
-<form>
-	<input type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/>
-	<br />
-	<input type="number" bind:value={protein} placeholder="Protein" on:keyup={validateProtein} min="0" max="999"/>
-	<br />
-	<input type="number" bind:value={carbs} placeholder="Carbs" on:keyup={validateCarbs} min="0" max="999"/>
-	<br />
-	<input type="number"  bind:value={fat} placeholder="Fat" on:keyup={validateFat} min="0" max="999"/>
-	<br />
+	{#if showUpdateForm}
+		<form>
+			<input type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/>
+			<br />
+			<input type="number" bind:value={protein} placeholder="Protein" on:keyup={validateProtein} min="0" max="999"/>
+			<br />
+			<input type="number" bind:value={carbs} placeholder="Carbs" on:keyup={validateCarbs} min="0" max="999"/>
+			<br />
+			<input type="number"  bind:value={fat} placeholder="Fat" on:keyup={validateFat} min="0" max="999"/>
+			<br />
 
-	{#if mode === "update"}
-		<input type="button" value="Update" on:click={handleUpdate} maxlength="2" size="2" />
-		<input type="button" value="delete" on:click={handleDelete} />
+			{#if mode === "update"}
+				<input class='update' type="button" value="Update" on:click={handleUpdate} maxlength="2" size="2" />
+				<input type="button" value="delete" on:click={handleDelete} />
+			{/if}
+		</form>
 	{/if}
-</form>
 
-<p class='food'>Pick food to update:</p>
-
-<div class="wrapper">
-{#each food as { id, name }, i}
-	<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button>
-{/each}
-</div>
+	{#if !showUpdateForm}
+	<div class="wrapper">
+		{#each food as { id, name }, i}
+			<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button>
+		{/each}
+	</div>
+	{/if}
 {/if}

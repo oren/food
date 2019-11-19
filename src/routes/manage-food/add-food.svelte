@@ -24,6 +24,7 @@
 
 <script>
 	import { onMount } from 'svelte';
+	import { validate } from './validate.js';
 
 	let name = ''
 	let protein = ''
@@ -34,54 +35,16 @@
 	let errorMessage = ''
 	let successMessage = ''
 
+	function handleAdd() {
+		let validReturn = {}
 
-	function validate() {
-		errorMessage = ''
-
-		if(name === '') {
-			errorMessage = 'Name is missing'
-			return false
-		}
-
-		if(protein === '') {
-			errorMessage = 'Protein is missing'
-			return false
-		}
-
-		if(!Number.isInteger(Number(protein))) {
-			errorMessage = 'Protein should be a number'
-			return false
-		}
-
-		if(carbs === '') {
-			errorMessage = 'Carbs is missing'
-			return false
-		}
-
-		if(!Number.isInteger(Number(carbs))) {
-			errorMessage = 'Carbs should be a number'
-			return false
-		}
-
-		if(fat === '') {
-			errorMessage = 'Fat is missing'
-			return false
-		}
-
-		if(!Number.isInteger(Number(fat))) {
-			errorMessage = 'Fat should be a number'
-			return false
-		}
-
-		return true
-	}
-
-	function handleAddUpdate() {
 		successMessage = ''
 		errorMessage = ''
 
-		let valid = validate()
-		if(!valid) {
+		validReturn = validate({name, protein, carbs, fat})
+
+		if(!validReturn.valid) {
+			errorMessage = validReturn.message
 			return
 		}
 
@@ -104,7 +67,7 @@
 	})
 
 	function validateProtein() {
-		// only 4 chars are allowed - 43.22
+		// only 4 chars are allowed - 43.22 and only numbers
 		let tmp = String(protein)
 		protein = Number(tmp.substring(0,5))
 	}
@@ -140,5 +103,5 @@
 	<br />
 	<input type="number"  bind:value={fat} placeholder="Fat" on:keyup={validateFat} min="0" max="999"/>
 	<br />
-	<input class='add' type="button" value="Add" on:click={handleAddUpdate} maxlength="2" size="2" />
+	<input class='add' type="button" value="Add" on:click={handleAdd} maxlength="2" size="2" />
 </form>

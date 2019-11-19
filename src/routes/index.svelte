@@ -50,7 +50,7 @@
 	let protein = 0
 	let carbs = 0
 	let fat = 0
-	$: calories = protein*4 + carbs*4 + fat*9
+	$: calories = Number(protein*4 + carbs*4 + fat*9).toFixed(1)
 
 	function handleFoodClick(food) {
 		let index = foodIAte.findIndex(f => f.name === food.name);
@@ -85,15 +85,15 @@
 
 	const countCalories = (food) => {
 		function sumProtein(total, f) {
-			return total + (f.protein * f.count)
+			return total + Number(f.protein * f.count).toFixed(1)
 		}
 
 		function sumCarb(total, f) {
-			return total + (f.carbs * f.count)
+			return total + Number(f.carbs * f.count).toFixed(1)
 		}
 
 		function sumFat(total, f) {
-			return total + (f.fat * f.count)
+			return total + Number(f.fat * f.count).toFixed(1)
 		}
 
 		protein = Number(foodIAte.reduce(sumProtein, 0))
@@ -103,7 +103,8 @@
 </script>
 
 {#if food.length === 0}
-<p>You have no food. <a href="/food/manage-food/add-food">Add some food first</a>.</p>
+	<p>You have no food.</p>
+	<p><a href="/food/manage-food/add-food">Add some food first</a>.</p>
 {:else}
 
 	{#if isGoal}
