@@ -94,9 +94,9 @@
 			return total + (f.fat * f.count)
 		}
 
-		protein = parseFloat(Number(foodIAte.reduce(sumProtein, 0)).toFixed(1))
-		carbs = parseFloat(Number(foodIAte.reduce(sumCarb, 0)).toFixed(1))
-		fat = parseFloat(Number(foodIAte.reduce(sumFat, 0)).toFixed(1))
+		protein = foodIAte.reduce(sumProtein, 0)
+		carbs = foodIAte.reduce(sumCarb, 0)
+		fat = foodIAte.reduce(sumFat, 0)
 	}
 </script>
 
@@ -108,15 +108,15 @@
 	{#if isGoal}
 	<div class='goal'>
 		<span>Calories Goal: {goal}</span>
-		<span>Remaining:</span><span class={remaining}> {parseFloat(goal-calories).toFixed(1)}</span>
+		<span>Remaining:</span><span class={remaining}> {Math.round(goal-calories)}</span>
 	</div>
 	{/if}
 
 	<div class='total'>
-		<span>Calories: {calories}</span>
-		<span>Protein:{protein}</span>
-		<span>Carbs:{carbs}</span>
-		<span>Fat:{fat}</span>
+		<span>Calories: {Math.round(calories)}</span>
+		<span>Protein:{Math.round(protein)}</span>
+		<span>Carbs:{Math.round(carbs)}</span>
+		<span>Fat:{Math.round(fat)}</span>
 	</div>
 
 	<h2 class='today'>I Ate:<button class='clear' on:click={handleClear}>Clear</button></h2>
