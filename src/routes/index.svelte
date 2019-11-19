@@ -110,7 +110,7 @@
 	{#if isGoal}
 	<div class='goal'>
 		<span>Calories Goal: {goal}</span>
-		<span>Remaining:</span><span class={remaining}> {goal-calories}</span>
+		<span>Remaining:</span><span class={remaining}> {parseFloat(goal-calories).toFixed(1)}</span>
 	</div>
 	{/if}
 
