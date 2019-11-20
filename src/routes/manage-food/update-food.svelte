@@ -169,7 +169,6 @@
 	}
 </script>
 
-
 <h2>Update Food</h2>
 
 {#if successMessage !== ''}
@@ -204,8 +203,10 @@
 
 
 	{#if !showUpdateForm}
-		<input bind:value={filter} class='filter' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
-		<div class="wrapper">
+		{#if food.length >= 10}
+			<input bind:value={filter} class='filter' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
+		{/if}
+		<div class="wrapper" style="margin-top: {food.length >=10 ? 0 : 20}px;">
 			{#each filteredFood as { id, name }, i}
 			<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button><button on:click={() => handleFoodDelete(food[i])}>del</button>
 			{/each}

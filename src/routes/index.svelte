@@ -47,6 +47,7 @@
 <script>
 	import { onMount } from 'svelte';
 
+	let firstTime = false
 	let columns = '50% 50%'
 	let isGoal = false
 	let goal = 2000
@@ -79,12 +80,39 @@
 	}
 
 	onMount(async () => {
+		firstTime = localStorage.getItem('firstTime') || 'true'
+		firstTime = (firstTime === 'true'); //localStorage keep everything as string so I convert it to bool
+
 		isGoal = localStorage.getItem('isGoal') || false
 		goal = localStorage.getItem('goal') || 2000
 		columns = localStorage.getItem('columns') || '50% 50%'
 		food = JSON.parse(localStorage.getItem('food')) || []
 		filteredFood = food
 		foodIAte = JSON.parse(localStorage.getItem('ate')) || []
+
+		if(firstTime && food.length === 0) {
+			console.log('first time and no food')
+			food = [
+				{name: 'cup milk 2%', protein: 5, carbs: 6, fat: 7},
+				{name: 'cup oatmeal', protein: 6, carbs: 7.3, fat: 7.2},
+				{name: 'egg', protein: 6, carbs: 0, fat: 7.2},
+				{name: '100g chicken breast', protein: 20, carbs: 3.2, fat: 5.1},
+				{name: '100g brown rice', protein: 4, carbs: 6.8, fat: 4.7},
+				{name: '100g japanese yams', protein: 4, carbs: 6.8, fat: 4.7},
+				{name: 'avocado', protein: 4, carbs: 6.8, fat: 4.7},
+				{name: 'olive oil', protein: 2, carbs: 3.8, fat: 8},
+				{name: 'apple', protein: 1, carbs: 5.8, fat: 3},
+				{name: 'cottage cheese', protein: 1, carbs: 5.8, fat: 3},
+
+			]
+
+			localStorage.setItem('firstTime', 'false')
+			localStorage.setItem('food', JSON.stringify(food))
+		  filteredFood = food
+		} else {
+			console.log('not first time or food exist')
+		}
+
 		countCalories(foodIAte)
 	})
 
@@ -144,14 +172,15 @@
 		<span>Fat:{Math.round(fat)}</span>
 	</div>
 
-
 	{#each foodIAte as { id, name, count }, i}
 	<div class='ate'> {count} {name} </div>
 	{/each}
 
-	<input bind:value={filter} class='filter' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
+	{#if food.length >= 10}
+		<input bind:value={filter} class='filter' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
+	{/if}
 
-	<div class="wrapper" style="grid-template-columns: {columns}">
+	<div class="wrapper" style="grid-template-columns: {columns}; margin-top: {food.length >=10 ? 0 : 20}px;">
 	{#each filteredFood as { id, name }, i}
 		<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button>
 	{/each}
