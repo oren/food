@@ -149,7 +149,7 @@
 	<div class='ate'> {count} {name} </div>
 	{/each}
 
-	<input bind:value={filter} class='filter' type='text' placeholder='filter' on:input={handleFilter} maxlength="5" size="3" />
+	<input bind:value={filter} class='filter' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
 
 	<div class="wrapper" style="grid-template-columns: {columns}">
 	{#each filteredFood as { id, name }, i}

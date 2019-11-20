@@ -18,6 +18,11 @@
 	.update {
 		margin-top: 20px;
 	}
+	.filter {
+		font-size: 150%;
+		margin-top: 20px;
+		margin-bottom: 10px;
+	}
 	.wrapper {
 		display: grid;
 		grid-template-columns: fit-content;
@@ -44,7 +49,13 @@
 	let successMessage = ''
 	let showUpdateForm = false
 
+	let filter = ''
+	let filteredFood = []
+
 	function handleUpdate() {
+		filteredFood = food
+		filter = ''
+
 		let validReturn = {}
 
 		successMessage = ''
@@ -71,9 +82,13 @@
 
 	onMount(async () => {
 		food = JSON.parse(localStorage.getItem('food')) || []
+		filteredFood = food
 	})
 
 	function handleFoodClick(food) {
+		filteredFood = food
+		filter = ''
+
 		showUpdateForm = true
 
 		successMessage = ''
@@ -88,6 +103,8 @@
 	}
 
 	function handleDelete() {
+		filteredFood = food
+		filter = ''
 		successMessage = ''
 		errorMessage = ''
 		let filtered = food.filter(function(f, index, arr){
@@ -103,6 +120,14 @@
 		fat = ''
 		successMessage = 'Food was deleted'
 		showUpdateForm = false
+	}
+
+	function handleFilter() {
+		if(filter === '') {
+			filteredFood = food
+		}
+
+		filteredFood = food.filter(f => f.name.includes(filter));
 	}
 
 	function validateProtein() {
@@ -155,11 +180,13 @@
 		</form>
 	{/if}
 
+
 	{#if !showUpdateForm}
-	<div class="wrapper">
-		{#each food as { id, name }, i}
-			<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button>
-		{/each}
-	</div>
+		<input bind:value={filter} class='filter' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
+		<div class="wrapper">
+			{#each filteredFood as { id, name }, i}
+				<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button>
+			{/each}
+		</div>
 	{/if}
 {/if}
