@@ -25,7 +25,7 @@
 	}
 	.wrapper {
 		display: grid;
-		grid-template-columns: fit-content;
+		grid-template-columns: 80% 20%;
 		grid-gap: 5px;
 	}
 	.box {
@@ -43,7 +43,7 @@
   let carbs = ''
   let fat = ''
 	let food = []
-	let mode = 'add'
+	let mode = 'view'
 	let oldName = ''
 	let errorMessage = ''
 	let successMessage = ''
@@ -113,7 +113,29 @@
 
     localStorage.setItem('food', JSON.stringify(filtered))
 		food = filtered
-		mode = 'add'
+		mode = 'view'
+		name = ''
+		protein = ''
+		carbs = ''
+		fat = ''
+		successMessage = 'Food was deleted'
+		showUpdateForm = false
+	}
+
+	function handleFoodDelete(foodItem) {
+		filteredFood = food
+		filter = ''
+		successMessage = ''
+		errorMessage = ''
+
+		let filtered = food.filter(function(f, index, arr){
+			return f.name !== foodItem.name;
+		});
+
+    localStorage.setItem('food', JSON.stringify(filtered))
+		food = filtered
+		filteredFood = filtered
+		mode = 'view'
 		name = ''
 		protein = ''
 		carbs = ''
@@ -185,7 +207,7 @@
 		<input bind:value={filter} class='filter' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
 		<div class="wrapper">
 			{#each filteredFood as { id, name }, i}
-				<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button>
+			<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button><button on:click={() => handleFoodDelete(food[i])}>del</button>
 			{/each}
 		</div>
 	{/if}
