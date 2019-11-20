@@ -9,7 +9,7 @@
 	.error {
 		color: red;
 	}
-	input, button {
+	form input {
 		font-size: 100%;
 	}
 	input[type='number'] {

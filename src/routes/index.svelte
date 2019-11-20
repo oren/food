@@ -18,6 +18,15 @@
 	.clear {
 		font-size: 100%;
 		float: right;
+		margin-bottom: 5px;
+	}
+	.update {
+		font-size: 100%;
+		float: right;
+		background-color: grey;
+		color: white;
+		padding: 0.3em  0.5em;
+		text-decoration: none;
 	}
 	.remaining {
 		background-color: #ffcccc;
@@ -31,6 +40,14 @@
 		margin-bottom: 10px;
 	}
 	.ate {
+		color: green;
+	}
+	.ate-wrapper {
+		display: grid;
+		grid-template-columns: 50% 50%;
+		grid-gap: 5px;
+	}
+	.ate-box {
 		color: green;
 	}
 	.wrapper {
@@ -157,6 +174,7 @@
 {:else}
 
 	<button class='clear' on:click={handleClear}>Clear</button>
+	<a class='update' style="clear: both" href="/food/update">Update</a>
 
 	{#if isGoal}
 	<div class='goal'>
@@ -172,9 +190,11 @@
 		<span>Fat:{Math.round(fat)}</span>
 	</div>
 
-	{#each foodIAte as { id, name, count }, i}
-	<div class='ate'> {count} {name} </div>
-	{/each}
+	<div class='ate-wrapper'>
+		{#each foodIAte as { id, name, count }, i}
+		<div class='ate-box'>{name}</div><div class='ate-box'>{count}</div>
+		{/each}
+	</div>
 
 	{#if food.length >= 10}
 		<input bind:value={filter} class='filter' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
