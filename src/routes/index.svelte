@@ -3,36 +3,40 @@
 </svelte:head>
 
 <style>
-	button {
-		font-size: 70%;
-	}
 	span {
 		margin-right: 5px
 	}
 	.total, .goal {
-		background-color: #ffe9f4;
-		margin-bottom: 3px;
+		/*	background-color: #ffe9f4; */
+	}
+	.total {
+		margin-bottom: 20px;
 	}
 	.today {
 		margin-top: 20px;
 	}
 	.clear {
+		font-size: 100%;
 		float: right;
 	}
 	.remaining {
 
-		background-color: red;
+		background-color: #ffcccc;
 	}
 	.add {
 		margin-top: 20px;
 	}
 	.filter {
-		font-size: 100%;
-		margin-bottom: 5px;
+		font-size: 150%;
+		margin-top: 20px;
+		margin-bottom: 10px;
+	}
+	.ate {
+		color: green;
 	}
 	.wrapper {
 		display: grid;
-		grid-template-columns: fit-content;
+		grid-template-columns: 50% 50%;
 		grid-gap: 5px;
 	}
 	.box {
@@ -56,13 +60,16 @@
 	let filter = ''
 	let filteredFood = []
 
-	function handleFoodClick(food) {
-		let index = foodIAte.findIndex(f => f.name === food.name);
+	function handleFoodClick(foodClicked) {
+		filteredFood = food
+		filter = ''
+
+		let index = foodIAte.findIndex(f => f.name === foodClicked.name);
 
 		// first time you eat this food - add to array
 		if(index === -1) {
-			food.count = 1
-			foodIAte = [...foodIAte, food ]
+			foodClicked.count = 1
+			foodIAte = [...foodIAte, foodClicked ]
 		} else {
 			foodIAte[index].count = foodIAte[index].count + 1
 		}
@@ -80,7 +87,7 @@
 		countCalories(foodIAte)
 	})
 
-	function handleClear(food) {
+	function handleClear() {
 		localStorage.removeItem('ate')
 		protein = 0
 		carbs = 0
@@ -89,7 +96,6 @@
 	}
 
 	function handleFilter() {
-
 		if(filter === '') {
 			filteredFood = food
 		}
@@ -121,33 +127,28 @@
 	<p><a href="/food/manage-food/add-food">Add some food first</a>.</p>
 {:else}
 
+	<button class='clear' on:click={handleClear}>Clear</button>
+
 	{#if isGoal}
 	<div class='goal'>
-		<span>Calories Goal: {goal}</span>
-		<span>Remaining:</span><span class={remaining}> {Math.round(goal-calories)}</span>
+		<span>Goal: {goal}</span>
+		<span>Left:</span><span class={remaining}> {Math.round(goal-calories)}</span>
 	</div>
 	{/if}
 
 	<div class='total'>
-		<span>Calories: {Math.round(calories)}</span>
-		<span>Protein:{Math.round(protein)}</span>
-		<span>Carbs:{Math.round(carbs)}</span>
+		<span>Cal: {Math.round(calories)}</span>
+		<span>Pro:{Math.round(protein)}</span>
+		<span>Car:{Math.round(carbs)}</span>
 		<span>Fat:{Math.round(fat)}</span>
 	</div>
 
-	<h2 class='today'>I Ate:<button class='clear' on:click={handleClear}>Clear</button></h2>
-
-	{#if calories === 0}
-		Nothing yet... Feed your muscles!
-	{/if}
 
 	{#each foodIAte as { id, name, count }, i}
-	<div> {count} {name} </div>
+	<div class='ate'> {count} {name} </div>
 	{/each}
 
-	<h2 class='add'>Add Food</h2>
-
-	<input bind:value={filter} class='filter' type='text' placeholder='filter' on:input={handleFilter} />
+	<input bind:value={filter} class='filter' type='text' placeholder='filter' on:input={handleFilter} maxlength="5" size="3" />
 
 	<div class="wrapper">
 	{#each filteredFood as { id, name }, i}
