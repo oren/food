@@ -54,22 +54,23 @@
 
 <h2>Settings</h2>
 
-{#if isGoal}
-	Calories Goal
-	<input type="checkbox" name="goal" checked value="yes" on:change={toggleGoal}>
-{:else}
-	Calories Goal
-	<input type="checkbox" name="goal" value="no" on:change={toggleGoal}>
-{/if}
+<div>
+	{#if isGoal}
+		Calories Goal:
+		<input type="checkbox" name="goal" checked value="yes" on:change={toggleGoal}>
+	{:else}
+		Calories Goal:
+		<input type="checkbox" name="goal" value="no" on:change={toggleGoal}>
+	{/if}
+	<input class='goal' type="text" name="goal-text" bind:value={goal} on:keyup={goalChange} disabled={isGoal ? "" : "disabled"} maxlength="4" size="2">
+</div>
 
-<input class='goal' type="text" name="goal-text" bind:value={goal} on:keyup={goalChange} disabled={isGoal ? "" : "disabled"} maxlength="4" size="2">
-
-<br />
-
-<label>Food Columns: </label>
-<label><input type='radio' bind:group={columns} on:change={columnChange} value="100%">1</label>
-<label><input type='radio' bind:group={columns} on:change={columnChange} value="50% 50%">2</label>
-<label><input type='radio' bind:group={columns} on:change={columnChange} value="30% 30% 30%">3</label>
+<div>
+	<label>Food Columns:</label>
+	<label><input type='radio' bind:group={columns} on:change={columnChange} value="100%">1</label>
+	<label><input type='radio' bind:group={columns} on:change={columnChange} value="50% 50%">2</label>
+	<label><input type='radio' bind:group={columns} on:change={columnChange} value="30% 30% 30%">3</label>
+</div>
 
 <h2 class='about'>About</h2>
 <p>This is a simple and fast calorie counter app. If you have feature request contact me: <a href="mailto:orengolan@gmail.com?subject=I love the calorie counter app!">orengolan@gmail.com</a><p/>
