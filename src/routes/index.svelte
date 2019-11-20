@@ -20,7 +20,6 @@
 		float: right;
 	}
 	.remaining {
-
 		background-color: #ffcccc;
 	}
 	.add {
@@ -48,6 +47,7 @@
 <script>
 	import { onMount } from 'svelte';
 
+	let columns = '50% 50%'
 	let isGoal = false
 	let goal = 2000
 	$: remaining = goal-calories <=0 ? 'remaining' : ''
@@ -81,6 +81,7 @@
 	onMount(async () => {
 		isGoal = localStorage.getItem('isGoal') || false
 		goal = localStorage.getItem('goal') || 2000
+		columns = localStorage.getItem('columns') || '50% 50%'
 		food = JSON.parse(localStorage.getItem('food')) || []
 		filteredFood = food
 		foodIAte = JSON.parse(localStorage.getItem('ate')) || []
@@ -150,7 +151,7 @@
 
 	<input bind:value={filter} class='filter' type='text' placeholder='filter' on:input={handleFilter} maxlength="5" size="3" />
 
-	<div class="wrapper">
+	<div class="wrapper" style="grid-template-columns: {columns}">
 	{#each filteredFood as { id, name }, i}
 		<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button>
 	{/each}
