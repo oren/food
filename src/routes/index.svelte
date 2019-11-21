@@ -146,7 +146,7 @@
 			filteredFood = food
 		}
 
-		filteredFood = food.filter(f => f.name.includes(filter));
+		filteredFood = food.filter(f => f.name.toLowerCase().includes(filter.toLowerCase()));
 	}
 
 	const countCalories = (food) => {
