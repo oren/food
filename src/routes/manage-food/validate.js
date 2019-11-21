@@ -3,15 +3,15 @@ export function validate(food) {
     return { valid: false, message: 'Name is missing' }
   }
 
-  if (food.protein === '' || food.protein === null) {
+  if (!food.protein) {
     return { valid: false, message: 'Protein is missing' }
   }
 
-  if (food.carbs === '' || food.carbs === null) {
+  if (!food.carbs) {
     return { valid: false, message: 'Carbs is missing' }
   }
 
-  if (food.fat === '' || food.fat === null) {
+  if (!food.fat) {
     return { valid: false, message: 'Fat is missing' }
   }
 

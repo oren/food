@@ -13,9 +13,12 @@
 	input {
 		font-size: 100%;
 	}
-
+	form input {
+		padding: 5px;
+		margin-bottom: 5px;
+	}
 	input[type='number'] {
-		width: 100px;
+		width: 80px;
 	}
 	.add {
 		margin-top: 20px;

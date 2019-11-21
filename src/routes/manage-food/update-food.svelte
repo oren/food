@@ -10,10 +10,11 @@
 		color: red;
 	}
 	form input {
-		font-size: 100%;
+		padding: 5px;
+		margin-bottom: 5px;
 	}
 	input[type='number'] {
-		width: 100px;
+		width: 80px;
 	}
 	.update {
 		margin-top: 20px;
@@ -200,7 +201,6 @@
 			{/if}
 		</form>
 	{/if}
-
 
 	{#if !showUpdateForm}
 		{#if food.length >= 10}
