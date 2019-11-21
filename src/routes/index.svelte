@@ -173,7 +173,7 @@
 	<p><a href="/food/manage-food/add-food">Add some food first</a>.</p>
 {:else}
 
-	<button class='float-right max-w-md bg-blue-500 text-white font-bold py-2 px-4' on:click={handleClear}>Clear</button>
+	<button class='float-right w-16 bg-blue-500 text-white font-bold py-2 px-4' on:click={handleClear}>Clear</button>
 	<a class='inline-block float-right max-w-md mt-1 px-2 py-2 bg-blue-500 font-bold text-white' style="clear: both" href="/food/update">Update</a>
 
 	{#if isGoal}

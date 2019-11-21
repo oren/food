@@ -17,6 +17,11 @@
 		padding: 5px;
 		margin-bottom: 5px;
 	}
+	form input[type=number], form input[type=text] {
+		padding: 5px;
+		margin-bottom: 5px;
+		@apply bg-gray-200;
+	}
 	input[type='number'] {
 		width: 80px;
 	}

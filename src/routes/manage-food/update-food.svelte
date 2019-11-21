@@ -9,9 +9,10 @@
 	.error {
 		color: red;
 	}
-	form input {
+	form input[type=number], form input[type=text] {
 		padding: 5px;
 		margin-bottom: 5px;
+		@apply bg-gray-200;
 	}
 	input[type='number'] {
 		width: 80px;
@@ -186,7 +187,7 @@
 {:else}
 	{#if showUpdateForm}
 		<form>
-			<input type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/>
+			<input class="" type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/>
 			<br />
 			<input type="number" bind:value={protein} placeholder="Protein" on:keyup={validateProtein} min="0" max="999"/>
 			<br />
