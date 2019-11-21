@@ -1,7 +1,3 @@
-<svelte:head>
-	<title>Eat</title>
-</svelte:head>
-
 <style>
 	span {
 		margin-right: 5px
@@ -60,6 +56,10 @@
 		padding: 10px;
 	}
 </style>
+
+<svelte:head>
+	<title>Sapper project template</title>
+</svelte:head>
 
 <script>
 	import { onMount } from 'svelte';
@@ -173,8 +173,8 @@
 	<p><a href="/food/manage-food/add-food">Add some food first</a>.</p>
 {:else}
 
-	<button class='clear' on:click={handleClear}>Clear</button>
-	<a class='update' style="clear: both" href="/food/update">Update</a>
+	<button class='float-right bg-blue-500 text-white font-bold py-2 px-4 rounded' on:click={handleClear}>Clear</button>
+	<a class='inline-block float-right mt-3 rounded px-2 py-2 bg-blue-500 font-bold text-white' style="clear: both" href="/food/update">Update</a>
 
 	{#if isGoal}
 	<div class='goal'>
