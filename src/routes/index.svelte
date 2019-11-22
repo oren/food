@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>Eat</title>
+</svelte:head>
+
 <style>
 	span {
 		margin-right: 5px
@@ -16,14 +20,6 @@
 		float: right;
 		margin-bottom: 5px;
 	}
-	.update {
-		font-size: 100%;
-		float: right;
-		background-color: grey;
-		color: white;
-		padding: 0.3em  0.5em;
-		text-decoration: none;
-	}
 	.remaining {
 		background-color: #ffcccc;
 	}
@@ -41,7 +37,7 @@
 	}
 	.ate-wrapper {
 		display: grid;
-		grid-template-columns: 50% 50%;
+		grid-template-columns: 7% 50% 5%;
 		grid-gap: 5px;
 	}
 	.ate-box {
@@ -53,17 +49,15 @@
 		grid-gap: 5px;
 	}
 	.box {
-		border: 1px solid black;
-		padding: 10px;
+		padding: 5px;
+		@apply bg-blue-200;
 	}
 </style>
 
-<svelte:head>
-	<title>Sapper project template</title>
-</svelte:head>
-
 <script>
 	import { onMount } from 'svelte';
+	import Icon from 'svelte-awesome/components/Icon.svelte'
+  import { trash } from 'svelte-awesome/icons';
 
 	let firstTime = false
 	let columns = '50% 50%'
@@ -142,6 +136,19 @@
 		foodIAte = []
 	}
 
+	function handleDelete(foodItem) {
+		console.log('delete', foodItem)
+
+		let filtered = foodIAte.filter(function(f, index, arr){
+			return f.name !== foodItem.name;
+		});
+
+		foodIAte = filtered
+
+    localStorage.setItem('ate', JSON.stringify(filtered))
+		countCalories(foodIAte)
+	}
+
 	function handleFilter() {
 		if(filter === '') {
 			filteredFood = food
@@ -169,41 +176,45 @@
 	}
 </script>
 
-{#if food.length === 0}
-	<p>You have no food.</p>
-	<p><a href="/food/manage-food/add-food">Add some food first</a>.</p>
-{:else}
+	{#if food.length === 0}
+		<p>You have no food.</p>
+		<p><a href="/food/manage-food/add-food">Add some food first</a>.</p>
+	{:else}
 
-	<button class='float-right w-20 bg-blue-500 text-white font-bold py-1 px-4' on:click={handleClear}>Clear</button>
-	<a class='inline-block float-right text-center w-20 mt-1 px-2 py-1 bg-blue-500 font-bold text-white' style="clear: both" href="/food/update">Update</a>
-
-	{#if isGoal}
-	<div class='goal'>
-		<span>Goal: {goal}</span>
-		<span>Left:</span><span class={remaining}> {Math.round(goal-calories)}</span>
-	</div>
+	{#if foodIAte.length > 0}
+		<button class='float-right w-20 bg-blue-500 text-white font-bold py-1 px-4' on:click={handleClear}>Clear</button>
 	{/if}
 
-	<div class='total'>
-		<span>Cal: {Math.round(calories)}</span>
-		<span>Pro:{Math.round(protein)}</span>
-		<span>Car:{Math.round(carbs)}</span>
-		<span>Fat:{Math.round(fat)}</span>
-	</div>
+		{#if isGoal}
+		<div class='goal'>
+			<span>Goal: {goal}</span>
+			<span>Left:</span><span class={remaining}> {Math.round(goal-calories)}</span>
+		</div>
+		{/if}
 
-	<div class='ate-wrapper'>
-		{#each foodIAte as { id, name, count }, i}
-		<div class='ate-box'>{name}</div><div class='ate-box'>{count}</div>
+		<div class='total'>
+			<span>Cal: {Math.round(calories)}</span>
+			<span>Pro:{Math.round(protein)}</span>
+			<span>Car:{Math.round(carbs)}</span>
+			<span>Fat:{Math.round(fat)}</span>
+		</div>
+
+		<div style="clear:both;"></div>
+
+		<div class='ate-wrapper mt-1'>
+			{#each foodIAte as { id, name, count }, i}
+				<a href="#" on:click={() => handleDelete(foodIAte[i])}><Icon data={trash}/></a><div class='ate-box'>{name}</div><div class='ate-box'>{count}</div>
+			{/each}
+		</div>
+
+		{#if food.length >= 10}
+			<input bind:value={filter} class='filter' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
+		{/if}
+
+		<div class="wrapper" style="grid-template-columns: {columns}; margin-top: {food.length >=10 ? 0 : 20}px;">
+		{#each filteredFood as { id, name }, i}
+			<button class='box' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
 		{/each}
-	</div>
-
-	{#if food.length >= 10}
-		<input bind:value={filter} class='filter' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
+		</div>
 	{/if}
 
-	<div class="wrapper" style="grid-template-columns: {columns}; margin-top: {food.length >=10 ? 0 : 20}px;">
-	{#each filteredFood as { id, name }, i}
-		<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button>
-	{/each}
-	</div>
-{/if}

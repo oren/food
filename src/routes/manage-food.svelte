@@ -41,4 +41,5 @@
 	<a class="box d" href="/food/manage-food/export"><div>Export</div></a>
 {/if}
 	<a class="box e" href="/food/manage-food/import"><div>Import</div></a>
+	<a class="box e" href="/food/manage-food/test"><div>Test</div></a>
 </div>
