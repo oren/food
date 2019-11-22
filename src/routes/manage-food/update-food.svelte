@@ -39,6 +39,8 @@
 <script>
 	import { onMount } from 'svelte';
 	import { validate } from './validate.js';
+	import Icon from 'svelte-awesome/components/Icon.svelte'
+  import { trash } from 'svelte-awesome/icons';
 
 	let name = ''
 	let protein = ''
@@ -209,7 +211,7 @@
 		{/if}
 		<div class="wrapper" style="margin-top: {food.length >=10 ? 0 : 20}px;">
 			{#each filteredFood as { id, name }, i}
-			<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button><button on:click={() => handleFoodDelete(food[i])}>del</button>
+			<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button><a href="#" on:click|preventDefault={() => handleFoodDelete(food[i])}><Icon data={trash}/></a>
 			{/each}
 		</div>
 	{/if}

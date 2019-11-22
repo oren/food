@@ -203,7 +203,7 @@
 
 		<div class='ate-wrapper mt-1'>
 			{#each foodIAte as { id, name, count }, i}
-				<a href="#" on:click={() => handleDelete(foodIAte[i])}><Icon data={trash}/></a><div class='ate-box'>{name}</div><div class='ate-box'>{count}</div>
+				<a href="#" on:click|preventDefault={() => handleDelete(foodIAte[i])}><Icon data={trash}/></a><div class='ate-box'>{name}</div><div class='ate-box'>{count}</div>
 			{/each}
 		</div>
 
