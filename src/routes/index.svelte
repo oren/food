@@ -74,8 +74,6 @@
 	let filteredFood = []
 
 	function handleFoodClick(foodClicked) {
-		filteredFood = food
-		filter = ''
 
 		let index = foodIAte.findIndex(f => f.name === foodClicked.name);
 
