@@ -175,7 +175,7 @@
 {:else}
 
 	<button class='float-right w-20 bg-blue-500 text-white font-bold py-1 px-4' on:click={handleClear}>Clear</button>
-	<a class='inline-block float-right w-20 mt-1 px-2 py-1 bg-blue-500 font-bold text-white' style="clear: both" href="/food/update">Update</a>
+	<a class='inline-block float-right text-center w-20 mt-1 px-2 py-1 bg-blue-500 font-bold text-white' style="clear: both" href="/food/update">Update</a>
 
 	{#if isGoal}
 	<div class='goal'>
