@@ -27,11 +27,11 @@
 	}
 	.wrapper {
 		display: grid;
-		grid-template-columns: 80% 20%;
+		grid-template-columns: 90% 10%;
 		grid-gap: 5px;
 	}
 	.box {
-		border: 1px solid black;
+		@apply bg-blue-100;
 		padding: 10px;
 	}
 </style>
@@ -189,19 +189,15 @@
 {:else}
 	{#if showUpdateForm}
 		<form>
-			<input class="" type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/>
-			<br />
-			<input type="number" bind:value={protein} placeholder="Protein" on:keyup={validateProtein} min="0" max="999"/>
-			<br />
-			<input type="number" bind:value={carbs} placeholder="Carbs" on:keyup={validateCarbs} min="0" max="999"/>
-			<br />
-			<input type="number"  bind:value={fat} placeholder="Fat" on:keyup={validateFat} min="0" max="999"/>
-			<br />
+			<div><input class="" type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/></div>
+			<div><input type="number" bind:value={protein} placeholder="Protein" on:keyup={validateProtein} min="0" max="999"/></div>
+			<div><input type="number" bind:value={carbs} placeholder="Carbs" on:keyup={validateCarbs} min="0" max="999"/></div>
+			<div><input type="number"  bind:value={fat} placeholder="Fat" on:keyup={validateFat} min="0" max="999"/></div>
 
-			{#if mode === "update"}
-				<input class='update' type="button" value="Update" on:click={handleUpdate} maxlength="2" size="2" />
-				<input type="button" value="delete" on:click={handleDelete} />
-			{/if}
+			<div class="mt-3">
+				<button class="bg-blue-100 py-1 px-4" on:click={handleUpdate}>Update</button>
+				<button class="bg-red-200 py-1 px-4 ml-2" on:click={handleDelete}><Icon data={trash}/></button>
+			</div>
 		</form>
 	{/if}
 
@@ -211,7 +207,7 @@
 		{/if}
 		<div class="wrapper" style="margin-top: {food.length >=10 ? 0 : 20}px;">
 			{#each filteredFood as { id, name }, i}
-			<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button><a href="#" on:click|preventDefault={() => handleFoodDelete(food[i])}><Icon data={trash}/></a>
+				<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button><button class="bg-red-200" on:click|preventDefault={() => handleFoodDelete(food[i])}><Icon data={trash}/></button>
 			{/each}
 		</div>
 	{/if}

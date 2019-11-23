@@ -10,8 +10,8 @@
 	}
 
 	.box {
-		border: 1px solid black;
 		padding: 20px;
+		@apply bg-blue-100;
 	}
 
 	.wrapper a {
@@ -29,8 +29,6 @@
 	})
 </script>
 
-<h2>Manage Food</h2>
-
 <div class="wrapper">
 	<a class="box a" href="/food/manage-food/add-food"><div>Add Food</div></a>
 {#if !(food.length === 0)}
@@ -41,5 +39,4 @@
 	<a class="box d" href="/food/manage-food/export"><div>Export</div></a>
 {/if}
 	<a class="box e" href="/food/manage-food/import"><div>Import</div></a>
-	<a class="box e" href="/food/manage-food/test"><div>Test</div></a>
 </div>

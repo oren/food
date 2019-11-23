@@ -50,7 +50,7 @@
 	}
 	.box {
 		padding: 5px;
-		@apply bg-blue-200;
+		@apply bg-blue-100;
 	}
 </style>
 
@@ -180,7 +180,7 @@
 	{:else}
 
 	{#if foodIAte.length > 0}
-		<button class='float-right w-20 bg-blue-500 text-white font-bold py-1 px-4' on:click={handleClear}>Clear</button>
+		<button class='float-right w-20 bg-red-200 py-1 px-4' on:click={handleClear}>Clear</button>
 	{/if}
 
 		{#if isGoal}
@@ -201,7 +201,7 @@
 
 		<div class='ate-wrapper mt-1'>
 			{#each foodIAte as { id, name, count }, i}
-				<a href="#" on:click|preventDefault={() => handleDelete(foodIAte[i])}><Icon data={trash}/></a><div class='ate-box'>{name}</div><div class='ate-box'>{count}</div>
+				<button class="bg-red-200" href="#" on:click|preventDefault={() => handleDelete(foodIAte[i])}><Icon data={trash}/></button><div class='ate-box'>{name}</div><div class='ate-box'>{count}</div>
 			{/each}
 		</div>
 
