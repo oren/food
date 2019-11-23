@@ -53,6 +53,7 @@
 
 		if(!validReturn.valid) {
 			errorMessage = validReturn.message
+			console.log('error', errorMessage)
 			return
 		}
 
@@ -91,7 +92,6 @@
 	}
 </script>
 
-
 <h2>Add Food</h2>
 
 {#if successMessage !== ''}
@@ -111,5 +111,5 @@
 	<br />
 	<input type="number"  bind:value={fat} placeholder="Fat" on:keyup={validateFat} min="0" max="999"/>
 	<br />
-	<button class="bg-blue-100 py-1 px-4" on:click={handleAdd}>Add</button>
+	<button class="bg-blue-100 py-1 px-4" on:click|preventDefault={handleAdd}>Add</button>
 </form>
