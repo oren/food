@@ -4,7 +4,7 @@
 	import Icon from 'svelte-awesome/components/Icon.svelte'
   import { cog , spoon } from 'svelte-awesome/icons';
 
-	import utensilsSolid from '../../static/utensils-solid.svg'
+	import { faUtensils } from '@fortawesome/free-solid-svg-icons';
 </script>
 
 <style>
@@ -60,10 +60,9 @@
 	}
 </style>
 
-
 <nav>
 	<ul>
-		<li><a class='{segment === undefined ? "selected" : ""}' href='.'><div class="tmp">{@html utensilsSolid}</div></li>
+		<li><a class='{segment === undefined ? "selected" : ""}' href='.'><div class="tmp"><Icon data={faUtensils}/></div></li>
 		<li><a class='{segment === "manage-food" ? "selected" : ""}' href='manage-food'>Food</a></li>
 		<li><a class='{segment === "settings" ? "selected" : ""}' href='settings'><Icon data={cog}/></a></li>
 	</ul>

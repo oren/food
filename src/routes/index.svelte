@@ -173,6 +173,7 @@
 		fat = foodIAte.reduce(sumFat, 0)
 	}
 </script>
+
 	{#if food.length === 0}
 		<p>You have no food.</p>
 		<p><a href="/food/manage-food/add-food">Add some food first</a>.</p>
