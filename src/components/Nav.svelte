@@ -1,9 +1,7 @@
 <script>
 	export let segment;
-
 	import Icon from 'svelte-awesome/components/Icon.svelte'
   import { cog , spoon } from 'svelte-awesome/icons';
-
 	import { faUtensils } from '@fortawesome/free-solid-svg-icons';
 </script>
 
@@ -56,13 +54,12 @@
 	.tmp {
 		width: 15px;
 		height: 15px;
-		color: red;
 	}
 </style>
 
 <nav>
 	<ul>
-		<li><a class='{segment === undefined ? "selected" : ""}' href='.'><div class="tmp"><Icon data={faUtensils}/></div></li>
+		<li><a class='{segment === undefined ? "selected" : ""}' href='.'><div class="tmp"><Icon data={faUtensils}/></div></a></li>
 		<li><a class='{segment === "manage-food" ? "selected" : ""}' href='manage-food'>Food</a></li>
 		<li><a class='{segment === "settings" ? "selected" : ""}' href='settings'><Icon data={cog}/></a></li>
 	</ul>
