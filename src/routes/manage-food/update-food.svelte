@@ -173,7 +173,7 @@
 	}
 </script>
 
-<h2>Update Food</h2>
+<h2 class="text-xl">Update Food</h2>
 
 {#if successMessage !== ''}
 	<p class='success'>{successMessage}</p>

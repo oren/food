@@ -52,8 +52,6 @@
 	}
 </script>
 
-<h2>Settings</h2>
-
 <div>
 	{#if isGoal}
 		Calories Goal:
@@ -72,5 +70,5 @@
 	<label><input type='radio' bind:group={columns} on:change={columnChange} value="30% 30% 30%">3</label>
 </div>
 
-<h2 class='about'>About</h2>
+<h2 class="text-xl mt-4">About</h2>
 <p>This is a simple and fast calorie counter app. If you have feature request contact me: <a href="mailto:orengolan@gmail.com?subject=I love the calorie counter app!">orengolan@gmail.com</a><p/>
