@@ -57,14 +57,16 @@
 	.tmp {
 		width: 25px;
 		height: 25px;
-		@apply text-center
+		@apply text-center;
+	}
+	span {
 	}
 </style>
 
 <nav>
 	<ul>
-		<li><a class='{segment === undefined ? "selected" : ""}' href='/food'><div class="tmp"><Icon data={faUtensils}/></div></a></li>
-		<li><a class='{segment === "manage-food" ? "selected" : ""}' href='manage-food'><div class="tmp"><Icon data={faAppleAlt}/></div></a></li>
-		<li><a class='{segment === "settings" ? "selected" : ""}' href='settings'><div class="tmp"><Icon data={cog}/></div></a></li>
+		<li class=""><a class='{segment === undefined ? "selected" : ""}' href='/food'><div class="tmp"><Icon data={faUtensils}/></div><span>Eat</span></a></li>
+		<li class=""><a class='{segment === "manage-food" ? "selected" : ""}' href='manage-food'><div class="tmp"><Icon data={faAppleAlt}/></div><span>Food</span></a></li>
+		<li class=""><a class='{segment === "settings" ? "selected" : ""}' href='settings'><div class="tmp"><Icon data={cog}/></div><span>Settings</span></a></li>
 	</ul>
 </nav>
