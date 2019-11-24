@@ -1,8 +1,8 @@
 <script>
 	export let segment;
 	import Icon from 'svelte-awesome/components/Icon.svelte'
-  import { cog , spoon } from 'svelte-awesome/icons';
-	import { faUtensils } from '@fortawesome/free-solid-svg-icons';
+  import { cog } from 'svelte-awesome/icons';
+	import { faUtensils, faAppleAlt } from '@fortawesome/free-solid-svg-icons';
 </script>
 
 <style>
@@ -52,15 +52,13 @@
 		display: block;
 	}
 	.tmp {
-		width: 15px;
-		height: 15px;
 	}
 </style>
 
 <nav>
 	<ul>
-		<li><a class='{segment === undefined ? "selected" : ""}' href='.'><div class="tmp"><Icon data={faUtensils}/></div></a></li>
-		<li><a class='{segment === "manage-food" ? "selected" : ""}' href='manage-food'>Food</a></li>
+		<li><a class='{segment === undefined ? "selected" : ""}' href='/food'><div class="tmp"><Icon data={faUtensils}/></div></a></li>
+		<li><a class='{segment === "manage-food" ? "selected" : ""}' href='manage-food'><div class="tmp"><Icon data={faAppleAlt}/></div></a></li>
 		<li><a class='{segment === "settings" ? "selected" : ""}' href='settings'><Icon data={cog}/></a></li>
 	</ul>
 </nav>
