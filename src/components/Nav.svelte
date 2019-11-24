@@ -6,67 +6,26 @@
 </script>
 
 <style>
+	.selected {
+		@apply bg-blue-200;
+	}
 	nav {
 		position: fixed;
 		bottom: 0;
 		width: 100%;
-		border-bottom: 1px solid rgba(255,62,0,0.1);
-		font-weight: 300;
-		padding: 0 1em;
-		@apply bg-blue-200 ;
-	}
-
-	ul {
-		margin: 0;
-		padding: 0;
-	}
-
-	/* clearfix */
-	ul::after {
-		content: '';
-		display: block;
-		clear: both;
-	}
-
-	li {
-		display: block;
-		float: left;
-	}
-
-	.selected {
-		position: relative;
-		display: inline-block;
-		@apply bg-blue-100;
-	}
-
-	.selected::after {
-		position: absolute;
-		content: '';
-		width: calc(100% - 1em);
-		background-color: rgb(255,62,0);
-		height: 2px;
-		display: block;
-		bottom: -1px;
-	}
-
-	a {
-		text-decoration: none;
-		padding: 1em 0.5em;
-		display: block;
-	}
-	.tmp {
-		width: 25px;
-		height: 25px;
-		@apply text-center;
-	}
-	span {
 	}
 </style>
 
 <nav>
-	<ul>
-		<li class=""><a class='{segment === undefined ? "selected" : ""}' href='/food'><div class="tmp"><Icon data={faUtensils}/></div><span>Eat</span></a></li>
-		<li class=""><a class='{segment === "manage-food" ? "selected" : ""}' href='manage-food'><div class="tmp"><Icon data={faAppleAlt}/></div><span>Food</span></a></li>
-		<li class=""><a class='{segment === "settings" ? "selected" : ""}' href='settings'><div class="tmp"><Icon data={cog}/></div><span>Settings</span></a></li>
+	<ul class="flex">
+		<li class="flex-1 mr-2">
+			<a class="{segment === undefined ? "selected" : ""} text-center block py-2 px-4" href="/food">Eat<Icon class="ml-2 mb-1" data={faUtensils}/></a>
+		</li>
+		<li class="flex-1 mr-2">
+			<a class="{segment === "manage-food" ? "selected" : ""} text-center block py-2 px-4" href="manage-food">Food<Icon class="ml-2 mb-1" data={faAppleAlt}/></a>
+		</li>
+		<li class="text-center flex-1">
+			<a class="{segment === "settings" ? "selected" : ""} block py-2 px-4" href="settings">Settings<Icon class="ml-2 mb-1" data={cog}/></a>
+		</li>
 	</ul>
 </nav>

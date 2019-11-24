@@ -113,6 +113,10 @@
 				{name: 'olive oil', protein: 2, carbs: 3.8, fat: 8},
 				{name: 'apple', protein: 1, carbs: 5.8, fat: 3},
 				{name: 'cottage cheese', protein: 1, carbs: 5.8, fat: 3},
+				{name: '100g greek yugurt', protein: 1, carbs: 5.8, fat: 3},
+				{name: '1 tbsp peanut butter', protein: 1, carbs: 5.8, fat: 3},
+				{name: '100g salmon', protein: 1, carbs: 5.8, fat: 3},
+				{name: '100g steak', protein: 1, carbs: 5.8, fat: 3},
 
 			]
 
