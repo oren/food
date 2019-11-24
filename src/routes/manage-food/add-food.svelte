@@ -25,9 +25,6 @@
 	input[type='number'] {
 		width: 80px;
 	}
-	.add {
-		margin-top: 20px;
-	}
 </style>
 
 <script>
