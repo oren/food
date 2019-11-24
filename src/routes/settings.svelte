@@ -3,12 +3,6 @@
 </svelte:head>
 
 <style>
-	.about {
-		margin-top: 30px
-	}
-	.goal {
-		font-size: 100%;
-	}
 </style>
 
 <script>
@@ -60,7 +54,7 @@
 		Calories Goal:
 		<input type="checkbox" name="goal" value="no" on:change={toggleGoal}>
 	{/if}
-	<input class='goal' type="text" name="goal-text" bind:value={goal} on:keyup={goalChange} disabled={isGoal ? "" : "disabled"} maxlength="4" size="2">
+	<input class='w-20 bg-blue-200' type="text" name="goal-text" bind:value={goal} on:keyup={goalChange} disabled={isGoal ? "" : "disabled"} maxlength="4" size="3">
 </div>
 
 <div>
