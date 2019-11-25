@@ -183,9 +183,9 @@
 		<p><a href="/food/manage-food/add-food">Add some food first</a>.</p>
 	{:else}
 
-	{#if foodIAte.length > 0}
-		<button class='float-right w-20 bg-red-400 py-1 px-4' on:click={handleClear}>Clear</button>
-	{/if}
+		{#if foodIAte.length > 0}
+			<button class='float-right w-20 bg-red-400 py-1 px-4' on:click={handleClear}>Clear</button>
+		{/if}
 
 		{#if isGoal}
 		<div class='goal'>
@@ -214,9 +214,8 @@
 		{/if}
 
 		<div class="wrapper" style="grid-template-columns: {columns}; margin-top: {food.length >=10 ? 0 : 20}px;">
-		{#each filteredFood as { id, name }, i}
-			<button class='box' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
-		{/each}
+			{#each filteredFood as { id, name }, i}
+				<button class='box' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
+			{/each}
 		</div>
 	{/if}
-
