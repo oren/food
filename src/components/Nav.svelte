@@ -6,13 +6,14 @@
 </script>
 
 <style>
-	.selected {
-		@apply bg-blue-100;
-	}
 	nav {
 		position: fixed;
 		bottom: 0;
 		width: 100%;
+		z-index:1000;
+	}
+	.selected {
+		@apply bg-blue-100;
 	}
 </style>
 
