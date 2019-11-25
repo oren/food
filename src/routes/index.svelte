@@ -184,7 +184,7 @@
 	{:else}
 
 	{#if foodIAte.length > 0}
-		<button class='float-right w-20 bg-red-200 py-1 px-4' on:click={handleClear}>Clear</button>
+		<button class='float-right w-20 bg-red-400 py-1 px-4' on:click={handleClear}>Clear</button>
 	{/if}
 
 		{#if isGoal}
@@ -205,7 +205,7 @@
 
 		<div class='ate-wrapper mt-1'>
 			{#each foodIAte as { id, name, count }, i}
-				<button class="bg-red-200" href="#" on:click|preventDefault={() => handleDelete(foodIAte[i])}><Icon data={trash}/></button><div class='ate-box'>{name}</div><div class='ate-box'>{count}</div>
+				<button class="bg-red-400" href="#" on:click|preventDefault={() => handleDelete(foodIAte[i])}><Icon data={trash}/></button><div class='ate-box'>{name}</div><div class='ate-box'>{count}</div>
 			{/each}
 		</div>
 

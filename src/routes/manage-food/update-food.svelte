@@ -193,7 +193,7 @@
 
 			<div class="mt-3">
 				<button class="bg-blue-100 py-1 px-4" on:click={handleUpdate}>Update</button>
-				<button class="bg-red-200 py-1 px-4 ml-2" on:click={handleDelete}><Icon data={trash}/></button>
+				<button class="bg-red-400 py-1 px-4 ml-2" on:click={handleDelete}><Icon data={trash}/></button>
 			</div>
 		</form>
 	{/if}
@@ -204,7 +204,7 @@
 		{/if}
 		<div class="wrapper" style="margin-top: {food.length >=10 ? 0 : 20}px;">
 			{#each filteredFood as { id, name }, i}
-				<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button><button class="bg-red-200" on:click|preventDefault={() => handleFoodDelete(food[i])}><Icon data={trash}/></button>
+				<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button><button class="bg-red-400" on:click|preventDefault={() => handleFoodDelete(food[i])}><Icon data={trash}/></button>
 			{/each}
 		</div>
 	{/if}
