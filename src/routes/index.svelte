@@ -178,44 +178,43 @@
 	}
 </script>
 
-	{#if food.length === 0}
-		<p>You have no food.</p>
-		<p><a href="/food/manage-food/add-food">Add some food first</a>.</p>
-	{:else}
-
-		{#if foodIAte.length > 0}
-			<button class='float-right w-20 bg-red-400 py-1 px-4' on:click={handleClear}>Clear</button>
-		{/if}
-
-		{#if isGoal}
-		<div class='goal'>
-			<span>Goal: {goal}</span>
-			<span>Left:</span><span class={remaining}> {Math.round(goal-calories)}</span>
-		</div>
-		{/if}
-
-		<div class='total'>
-			<span>Cal: {Math.round(calories)}</span>
-			<span>Pro:{Math.round(protein)}</span>
-			<span>Car:{Math.round(carbs)}</span>
-			<span>Fat:{Math.round(fat)}</span>
-		</div>
-
-		<div style="clear:both;"></div>
-
-		<div class='ate-wrapper mt-1'>
-			{#each foodIAte as { id, name, count }, i}
-				<button class="text-red-400" href="#" on:click|preventDefault={() => handleDelete(foodIAte[i])}><Icon data={trash}/></button><div class='ate-box'>{name}</div><div class='ate-box'>{count}</div>
-			{/each}
-		</div>
-
-		{#if food.length >= 10}
-			<input bind:value={filter} class='filter' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
-		{/if}
-
-		<div class="wrapper" style="grid-template-columns: {columns}; margin-top: {food.length >=10 ? 0 : 20}px;">
-			{#each filteredFood as { id, name }, i}
-				<button class='box' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
-			{/each}
-		</div>
+{#if food.length === 0}
+	<p>You have no food.</p>
+	<p><a href="/food/manage-food/add-food">Add some food first</a>.</p>
+{:else}
+	{#if foodIAte.length > 0}
+		<button class='float-right w-20 bg-red-400 py-1 px-4' on:click={handleClear}>Clear</button>
 	{/if}
+
+	{#if isGoal}
+	<div class='goal'>
+		<span>Goal: {goal}</span>
+		<span>Left:</span><span class={remaining}> {Math.round(goal-calories)}</span>
+	</div>
+	{/if}
+
+	<div class='total'>
+		<span>Cal: {Math.round(calories)}</span>
+		<span>Pro:{Math.round(protein)}</span>
+		<span>Car:{Math.round(carbs)}</span>
+		<span>Fat:{Math.round(fat)}</span>
+	</div>
+
+	<div style="clear:both;"></div>
+
+	<div class='ate-wrapper mt-1'>
+		{#each foodIAte as { id, name, count }, i}
+			<button class="text-red-400" href="#" on:click|preventDefault={() => handleDelete(foodIAte[i])}><Icon data={trash}/></button><div class='ate-box'>{name}</div><div class='ate-box'>{count}</div>
+		{/each}
+	</div>
+
+	{#if food.length >= 10}
+		<input bind:value={filter} class='filter' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
+	{/if}
+
+	<div class="wrapper" style="grid-template-columns: {columns}; margin-top: {food.length >=10 ? 0 : 20}px;">
+		{#each filteredFood as { id, name }, i}
+			<button class='box' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
+		{/each}
+	</div>
+{/if}
