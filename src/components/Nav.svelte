@@ -15,6 +15,9 @@
 	.selected {
 		@apply bg-blue-100;
 	}
+	a {
+		@apply block py-2 px-4;
+	}
 </style>
 
 <nav class="bg-blue-200">
