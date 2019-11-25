@@ -11,17 +11,18 @@
 		bottom: 0;
 		width: 100%;
 		z-index:1000;
+		border-top: 1px solid #edf2f7;
+		@apply bg-white;
 	}
 	.selected {
-		@apply bg-pink-200;
-		border-bottom: 2px solid black;
+		@apply text-blue-500;
 	}
 	a {
 		@apply block py-2 px-4;
 	}
 </style>
 
-<nav class="bg-pink-400">
+<nav class="">
 	<ul class="flex">
 		<li class="flex-1 mr-2">
 			<a class="{segment === undefined ? "selected" : ""} text-center block py-2 px-4" href="/food">Eat<Icon class="ml-2 mb-1" data={faUtensils}/></a>
