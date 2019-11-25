@@ -17,9 +17,6 @@
 	input[type='number'] {
 		width: 80px;
 	}
-	.update {
-		margin-top: 20px;
-	}
 	.filter {
 		font-size: 150%;
 		margin-top: 20px;

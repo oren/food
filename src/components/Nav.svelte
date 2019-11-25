@@ -7,7 +7,7 @@
 
 <style>
 	.selected {
-		@apply bg-blue-200;
+		@apply bg-blue-100;
 	}
 	nav {
 		position: fixed;
@@ -16,7 +16,7 @@
 	}
 </style>
 
-<nav>
+<nav class="bg-blue-200">
 	<ul class="flex">
 		<li class="flex-1 mr-2">
 			<a class="{segment === undefined ? "selected" : ""} text-center block py-2 px-4" href="/food">Eat<Icon class="ml-2 mb-1" data={faUtensils}/></a>
