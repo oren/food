@@ -25,13 +25,13 @@
 <nav class="">
 	<ul class="flex">
 		<li class="flex-1 mr-2">
-			<a class="{segment === undefined ? "selected" : ""} text-center block py-2 px-4" href="/food">Eat<Icon class="ml-2 mb-1" data={faUtensils}/></a>
+			<a class="{segment === undefined ? "selected" : ""} text-center block py-2 px-4" href="/food">Eat<Icon style="margin-left: 0.5rem; margin-bottom: 0.25rem;" data={faUtensils}/></a>
 		</li>
 		<li class="flex-1 mr-2">
-			<a class="{segment === "manage-food" ? "selected" : ""} text-center block py-2 px-4" href="manage-food">Food<Icon class="ml-2 mb-1" data={faAppleAlt}/></a>
+			<a class="{segment === "manage-food" ? "selected" : ""} text-center block py-2 px-4" href="manage-food">Food<Icon style="margin-left: 0.5rem; margin-bottom: 0.25rem;" data={faAppleAlt}/></a>
 		</li>
 		<li class="text-center flex-1">
-			<a class="{segment === "settings" ? "selected" : ""} text-center block py-2 px-4" href="settings">Settings<Icon class="ml-2 mb-1" data={cog}/></a>
+			<a class="{segment === "settings" ? "selected" : ""} text-center block py-2 px-4" href="settings">Settings<Icon style="margin-left: 0.5rem; margin-bottom: 0.25rem;" data={cog}/></a>
 		</li>
 	</ul>
 </nav>
