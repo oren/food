@@ -200,7 +200,7 @@
 
 	{#if !showUpdateForm}
 		{#if food.length >= 10}
-			<input bind:value={filter} class='filter' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
+			<input bind:value={filter} class='filter bg-gray-200 w-24 px-2' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
 		{/if}
 		<div class="wrapper" style="margin-top: {food.length >=10 ? 0 : 20}px;">
 			{#each filteredFood as { id, name }, i}
