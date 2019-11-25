@@ -14,6 +14,7 @@
 	}
 	.selected {
 		@apply bg-pink-200;
+		border-bottom: 2px solid black;
 	}
 	a {
 		@apply block py-2 px-4;
