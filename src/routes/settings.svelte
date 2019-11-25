@@ -3,6 +3,12 @@
 </svelte:head>
 
 <style>
+.goal {
+	@apply bg-gray-200;
+}
+.no-goal {
+	@apply bg-gray-100;
+}
 </style>
 
 <script>
@@ -54,10 +60,11 @@
 		Calories Goal:
 		<input type="checkbox" name="goal" value="no" on:change={toggleGoal}>
 	{/if}
-	<input class='w-20 bg-blue-200' type="text" name="goal-text" bind:value={goal} on:keyup={goalChange} disabled={isGoal ? "" : "disabled"} maxlength="4" size="3">
+
+	<input class={isGoal ? "goal" : "no-goal"} type="text" name="goal-text" bind:value={goal} on:keyup={goalChange} disabled={isGoal ? "" : "disabled"} maxlength="4" size="3">
 </div>
 
-<div>
+<div class="mt-2">
 	<label>Food Columns:</label>
 	<label><input type='radio' bind:group={columns} on:change={columnChange} value="100%">1</label>
 	<label><input type='radio' bind:group={columns} on:change={columnChange} value="50% 50%">2</label>

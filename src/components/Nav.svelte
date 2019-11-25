@@ -26,7 +26,7 @@
 			<a class="{segment === "manage-food" ? "selected" : ""} text-center block py-2 px-4" href="manage-food">Food<Icon class="ml-2 mb-1" data={faAppleAlt}/></a>
 		</li>
 		<li class="text-center flex-1">
-			<a class="{segment === "settings" ? "selected" : ""} block py-2 px-4" href="settings">Settings<Icon class="ml-2 mb-1" data={cog}/></a>
+			<a class="{segment === "settings" ? "selected" : ""} text-center block py-2 px-4" href="settings">Settings<Icon class="ml-2 mb-1" data={cog}/></a>
 		</li>
 	</ul>
 </nav>
