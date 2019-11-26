@@ -189,7 +189,7 @@
 			<button class='box' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
 		{/each}
 		{#if food.length >= 10}
-			<input bind:value={filter} class='bg-gray-200 px-2 py-2' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
+			<input bind:value={filter} class='bg-gray-200 px-2 py-1' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
 		{/if}
 	</div>
 
