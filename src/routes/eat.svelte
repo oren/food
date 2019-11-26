@@ -2,61 +2,8 @@
 	<title>Eat</title>
 </svelte:head>
 
-<style>
-	span {
-		margin-right: 5px
-	}
-	.today {
-		margin-top: 20px;
-	}
-	.clear {
-		font-size: 100%;
-		float: right;
-		margin-bottom: 5px;
-	}
-	.remaining {
-		@apply text-red-700;
-	}
-	.add {
-		margin-top: 20px;
-	}
-	.filter {
-		float: right;
-		font-size: 150%;
-		margin-top: 20px;
-		margin-bottom: 10px;
-		@apply bg-gray-200 w-24 px-2;
-	}
-	.ate {
-		color: green;
-	}
-	.ate-wrapper {
-		display: grid;
-		grid-template-columns: 10px 91% 2%;
-		grid-gap: 5px;
-	}
-	.wrapper {
-		float: right;
-		display: grid;
-		grid-template-columns: 100%;
-		grid-gap: 3px;
-	}
-	.box {
-		padding: 3px;
-		@apply bg-blue-100;
-	}
-	.pills {
-		position: fixed;
-		bottom: 40px;
-		width: 100%;
-		z-index:1000;
-	}
-</style>
-
 <script>
 	import { onMount } from 'svelte';
-	import Icon from 'svelte-awesome/components/Icon.svelte'
-  import { trash } from 'svelte-awesome/icons';
 
 	let firstTime = false
 	let columns = '50% 50%'
@@ -72,21 +19,6 @@
 	let filter = ''
 	let filteredFood = []
 	let font = window.screen.width <= 360 ? 'text-sm' : '' // small text for food on small phones
-
-	function handleFoodClick(foodClicked) {
-		let index = foodIAte.findIndex(f => f.name === foodClicked.name);
-
-		// first time you eat this food - add to array
-		if(index === -1) {
-			foodClicked.count = 1
-			foodIAte = [...foodIAte, foodClicked ]
-		} else {
-			foodIAte[index].count = foodIAte[index].count + 1
-		}
-
-		localStorage.setItem('ate', JSON.stringify(foodIAte))
-		countCalories(foodIAte)
-	}
 
 	onMount(async () => {
 		firstTime = localStorage.getItem('firstTime') || 'true'
@@ -134,31 +66,27 @@
 		countCalories(foodIAte)
 	})
 
-	function handleClear() {
-		localStorage.removeItem('ate')
-		protein = 0
-		carbs = 0
-		fat = 0
-		foodIAte = []
-	}
-
-	function handleDelete(foodItem) {
-		let filtered = foodIAte.filter(function(f, index, arr){
-			return f.name !== foodItem.name;
-		});
-
-		foodIAte = filtered
-
-    localStorage.setItem('ate', JSON.stringify(filtered))
-		countCalories(foodIAte)
-	}
-
 	function handleFilter() {
 		if(filter === '') {
 			filteredFood = food
 		}
 
 		filteredFood = food.filter(f => f.name.toLowerCase().includes(filter.toLowerCase()));
+	}
+
+	function handleFoodClick(foodClicked) {
+		let index = foodIAte.findIndex(f => f.name === foodClicked.name);
+
+		// first time you eat this food - add to array
+		if(index === -1) {
+			foodClicked.count = 1
+			foodIAte = [...foodIAte, foodClicked ]
+		} else {
+			foodIAte[index].count = foodIAte[index].count + 1
+		}
+
+		localStorage.setItem('ate', JSON.stringify(foodIAte))
+		countCalories(foodIAte)
 	}
 
 	const countCalories = (food) => {
@@ -180,10 +108,25 @@
 	}
 </script>
 
-{#if food.length === 0}
-	<p>You have no food.</p>
-	<p><a href="/food/manage-food/add-food">Add some food first</a>.</p>
-{:else}
+<style>
+	span {
+		margin-right: 5px
+	}
+	.wrapper {
+		display: grid;
+		grid-template-columns: 50% 50%;
+		grid-gap: 3px;
+	}
+	.remaining {
+		@apply text-red-700;
+	}
+	.pills {
+		position: fixed;
+		bottom: 40px;
+		width: 100%;
+		z-index:1000;
+	}
+</style>
 
 
 	{#if isGoal}
@@ -200,22 +143,21 @@
 		<span>F:{Math.round(fat)}</span>
 	</div>
 
-	{#if foodIAte.length > 0}
-		<div><button class="bg-red-400 py-1 mt-2 w-20" href="#" on:click={handleClear}>Clear All</button></div>
-	{/if}
-
-	<div class='ate-wrapper mt-1'>
-		{#each foodIAte as { id, name, count }, i}
-			<button class="text-red-400" href="#" on:click|preventDefault={() => handleDelete(foodIAte[i])}><Icon data={trash}/></button><div>{name}</div><div>{count}</div>
-		{/each}
-	</div>
-
-	<ul class="flex mb-3 pills">
-		<li class="mr-3">
-			<a class="inline-block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white" href="">Ate Today</a>
-		</li>
-		<li class="mr-3">
-			<a class="inline-block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4" href="/food/eat">Choose Food</a>
-		</li>
-	</ul>
+{#if food.length >= 10}
+	<input bind:value={filter} class='bg-gray-200 px-2 py-1 mb-2 mt-1' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
 {/if}
+
+<div class="wrapper">
+	{#each filteredFood as { id, name }, i}
+		<button class='bg-blue-100 p-1' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
+	{/each}
+</div>
+
+<ul class="flex mb-3 pills">
+  <li class="mr-3">
+    <a class="inline-block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4" href="/food">Ate Today</a>
+  </li>
+  <li class="mr-3">
+    <a class="inline-block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white" href="">Choose Food</a>
+  </li>
+</ul>

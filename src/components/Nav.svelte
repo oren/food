@@ -25,7 +25,7 @@
 <nav class="">
 	<ul class="flex">
 		<li class="flex-1 mr-2">
-			<a class="{segment === undefined ? "selected" : ""} text-center block py-2 px-4" href="/food">Eat<Icon style="margin-left: 0.5rem; margin-bottom: 0.25rem;" data={faUtensils}/></a>
+			<a class="{segment === undefined || segment ==="eat" ? "selected" : ""} text-center block py-2 px-4" href="/food">Eat<Icon style="margin-left: 0.5rem; margin-bottom: 0.25rem;" data={faUtensils}/></a>
 		</li>
 		<li class="flex-1 mr-2">
 			<a class="{segment === "manage-food" ? "selected" : ""} text-center block py-2 px-4" href="manage-food">Food<Icon style="margin-left: 0.5rem; margin-bottom: 0.25rem;" data={faAppleAlt}/></a>
