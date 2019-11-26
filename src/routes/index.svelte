@@ -40,10 +40,10 @@
 		float: right;
 		display: grid;
 		grid-template-columns: 100%;
-		grid-gap: 5px;
+		grid-gap: 3px;
 	}
 	.box {
-		padding: 5px;
+		padding: 3px;
 		@apply bg-blue-100;
 	}
 </style>
@@ -92,7 +92,7 @@
 		columns = localStorage.getItem('columns') || '50% 50%'
 		food = JSON.parse(localStorage.getItem('food')) || []
 		filteredFood = food
-		filteredFood = filteredFood.slice(0,15)
+		filteredFood = filteredFood.slice(0,16)
 		foodIAte = JSON.parse(localStorage.getItem('ate')) || []
 
 		if(firstTime && food.length === 0) {
@@ -112,13 +112,19 @@
 				{name: '1 tbsp peanut butter', protein: 1, carbs: 5.8, fat: 3},
 				{name: '100g salmon', protein: 1, carbs: 5.8, fat: 3},
 				{name: '100g steak', protein: 1, carbs: 5.8, fat: 3},
+				{name: 'egg white', protein: 1, carbs: 5.8, fat: 3},
+				{name: 'sardins', protein: 1, carbs: 5.8, fat: 3},
+				{name: 'tuna can', protein: 1, carbs: 5.8, fat: 3},
+				{name: 'tuna fresh', protein: 1, carbs: 5.8, fat: 3},
+				{name: '150g drum sticks', protein: 1, carbs: 5.8, fat: 3},
+				{name: '100g chicken thighs', protein: 1, carbs: 5.8, fat: 3},
 
 			]
 
 			localStorage.setItem('firstTime', 'false')
 			localStorage.setItem('food', JSON.stringify(food))
 		  filteredFood = food
-			filteredFood = filteredFood.slice(0,15)
+			filteredFood = filteredFood.slice(0,16)
 		}
 
 		countCalories(foodIAte)
