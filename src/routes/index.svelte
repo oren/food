@@ -6,12 +6,6 @@
 	span {
 		margin-right: 5px
 	}
-	.total, .goal {
-		/*	background-color: #ffe9f4; */
-	}
-	.total {
-		margin-bottom: 20px;
-	}
 	.today {
 		margin-top: 20px;
 	}
@@ -27,6 +21,7 @@
 		margin-top: 20px;
 	}
 	.filter {
+		float: right;
 		font-size: 150%;
 		margin-top: 20px;
 		margin-bottom: 10px;
@@ -36,14 +31,13 @@
 		color: green;
 	}
 	.ate-wrapper {
+		float: left;
 		display: grid;
-		grid-template-columns: 7% 50% 5%;
+		grid-template-columns: 10px 91% 2%;
 		grid-gap: 5px;
 	}
-	.ate-box {
-		color: green;
-	}
 	.wrapper {
+		float: right;
 		display: grid;
 		grid-template-columns: 50% 50%;
 		grid-gap: 5px;
@@ -98,6 +92,7 @@
 		columns = localStorage.getItem('columns') || '50% 50%'
 		food = JSON.parse(localStorage.getItem('food')) || []
 		filteredFood = food
+		filteredFood = filteredFood.slice(0,15)
 		foodIAte = JSON.parse(localStorage.getItem('ate')) || []
 
 		if(firstTime && food.length === 0) {
@@ -123,11 +118,11 @@
 			localStorage.setItem('firstTime', 'false')
 			localStorage.setItem('food', JSON.stringify(food))
 		  filteredFood = food
-		} else {
-			console.log('not first time or food exist')
+			filteredFood = filteredFood.slice(0,15)
 		}
 
 		countCalories(foodIAte)
+		console.log('food', food)
 	})
 
 	function handleClear() {
@@ -182,39 +177,37 @@
 	<p>You have no food.</p>
 	<p><a href="/food/manage-food/add-food">Add some food first</a>.</p>
 {:else}
-	{#if foodIAte.length > 0}
-		<button class='float-right w-20 bg-red-400 py-1 px-4' on:click={handleClear}>Clear</button>
-	{/if}
-
-	{#if isGoal}
-	<div class='goal'>
-		<span>Goal: {goal}</span>
-		<span>Left:</span><span class={remaining}> {Math.round(goal-calories)}</span>
-	</div>
-	{/if}
-
-	<div class='total'>
-		<span>Cal: {Math.round(calories)}</span>
-		<span>Pro:{Math.round(protein)}</span>
-		<span>Car:{Math.round(carbs)}</span>
-		<span>Fat:{Math.round(fat)}</span>
-	</div>
-
-	<div style="clear:both;"></div>
-
-	<div class='ate-wrapper mt-1'>
-		{#each foodIAte as { id, name, count }, i}
-			<button class="text-red-400" href="#" on:click|preventDefault={() => handleDelete(foodIAte[i])}><Icon data={trash}/></button><div class='ate-box'>{name}</div><div class='ate-box'>{count}</div>
-		{/each}
-	</div>
-
-	{#if food.length >= 10}
-		<input bind:value={filter} class='filter' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
-	{/if}
 
 	<div class="wrapper" style="grid-template-columns: {columns}; margin-top: {food.length >=10 ? 0 : 20}px;">
 		{#each filteredFood as { id, name }, i}
 			<button class='box' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
+		{/each}
+		{#if food.length >= 10}
+			<input bind:value={filter} class='bg-gray-200 px-2 py-2' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
+		{/if}
+	</div>
+
+	{#if isGoal}
+		<div>
+			<span>Goal:{goal}</span>
+			<span>Left:</span><span class={remaining}>{Math.round(goal-calories)}</span>
+		</div>
+	{/if}
+
+	<div>
+		<span>Cal:{Math.round(calories)}</span>
+		<span>P:{Math.round(protein)}</span>
+		<span>C:{Math.round(carbs)}</span>
+		<span>F:{Math.round(fat)}</span>
+	</div>
+
+	{#if foodIAte.length > 0}
+		<button class="bg-red-400 py-1 px-4" href="#" on:click={handleClear}>Delete All</button><div></div><div></div>
+	{/if}
+
+	<div class='ate-wrapper mt-1'>
+		{#each foodIAte as { id, name, count }, i}
+			<button class="text-red-400" href="#" on:click|preventDefault={() => handleDelete(foodIAte[i])}><Icon data={trash}/></button><div>{name}</div><div>{count}</div>
 		{/each}
 	</div>
 {/if}
