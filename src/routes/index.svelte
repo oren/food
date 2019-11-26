@@ -15,7 +15,7 @@
 		margin-bottom: 5px;
 	}
 	.remaining {
-		background-color: #ffcccc;
+		@apply text-red-700;
 	}
 	.add {
 		margin-top: 20px;
@@ -190,7 +190,7 @@
 	{#if isGoal}
 		<div>
 			<span>Goal:{goal}</span>
-			<span>Left:</span><span class={remaining}>{Math.round(goal-calories)}</span>
+			<span class={remaining}>Left:</span><span class={remaining}>{Math.round(goal-calories)}</span>
 		</div>
 	{/if}
 
