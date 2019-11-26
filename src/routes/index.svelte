@@ -66,9 +66,9 @@
 	$: calories = parseFloat(Number(protein*4 + carbs*4 + fat*9).toFixed(1))
 	let filter = ''
 	let filteredFood = []
+	let font = window.screen.width <= 360 ? 'text-sm' : '' // small text for food on small phones
 
 	function handleFoodClick(foodClicked) {
-
 		let index = foodIAte.findIndex(f => f.name === foodClicked.name);
 
 		// first time you eat this food - add to array
@@ -92,7 +92,7 @@
 		columns = localStorage.getItem('columns') || '50% 50%'
 		food = JSON.parse(localStorage.getItem('food')) || []
 		filteredFood = food
-		filteredFood = filteredFood.slice(0,16)
+		filteredFood = filteredFood.slice(0,15)
 		foodIAte = JSON.parse(localStorage.getItem('ate')) || []
 
 		if(firstTime && food.length === 0) {
@@ -124,7 +124,7 @@
 			localStorage.setItem('firstTime', 'false')
 			localStorage.setItem('food', JSON.stringify(food))
 		  filteredFood = food
-			filteredFood = filteredFood.slice(0,16)
+			filteredFood = filteredFood.slice(0,15)
 		}
 
 		countCalories(foodIAte)
@@ -186,7 +186,7 @@
 
 	<div class="wrapper">
 		{#each filteredFood as { id, name }, i}
-			<button class='box' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
+		<button class='{font} bg-blue-100 p-1' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
 		{/each}
 		{#if food.length >= 10}
 			<input bind:value={filter} class='bg-gray-200 px-2 py-1' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
