@@ -39,7 +39,7 @@
 	.wrapper {
 		float: right;
 		display: grid;
-		grid-template-columns: 50% 50%;
+		grid-template-columns: 100%;
 		grid-gap: 5px;
 	}
 	.box {
@@ -178,7 +178,7 @@
 	<p><a href="/food/manage-food/add-food">Add some food first</a>.</p>
 {:else}
 
-	<div class="wrapper" style="grid-template-columns: {columns}; margin-top: {food.length >=10 ? 0 : 20}px;">
+	<div class="wrapper">
 		{#each filteredFood as { id, name }, i}
 			<button class='box' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
 		{/each}

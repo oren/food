@@ -47,9 +47,6 @@
 		localStorage.setItem('goal', Number(goal))
 	}
 
-	function columnChange () {
-		localStorage.setItem('columns', columns)
-	}
 </script>
 
 <div>
@@ -62,13 +59,6 @@
 	{/if}
 
 	<input class={isGoal ? "goal" : "no-goal"} type="text" name="goal-text" bind:value={goal} on:keyup={goalChange} disabled={isGoal ? "" : "disabled"} maxlength="4" size="3">
-</div>
-
-<div class="mt-2">
-	<label>Food Columns:</label>
-	<label><input type='radio' bind:group={columns} on:change={columnChange} value="100%">1</label>
-	<label><input type='radio' bind:group={columns} on:change={columnChange} value="50% 50%">2</label>
-	<label><input type='radio' bind:group={columns} on:change={columnChange} value="30% 30% 30%">3</label>
 </div>
 
 <h2 class="text-xl mt-4">About</h2>
