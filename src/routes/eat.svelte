@@ -120,12 +120,6 @@
 	.remaining {
 		@apply text-red-700;
 	}
-	.pills {
-		position: fixed;
-		bottom: 40px;
-		width: 100%;
-		z-index:1000;
-	}
 </style>
 
 
@@ -153,11 +147,7 @@
 	{/each}
 </div>
 
-<ul class="flex mb-3 pills">
-  <li class="mr-3">
-    <a class="inline-block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4" href="/food">Ate Today</a>
-  </li>
-  <li class="mr-3">
-    <a class="inline-block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white" href="">Choose Food</a>
-  </li>
+<ul class="flex fixed pills bottom-0 mb-10 w-full z-50 border-t border-gray-200">
+	<li class="flex-1"> <a class="text-center block py-2 px-4" href="/food">Ate Today</a> </li>
+	<li class="flex-1 mr-6"> <a class="text-center block py-2 px-4 text-blue-500" href="">Choose Food</a> </li>
 </ul>
