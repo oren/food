@@ -48,6 +48,18 @@
 	ul {
 		@apply flex fixed bottom-0 mb-10 w-full z-50 border-t border-gray-200;
 	}
+	ul li {
+		@apply flex-1;
+	}
+	ul li.first a{
+		@apply text-center block py-2 px-4 text-blue-500
+	}
+	ul li.second {
+		@apply mr-6;
+	}
+	ul li.second a {
+		@apply text-center block py-2 px-4;
+	}
 </style>
 
 <script>
@@ -208,7 +220,7 @@
 	</div>
 
 	<ul>
-		<li class="flex-1"> <a class="text-center block py-2 px-4 text-blue-500" href="">Ate Today</a> </li>
-		<li class="flex-1 mr-6"> <a class="text-center block py-2 px-4" href="/food/eat">Choose Food</a> </li>
+		<li class="first"> <a href="">Ate Today</a> </li>
+		<li class="second"> <a href="/food/eat">Choose Food</a> </li>
 	</ul>
 {/if}
