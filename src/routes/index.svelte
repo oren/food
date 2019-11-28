@@ -40,13 +40,14 @@
 		display: grid;
 		grid-template-columns: 100%;
 		grid-gap: 3px;
+		padding-bottom: 450px;
 	}
 	.box {
 		padding: 3px;
 		@apply bg-blue-100;
 	}
 	ul {
-		@apply flex fixed bottom-0 mb-10 w-full z-50 border-t border-gray-200;
+		@apply flex fixed bottom-0 mb-10 mt-20 w-full z-50 bg-white border-t border-gray-200;
 	}
 	ul li {
 		@apply flex-1;
@@ -193,8 +194,6 @@
 	<p>You have no food.</p>
 	<p><a href="/food/manage-food/add-food">Add some food first</a>.</p>
 {:else}
-
-
 	{#if isGoal}
 		<div>
 			<span>Goal:{goal}</span>
@@ -218,7 +217,6 @@
 			<button class="text-red-400" href="#" on:click|preventDefault={() => handleDelete(foodIAte[i])}><Icon data={trash}/></button><div>{name}</div><div>{count}</div>
 		{/each}
 	</div>
-
 	<ul>
 		<li class="first"> <a href="">Ate Today</a> </li>
 		<li class="second"> <a href="/food/eat">Choose Food</a> </li>

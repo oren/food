@@ -116,12 +116,14 @@
 		display: grid;
 		grid-template-columns: 50% 50%;
 		grid-gap: 3px;
+		padding-bottom: 75px;
 	}
 	.remaining {
 		@apply text-red-700;
 	}
 	ul {
-		@apply flex fixed bottom-0 mb-10 w-full z-50 border-t border-gray-200;
+		@apply flex fixed bottom-0 mb-10 w-full z-50 bg-white border-t border-gray-200;
+		z-index: 1000;
 	}
 	ul li {
 		@apply flex-1;
@@ -152,17 +154,17 @@
 		<span>F:{Math.round(fat)}</span>
 	</div>
 
-{#if food.length >= 10}
-	<input bind:value={filter} class='bg-gray-200 px-2 py-1 mb-2 mt-1' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
-{/if}
+	{#if food.length >= 10}
+		<input bind:value={filter} class='bg-gray-200 px-2 py-1 mb-2 mt-1' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
+	{/if}
 
-<div class="wrapper">
-	{#each filteredFood as { id, name }, i}
-		<button class='bg-blue-100 p-1' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
-	{/each}
-</div>
+	<div class="wrapper">
+		{#each filteredFood as { id, name }, i}
+			<button class='bg-blue-100 p-1' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
+		{/each}
+	</div>
 
 <ul>
 	<li class="first"> <a href="/food">Ate Today</a> </li>
-	<li class="second"> <a href="">Choose Food</a> </li>
+	<li class="second"> <a href="/food/eat">Choose Food</a> </li>
 </ul>

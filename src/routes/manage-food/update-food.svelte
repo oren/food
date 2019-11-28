@@ -26,6 +26,7 @@
 		display: grid;
 		grid-template-columns: 90% 10%;
 		grid-gap: 5px;
+		padding-bottom: 40px;
 	}
 	.box {
 		@apply bg-blue-100;
