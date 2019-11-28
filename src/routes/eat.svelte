@@ -122,8 +122,8 @@
 		@apply text-red-700;
 	}
 	ul {
-		@apply flex fixed bottom-0 mb-10 w-full z-50 bg-white border-t border-gray-200;
-		z-index: 1000;
+		@apply flex fixed w-screen bottom-0 mb-10 mt-20 z-50 bg-white border-t border-gray-200;
+		border: 1px solid red;
 	}
 	ul li {
 		@apply flex-1;
