@@ -34,13 +34,7 @@
 		display: grid;
 		grid-template-columns: 10px 91% 2%;
 		grid-gap: 5px;
-	}
-	.wrapper {
-		float: right;
-		display: grid;
-		grid-template-columns: 100%;
-		grid-gap: 3px;
-		padding-bottom: 450px;
+		padding-bottom: 75px;
 	}
 	.box {
 		padding: 3px;

@@ -29,7 +29,7 @@
 		columns = localStorage.getItem('columns') || '50% 50%'
 		food = JSON.parse(localStorage.getItem('food')) || []
 		filteredFood = food
-		filteredFood = filteredFood.slice(0,15)
+		filteredFood = filteredFood.slice(0,50)
 		foodIAte = JSON.parse(localStorage.getItem('ate')) || []
 
 		if(firstTime && food.length === 0) {
@@ -60,7 +60,7 @@
 			localStorage.setItem('firstTime', 'false')
 			localStorage.setItem('food', JSON.stringify(food))
 		  filteredFood = food
-			filteredFood = filteredFood.slice(0,15)
+			filteredFood = filteredFood.slice(0,50)
 		}
 
 		countCalories(foodIAte)
