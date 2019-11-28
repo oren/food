@@ -32,7 +32,7 @@
 	}
 	.ate-wrapper {
 		display: grid;
-		grid-template-columns: 10px 91% 2%;
+		grid-template-columns: 15px 86% 2%;
 		grid-gap: 5px;
 		padding-bottom: 75px;
 	}
@@ -46,7 +46,7 @@
 	ul li {
 		@apply flex-1;
 	}
-	ul li.first a{
+	ul li.first {
 		@apply text-center block py-2 px-4 text-blue-500
 	}
 	ul li.second {
@@ -212,7 +212,7 @@
 		{/each}
 	</div>
 	<ul>
-		<li class="first"> <a href="">Ate Today</a> </li>
-		<li class="second"> <a href="/food/eat">Choose Food</a> </li>
+		<li class="first">Ate Today</li>
+		<li class="second"> <a href="/food/eat">Choose Food</li>
 	</ul>
 {/if}

@@ -134,37 +134,36 @@
 	ul li.second {
 		@apply mr-6;
 	}
-	ul li.second a {
+	ul li.second {
 		@apply text-center block py-2 px-4 text-blue-500;
 	}
 </style>
 
-
-	{#if isGoal}
-		<div>
-			<span>Goal:{goal}</span>
-			<span class={remaining}>Left:</span><span class={remaining}>{Math.round(goal-calories)}</span>
-		</div>
-	{/if}
-
+{#if isGoal}
 	<div>
-		<span>Cal:{Math.round(calories)}</span>
-		<span>P:{Math.round(protein)}</span>
-		<span>C:{Math.round(carbs)}</span>
-		<span>F:{Math.round(fat)}</span>
+		<span>Goal:{goal}</span>
+		<span class={remaining}>Left:</span><span class={remaining}>{Math.round(goal-calories)}</span>
 	</div>
+{/if}
 
-	{#if food.length >= 10}
-		<input bind:value={filter} class='bg-gray-200 px-2 py-1 mb-2 mt-1' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
-	{/if}
+<div>
+	<span>Cal:{Math.round(calories)}</span>
+	<span>P:{Math.round(protein)}</span>
+	<span>C:{Math.round(carbs)}</span>
+	<span>F:{Math.round(fat)}</span>
+</div>
 
-	<div class="wrapper">
-		{#each filteredFood as { id, name }, i}
-			<button class='bg-blue-100 p-1' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
-		{/each}
-	</div>
+{#if food.length >= 10}
+	<input bind:value={filter} class='bg-gray-200 px-2 py-1 mb-2 mt-1' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
+{/if}
+
+<div class="wrapper">
+	{#each filteredFood as { id, name }, i}
+		<button class='bg-blue-100 p-1' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
+	{/each}
+</div>
 
 <ul>
 	<li class="first"> <a href="/food">Ate Today</a> </li>
-	<li class="second"> <a href="/food/eat">Choose Food</a> </li>
+	<li class="second">Choose Food</li>
 </ul>
