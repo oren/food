@@ -41,19 +41,17 @@
 		@apply bg-blue-100;
 	}
 	ul {
-		@apply flex fixed bottom-0 mb-10 mt-20 w-full z-50 bg-white border-t border-gray-200;
+		@apply flex fixed w-full bottom-0 mb-10 mt-20 z-50 bg-white border-t border-gray-200;
+		margin-left: -12px;
 	}
 	ul li {
 		@apply flex-1;
 	}
 	ul li.first {
-		@apply text-center block py-2 px-4 text-blue-500
-	}
-	ul li.second {
-		@apply mr-6;
+		@apply text-center block py-2 text-blue-500
 	}
 	ul li.second a {
-		@apply text-center block py-2 px-4;
+		@apply text-center block py-2;
 	}
 </style>
 

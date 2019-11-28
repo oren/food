@@ -19,8 +19,10 @@
 	let filter = ''
 	let filteredFood = []
 	let font = window.screen.width <= 360 ? 'text-sm' : '' // small text for food on small phones
+  $: screenWidth = window.screen.availWidth
 
 	onMount(async () => {
+
 		firstTime = localStorage.getItem('firstTime') || 'true'
 		firstTime = (firstTime === 'true'); //localStorage keep everything as string so I convert it to bool
 
@@ -122,20 +124,17 @@
 		@apply text-red-700;
 	}
 	ul {
-		@apply flex fixed w-screen bottom-0 mb-10 mt-20 z-50 bg-white border-t border-gray-200;
-		border: 1px solid red;
+		@apply flex fixed w-full bottom-0 mb-10 mt-20 z-50 bg-white border-t border-gray-200;
+		margin-left: -12px;
 	}
 	ul li {
 		@apply flex-1;
 	}
-	ul li.first a{
-		@apply text-center block py-2 px-4;
+ li.first a {
+		@apply text-center block py-2;
 	}
 	ul li.second {
-		@apply mr-6;
-	}
-	ul li.second {
-		@apply text-center block py-2 px-4 text-blue-500;
+		@apply text-center block py-2 text-blue-500;
 	}
 </style>
 
