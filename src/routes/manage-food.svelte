@@ -3,19 +3,8 @@
 </svelte:head>
 
 <style>
-	.wrapper {
-		display: grid;
-		grid-template-columns: fit-content;
-		grid-gap: 5px;
-	}
-
-	.box {
-		padding: 20px;
-		@apply bg-blue-100;
-	}
-
-	.wrapper a {
-		text-decoration: none;
+	nav div {
+		@apply bg-blue-500 py-4 mb-2;
 	}
 </style>
 
@@ -29,11 +18,13 @@
 	})
 </script>
 
-<div class="wrapper">
-	<a class="box a" href="/food/manage-food/add-food"><div>Add Food</div></a>
+
+<nav class="text-white font-bold text-center">
+	<div><a href="/food/manage-food/add-food">Add Food</a></div>
 {#if (food.length !== 0)}
-	<a class="box b" href="/food/manage-food/update-food"><div>Update Food</div></a>
-	<a class="box d" href="/food/manage-food/export"><div>Export</div></a>
+	<div><a href="/food/manage-food/update-food">Update Food</a></div>
+	<div><a href="/food/manage-food/export">Export Food</a></div>
 {/if}
-	<a class="box e" href="/food/manage-food/import"><div>Import</div></a>
-</div>
+	<div><a href="/food/manage-food/import">Import Food</a></div>
+</nav>
+
