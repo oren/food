@@ -153,7 +153,7 @@
 </div>
 
 {#if food.length >= 10}
-	<input bind:value={filter} class='bg-gray-200 px-2 py-1 mb-2 mt-1' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
+	<input bind:value={filter} class='bg-gray-200 px-2 py-1 mb-2 mt-1 w-1/2' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
 {/if}
 
 <div class="wrapper">

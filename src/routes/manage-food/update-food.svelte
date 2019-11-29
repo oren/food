@@ -23,7 +23,6 @@
 		margin-bottom: 10px;
 	}
 	.wrapper {
-		border: 1px solid red;
 		display: grid;
 		grid-template-columns: 90% 10%;
 		grid-gap: 5px;

@@ -201,7 +201,7 @@
 	</div>
 
 	{#if foodIAte.length > 0}
-		<div><button class="bg-red-400 py-1 mt-2 w-20" href="#" on:click={handleClear}>Clear All</button></div>
+		<div><button class="bg-red-400 text-white font-bold py-1 px-3 mt-3 w-1/2" on:click={handleClear}>Clear All</button></div>
 	{/if}
 
 	<div class='ate-wrapper mt-1'>
