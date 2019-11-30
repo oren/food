@@ -211,7 +211,7 @@
 	</div>
 	<ul>
 		<li class="first">Ate Today</li>
-		<li class="second"> <a href="/food/eat/">Choose Food</li>
+		<li class="second"> <a href="/food/eat">Choose Food</a></li>
 	</ul>
 {/if}
 
