@@ -3,8 +3,8 @@
 </svelte:head>
 
 <style>
-	nav div {
-		@apply bg-blue-500 py-4 mb-2;
+	nav a {
+		@apply block bg-blue-500 py-4 mb-2;
 	}
 </style>
 
@@ -20,11 +20,11 @@
 
 
 <nav class="text-white font-bold text-center">
-	<div><a href="/food/manage-food/add-food">Add Food</a></div>
+	<a href="/food/manage-food/add-food">Add Food</a>
 {#if (food.length !== 0)}
-	<div><a href="/food/manage-food/update-food">Update Food</a></div>
-	<div><a href="/food/manage-food/export">Export Food</a></div>
+	<a href="/food/manage-food/update-food">Update Food</a>
+	<a href="/food/manage-food/export">Export Food</a>
 {/if}
-	<div><a href="/food/manage-food/import">Import Food</a></div>
+	<a href="/food/manage-food/import">Import Food</a>
 </nav>
 

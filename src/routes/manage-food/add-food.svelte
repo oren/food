@@ -108,5 +108,5 @@
 	<br />
 	<input type="number"  bind:value={fat} placeholder="Fat" on:keyup={validateFat} min="0" max="999"/>
 	<br />
-	<button class="bg-blue-100 py-1 px-4" on:click|preventDefault={handleAdd}>Add</button>
+	<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3" on:click|preventDefault={handleAdd}>Add</button>
 </form>
