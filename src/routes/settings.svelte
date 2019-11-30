@@ -14,6 +14,7 @@
   display: inline-block;
   width: 60px;
   height: 34px;
+	margin-right: 10px;
 }
 
 .switch input {
@@ -122,7 +123,7 @@ input:checked + .slider:before {
 		</label>
 	{/if}
 
-	<input class={isGoal ? "goal float-left mt-1 ml-2" : "no-goal float-left mt-1 ml-2"} type="text" name="goal-text" bind:value={goal} on:keyup={goalChange} disabled={isGoal ? "" : "disabled"} maxlength="4" size="3">
+	<input class={isGoal ? "goal float-left mt-1" : "no-goal float-left mt-1"} type="text" name="goal-text" bind:value={goal} on:keyup={goalChange} disabled={isGoal ? "" : "disabled"} maxlength="4" size="3">
 </div>
 
 <div style="clear: both;"></div>
