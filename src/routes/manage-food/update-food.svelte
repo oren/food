@@ -53,6 +53,7 @@
 
 	let filter = ''
 	let filteredFood = []
+	let recentFood = []
 
 	function handleUpdate() {
 		filteredFood = food
@@ -84,6 +85,7 @@
 
 	onMount(async () => {
 		food = JSON.parse(localStorage.getItem('food')) || []
+		recentFood = JSON.parse(localStorage.getItem('recentFood')) || []
 		filteredFood = food
 	})
 
@@ -115,6 +117,14 @@
 
     localStorage.setItem('food', JSON.stringify(filtered))
 		food = filtered
+
+		filtered = recentFood.filter(function(f, index, arr){
+			return f.name !== name;
+		});
+
+    localStorage.setItem('recentFood', JSON.stringify(filtered))
+		recentFood = filtered
+
 		mode = 'view'
 		name = ''
 		protein = ''
@@ -137,6 +147,14 @@
     localStorage.setItem('food', JSON.stringify(filtered))
 		food = filtered
 		filteredFood = filtered
+
+		filtered = recentFood.filter(function(f, index, arr){
+			return f.name !== foodItem.name;
+		});
+
+    localStorage.setItem('recentFood', JSON.stringify(filtered))
+		recentFood = filtered
+
 		mode = 'view'
 		name = ''
 		protein = ''
