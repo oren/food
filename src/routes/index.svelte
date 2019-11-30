@@ -214,3 +214,8 @@
 		<li class="second"> <a href="/food/eat">Choose Food</li>
 	</ul>
 {/if}
+
+<!-- the following links are not available to the sapper export command since they are only available if food exist. Hiding them here ensure that hiting refresh on production don't throws 404. -->
+<a class="invisible" href="/food/eat">Choose Food</a>
+<a class="invisible" href="/food/update-food">Update Food</a>
+<a class="invisible" href="/food/export">Export Food</a>
