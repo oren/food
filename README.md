@@ -12,6 +12,27 @@ npx sapper export --basepath /food
 cp -r __sapper__/export/food/* ~/p/oren.github.io/food/
 ```
 
+## Helper Commands (Makefile)
+Show list of available commands in the Makefile
+```
+make list
+```
+
+Deploy to production
+```
+make deploy
+```
+
+Export
+```
+make export
+```
+
+Run production-like server on your laptop
+```
+make run-local
+```
+
 ## Features
 
 * [ ] Improve UX of managing food
