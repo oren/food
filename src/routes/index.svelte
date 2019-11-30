@@ -72,7 +72,6 @@
 	let fat = 0
 	$: calories = parseFloat(Number(protein*4 + carbs*4 + fat*9).toFixed(1))
 	let filter = ''
-	let filteredFood = []
 	let font = window.screen.width <= 360 ? 'text-sm' : '' // small text for food on small phones
 
 	function handleFoodClick(foodClicked) {
@@ -98,8 +97,6 @@
 		goal = localStorage.getItem('goal') || 2000
 		columns = localStorage.getItem('columns') || '50% 50%'
 		food = JSON.parse(localStorage.getItem('food')) || []
-		filteredFood = food
-		filteredFood = filteredFood.slice(0,15)
 		foodIAte = JSON.parse(localStorage.getItem('ate')) || []
 
 		if(firstTime && food.length === 0) {
@@ -129,8 +126,7 @@
 
 			localStorage.setItem('firstTime', 'false')
 			localStorage.setItem('food', JSON.stringify(food))
-		  filteredFood = food
-			filteredFood = filteredFood.slice(0,15)
+			localStorage.setItem('recentFood', JSON.stringify(food))
 		}
 
 		countCalories(foodIAte)
@@ -153,14 +149,6 @@
 
     localStorage.setItem('ate', JSON.stringify(filtered))
 		countCalories(foodIAte)
-	}
-
-	function handleFilter() {
-		if(filter === '') {
-			filteredFood = food
-		}
-
-		filteredFood = food.filter(f => f.name.toLowerCase().includes(filter.toLowerCase()));
 	}
 
 	const countCalories = (food) => {

@@ -22,7 +22,6 @@
   $: screenWidth = window.screen.availWidth
 
 	onMount(async () => {
-
 		firstTime = localStorage.getItem('firstTime') || 'true'
 		firstTime = (firstTime === 'true'); //localStorage keep everything as string so I convert it to bool
 
@@ -30,8 +29,7 @@
 		goal = localStorage.getItem('goal') || 2000
 		columns = localStorage.getItem('columns') || '50% 50%'
 		food = JSON.parse(localStorage.getItem('food')) || []
-		filteredFood = food
-		filteredFood = filteredFood.slice(0,50)
+		filteredFood = JSON.parse(localStorage.getItem('recentFood')) || []
 		foodIAte = JSON.parse(localStorage.getItem('ate')) || []
 
 		if(firstTime && food.length === 0) {
@@ -62,7 +60,6 @@
 			localStorage.setItem('firstTime', 'false')
 			localStorage.setItem('food', JSON.stringify(food))
 		  filteredFood = food
-			filteredFood = filteredFood.slice(0,50)
 		}
 
 		countCalories(foodIAte)
