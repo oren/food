@@ -35,7 +35,6 @@ make run-local
 
 ## Features
 
-* [ ] Improve UX of managing food
 * [ ] Create Meal
 * [ ] Mass deletion
 * [ ] Import and export food
