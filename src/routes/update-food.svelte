@@ -193,7 +193,7 @@
 			<div><input type="number"  bind:value={fat} placeholder="Fat" on:keyup={validateFat} min="0" max="999"/></div>
 
 			<div class="mt-3">
-				<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3" on:click={handleUpdate}>Update</button>
+				<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3" on:click|preventDefault={handleUpdate}>Update</button>
 				<button class="text-red-400 py-1 px-1" on:click={handleDelete}><Icon data={trash}/></button>
 			</div>
 		</form>
