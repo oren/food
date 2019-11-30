@@ -18,6 +18,7 @@
 	$: calories = parseFloat(Number(protein*4 + carbs*4 + fat*9).toFixed(1))
 	let filter = ''
 	let filteredFood = []
+	let recentFood = []
 	let font = window.screen.width <= 360 ? 'text-sm' : '' // small text for food on small phones
   $: screenWidth = window.screen.availWidth
 
@@ -30,6 +31,7 @@
 		columns = localStorage.getItem('columns') || '50% 50%'
 		food = JSON.parse(localStorage.getItem('food')) || []
 		filteredFood = JSON.parse(localStorage.getItem('recentFood')) || []
+		recentFood = filteredFood
 		foodIAte = JSON.parse(localStorage.getItem('ate')) || []
 
 		if(firstTime && food.length === 0) {
@@ -86,6 +88,25 @@
 
 		localStorage.setItem('ate', JSON.stringify(foodIAte))
 		countCalories(foodIAte)
+
+		updateRecent(foodClicked)
+	}
+
+	const updateRecent = (foodClicked) => {
+		// remove food
+		let filtered = recentFood.filter(function(f, index, arr){
+			return f.name !== foodClicked.name;
+		});
+
+		// add to top
+		filtered.unshift(foodClicked)
+
+		// cut last food if there are more than 20
+		if(filtered.length > 20) {
+			filtered.splice(-1, 1)
+		}
+
+		localStorage.setItem('recentFood', JSON.stringify(filtered))
 	}
 
 	const countCalories = (food) => {
