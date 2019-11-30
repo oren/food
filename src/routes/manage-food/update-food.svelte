@@ -72,15 +72,23 @@
 		}
 
 		let index = food.findIndex(f => f.name === oldName);
-
 		food[index].name = name
 		food[index].protein = protein
 		food[index].carbs = carbs
 		food[index].fat = fat
-
 		localStorage.setItem('food', JSON.stringify(food))
+
 		successMessage = 'Food was updated'
 		showUpdateForm = false
+
+		// update recent food
+		index = recentFood.findIndex(f => f.name === oldName);
+		if(index === -1) return
+		recentFood[index].name = name
+		recentFood[index].protein = protein
+		recentFood[index].carbs = carbs
+		recentFood[index].fat = fat
+		localStorage.setItem('recentFood', JSON.stringify(recentFood))
 	}
 
 	onMount(async () => {
