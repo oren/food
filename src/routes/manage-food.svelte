@@ -20,11 +20,11 @@
 
 
 <nav class="text-white font-bold text-center">
-	<a href="/food/add-food">Add Food</a>
+	<a href="/food/manage-food/add-food">Add Food</a>
 {#if (food.length !== 0)}
-	<a href="/food/update-food">Update Food</a>
-	<a href="/food/export">Export Food</a>
+	<a href="/food/manage-food/update-food">Update Food</a>
+	<a href="/food/manage-food/export">Export Food</a>
 {/if}
-	<a href="/food/import">Import Food</a>
+	<a href="/food/manage-food/import">Import Food</a>
 </nav>
 
