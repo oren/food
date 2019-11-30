@@ -92,7 +92,11 @@
 	}
 
 	onMount(async () => {
-		food = JSON.parse(localStorage.getItem('food')) || []
+		const sortAlpha = (a, b) => {
+			return a.name > b.name
+		}
+
+		food = JSON.parse(localStorage.getItem('food')).sort(sortAlpha) || []
 		recentFood = JSON.parse(localStorage.getItem('recentFood')) || []
 		filteredFood = food
 	})
