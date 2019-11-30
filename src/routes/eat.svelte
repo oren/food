@@ -23,6 +23,10 @@
   $: screenWidth = window.screen.availWidth
 
 	onMount(async () => {
+		const sortAlpha = (a, b) => {
+			return a.name > b.name
+		}
+
 		firstTime = localStorage.getItem('firstTime') || 'true'
 		firstTime = (firstTime === 'true'); //localStorage keep everything as string so I convert it to bool
 
@@ -30,7 +34,7 @@
 		goal = localStorage.getItem('goal') || 2000
 		columns = localStorage.getItem('columns') || '50% 50%'
 		food = JSON.parse(localStorage.getItem('food')) || []
-		filteredFood = JSON.parse(localStorage.getItem('recentFood')) || []
+		filteredFood = JSON.parse(localStorage.getItem('recentFood')).sort(sortAlpha) || []
 		recentFood = filteredFood
 		foodIAte = JSON.parse(localStorage.getItem('ate')) || []
 
