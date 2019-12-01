@@ -29,7 +29,7 @@
 
 <script>
 	import { onMount } from 'svelte';
-	import { validate } from './validate.js';
+	import { validate, foodExist } from './validate.js';
 
 	let name = ''
 	let protein = ''
@@ -41,6 +41,8 @@
 	let successMessage = ''
 
 	function handleAdd() {
+		event.preventDefault()
+
 		let validReturn = {}
 
 		successMessage = ''
@@ -56,6 +58,12 @@
 
 		// save in the browser
 		const allFood = JSON.parse(localStorage.getItem('food')) || []
+		const index = foodExist(name, allFood)
+		if (index !== -1) {
+			errorMessage = "Food with this name already exist"
+			return
+		}
+
 		allFood.push({name, protein, carbs, fat})
 		localStorage.setItem('food', JSON.stringify(allFood))
 		food = allFood
@@ -64,7 +72,6 @@
 		carbs = ''
 		fat = ''
 		successMessage = 'Food was added'
-		event.preventDefault()
 		return
 	}
 
