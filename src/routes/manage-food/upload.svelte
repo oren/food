@@ -29,7 +29,9 @@
 	}
 </script>
 
-<h2 class="text-xl">Upload Food</h2>
+<h2 class="text-xl mb-1">Upload Food</h2>
+
+<p class="mb-3">The upload feature is in progress. Currently it deletes all your food and replace it with whatever you have in the text file. Also there is no validation so you might corrput your localStorage and if that's the case, you'll have to delete the website's storage to fix it</p>
 
 <form>
 	<input id="input" type="file" on:change={handleFile}>
