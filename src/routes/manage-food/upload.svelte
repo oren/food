@@ -10,12 +10,26 @@
 
 	function handleFile() {
 		const file = document.getElementById('input').files[0];
+		let foodItem = {}
 
 		var reader = new FileReader();
 			reader.onload = function(progressEvent){
 				var lines = this.result.split('\n');
 				for(var line = 0; line < lines.length; line++){
 					var f = lines[line].split(',');
+					foodItem = {name: f[0], protein: Number(f[1]), carbs: Number(f[2]), fat: Number(f[3])}
+					// isValid = validate(foodItem)
+					// if (!isValid) { continue }
+					//
+					// isExist = exist(foodItem.name)
+					// if(isExist) {
+					//   if(override) {
+					//     override()
+					//   }
+					//   continue
+					// }
+					//
+					// append(foodItem)
 					if(f[0]) {
 						food[line] =  {name: f[0], protein: Number(f[1]), carbs: Number(f[2]), fat: Number(f[3])}
 					}
