@@ -203,8 +203,8 @@
 		{#each foodIAte as { id, name, count }, i}
 			<button class="text-red-400 text-left" href="#" on:click|preventDefault={() => handleDelete(foodIAte[i])}><Icon data={trash}/></button>
 			<div>{name}</div>
-			<div class="text-right">{count}</div>
-			<button class="text-right" href="#" on:click|preventDefault={() => handlePlus(foodIAte[i])}><Icon data={plus}/></button>
+			<div class="">{count}</div>
+			<button class="" href="#" on:click|preventDefault={() => handlePlus(foodIAte[i])}><Icon data={plus}/></button>
 		{/each}
 	</div>
 	<ul>
