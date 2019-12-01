@@ -11,13 +11,17 @@
 	function handleFile() {
 		const file = document.getElementById('input').files[0];
 		let foodItem = {}
+		let isValid = false
+		let isExist = false
+		let overrides = 0
+		let ignores = 0
 
 		var reader = new FileReader();
 			reader.onload = function(progressEvent){
 				var lines = this.result.split('\n');
 				for(var line = 0; line < lines.length; line++){
 					var f = lines[line].split(',');
-					foodItem = {name: f[0], protein: Number(f[1]), carbs: Number(f[2]), fat: Number(f[3])}
+					// foodItem = {name: f[0], protein: Number(f[1]), carbs: Number(f[2]), fat: Number(f[3])}
 					// isValid = validate(foodItem)
 					// if (!isValid) { continue }
 					//
