@@ -130,3 +130,14 @@ input:checked + .slider:before {
 
 <h2 class="text-xl mt-4">About</h2>
 <p>This is a simple and fast calorie counter app. If you have feature request contact me: <a href="mailto:orengolan@gmail.com?subject=I love the calorie counter app!">orengolan@gmail.com</a><p/>
+
+<h2 class="text-xl mt-4">Upcoming Features</h2>
+
+<ul>
+	<li>
+		Upload Food
+	</li>
+	<li>
+		Add a Meal
+	</li>
+</ul>
