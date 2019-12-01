@@ -32,9 +32,9 @@
 	}
 	.ate-wrapper {
 		display: grid;
-		grid-template-columns: 15px 86% 2%;
-		grid-gap: 5px;
+		grid-template-columns: 25px 70% 5% auto;
 		padding-bottom: 75px;
+		grid-row-gap: 4px;
 	}
 	.box {
 		padding: 3px;
@@ -58,10 +58,9 @@
 <script>
 	import { onMount } from 'svelte';
 	import Icon from 'svelte-awesome/components/Icon.svelte'
-  import { trash } from 'svelte-awesome/icons';
+  import { trash, plus } from 'svelte-awesome/icons';
 
 	let firstTime = false
-	let columns = '50% 50%'
 	let isGoal = false
 	let goal = 2000
 	$: remaining = goal-calories <=0 ? 'remaining' : ''
@@ -95,7 +94,6 @@
 
 		isGoal = localStorage.getItem('isGoal') || false
 		goal = localStorage.getItem('goal') || 2000
-		columns = localStorage.getItem('columns') || '50% 50%'
 		food = JSON.parse(localStorage.getItem('food')) || []
 		foodIAte = JSON.parse(localStorage.getItem('ate')) || []
 
@@ -151,6 +149,15 @@
 		countCalories(foodIAte)
 	}
 
+	function handlePlus(foodClicked) {
+		let index = foodIAte.findIndex(f => f.name === foodClicked.name);
+
+		foodIAte[index].count = foodIAte[index].count + 1
+
+		localStorage.setItem('ate', JSON.stringify(foodIAte))
+		countCalories(foodIAte)
+	}
+
 	const countCalories = (food) => {
 		function sumProtein(total, f) {
 			return total + (f.protein * f.count)
@@ -194,7 +201,10 @@
 
 	<div class='ate-wrapper mt-1'>
 		{#each foodIAte as { id, name, count }, i}
-			<button class="text-red-400" href="#" on:click|preventDefault={() => handleDelete(foodIAte[i])}><Icon data={trash}/></button><div>{name}</div><div>{count}</div>
+			<button class="text-red-400 text-left" href="#" on:click|preventDefault={() => handleDelete(foodIAte[i])}><Icon data={trash}/></button>
+			<div>{name}</div>
+			<div class="text-right">{count}</div>
+			<button class="text-right" href="#" on:click|preventDefault={() => handlePlus(foodIAte[i])}><Icon data={plus}/></button>
 		{/each}
 	</div>
 	<ul>

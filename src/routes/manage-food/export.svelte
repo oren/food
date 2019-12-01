@@ -42,6 +42,6 @@
 <p class="mb-3">Exporting your food downloads a text file with all your food. You can save it somewhere as a backup or email it to a friend so they can imort it.</p>
 
 <button on:click={export2} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 inline-flex items-center">
-  <span>Download</span>
+	<span>Download</span>
 	<Icon style="margin-left: 0.5rem;" data={download}/>
 </button>
