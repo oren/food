@@ -10,6 +10,8 @@
 
 <script>
 	import { onMount } from 'svelte';
+	import Icon from 'svelte-awesome/components/Icon.svelte'
+  import { upload, download, plus, edit } from 'svelte-awesome/icons';
 
 	let food = []
 
@@ -20,11 +22,11 @@
 
 
 <nav class="text-white font-bold text-center">
-	<a href="/food/manage-food/add-food">Add Food</a>
+	<a href="/food/manage-food/add-food">Add Food<Icon style="margin-left: 0.5rem;" data={plus}/></a>
 {#if (food.length !== 0)}
-	<a href="/food/manage-food/update-food">Update Food</a>
-	<a href="/food/manage-food/export">Export Food</a>
+	<a href="/food/manage-food/update-food">Update Food<Icon style="margin-left: 0.5rem;" data={edit}/></a>
+	<a href="/food/manage-food/export">Export Food<Icon style="margin-left: 0.5rem;" data={download}/></a>
 {/if}
-	<a href="/food/manage-food/import">Import Food</a>
+	<a href="/food/manage-food/import">Import Food<Icon style="margin-left: 0.5rem;" data={upload}/></a>
 </nav>
 
