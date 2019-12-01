@@ -37,9 +37,9 @@
 	}
 </script>
 
-<h2 class="text-xl mb-1">Export Food</h2>
+<h2 class="text-xl mb-1">Download Food</h2>
 
-<p class="mb-3">Exporting your food downloads a text file with all your food. You can save it somewhere as a backup or email it to a friend so they can imort it.</p>
+<p class="mb-3">This will download a text file with all your food. You can save it somewhere as a backup or share with a friend so they can upload it to their app.</p>
 
 <button on:click={export2} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 inline-flex items-center">
 	<span>Download</span>
