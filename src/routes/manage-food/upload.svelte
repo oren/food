@@ -5,45 +5,66 @@
 <script>
 	import Icon from 'svelte-awesome/components/Icon.svelte'
   import { upload } from 'svelte-awesome/icons';
+	import { validate, foodExist, deleteFood, addFood } from './validate.js';
+	import { onMount } from 'svelte';
+
 	let food = []
 	let done = false
+	let validFood = 0
+	let overrides = 0
+	let ignores = 0
+	let errors = 0
+	let ignoreDuplicates = true
+
+	onMount(async () => {
+		food = JSON.parse(localStorage.getItem('food')) || []
+	})
 
 	function handleFile() {
+		validFood = 0
+		overrides = 0
+		ignores = 0
+		errors = 0
+
 		const file = document.getElementById('input').files[0];
 		let foodItem = {}
 		let isValid = false
-		let isExist = false
-		let overrides = 0
-		let ignores = 0
+		let foodIndex = false
+		let validationResults = {}
 
 		var reader = new FileReader();
 			reader.onload = function(progressEvent){
 				var lines = this.result.split('\n');
-				for(var line = 0; line < lines.length; line++){
+				for(var line = 0; line < lines.length; line++) {
 					var f = lines[line].split(',');
-					// foodItem = {name: f[0], protein: Number(f[1]), carbs: Number(f[2]), fat: Number(f[3])}
-					// isValid = validate(foodItem)
-					// if (!isValid) { continue }
-					//
-					// isExist = exist(foodItem.name)
-					// if(isExist) {
-					//   if(override) {
-					//     override()
-					//   }
-					//   continue
-					// }
-					//
-					// append(foodItem)
-					if(f[0]) {
-						food[line] =  {name: f[0], protein: Number(f[1]), carbs: Number(f[2]), fat: Number(f[3])}
+					foodItem = {name: f[0], protein: Number(f[1]), carbs: Number(f[2]), fat: Number(f[3])}
+					validationResults = validate(foodItem)
+					console.log('validations', validationResults)
+					if (!validationResults.valid) {
+						errors = errors + 1
+						continue;
 					}
+
+					validFood = validFood + 1
+
+					foodIndex = foodExist(foodItem.name, food)
+					if(foodIndex != -1) {
+					  if(ignoreDuplicates) {
+							ignores = ignores +1
+							continue
+					  }
+						overrides = overrides + 1
+					  food = deleteFood(foodItem.name, food)
+					}
+
+					food = addFood(foodItem, food)
 				}
 
 				console.log('food', food)
 
 				localStorage.setItem('food', JSON.stringify(food))
-				food = food.slice(0,20)
-				localStorage.setItem('recentFood', JSON.stringify(food))
+				//food = food.slice(0,20)
+				//localStorage.setItem('recentFood', JSON.stringify(food))
 				done = true
 			};
 
@@ -65,5 +86,9 @@
 </form>
 
 {#if done}
-<p>File contain {food.length} food items</p>
+<h2>Summary</h2>
+<p>Valids: {validFood}</p>
+<p>Errors: {errors}</p>
+<p>Overrides: {overrides}</p>
+<p>Ignores: {ignores}</p>
 {/if}
