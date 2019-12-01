@@ -1,5 +1,5 @@
 <svelte:head>
-	<title>Export Food</title>
+	<title>Download Food</title>
 </svelte:head>
 
 <script>

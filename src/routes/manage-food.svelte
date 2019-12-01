@@ -25,8 +25,8 @@
 	<a href="/food/manage-food/add-food">Add Food<Icon style="margin-left: 0.5rem;" data={plus}/></a>
 {#if (food.length !== 0)}
 	<a href="/food/manage-food/update-food">Update Food<Icon style="margin-left: 0.5rem;" data={edit}/></a>
-	<a href="/food/manage-food/export">Export Food<Icon style="margin-left: 0.5rem;" data={download}/></a>
+	<a href="/food/manage-food/download">Download Food<Icon style="margin-left: 0.5rem;" data={download}/></a>
 {/if}
-	<a href="/food/manage-food/import">Import Food<Icon style="margin-left: 0.5rem;" data={upload}/></a>
+	<a href="/food/manage-food/upload">Upload Food<Icon style="margin-left: 0.5rem;" data={upload}/></a>
 </nav>
 

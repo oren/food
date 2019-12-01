@@ -36,6 +36,8 @@
 		food = JSON.parse(localStorage.getItem('food')) || []
 		filteredFood = JSON.parse(localStorage.getItem('recentFood')).sort(sortAlpha) || []
 		recentFood = filteredFood
+		console.log('recent', filteredFood)
+
 		foodIAte = JSON.parse(localStorage.getItem('ate')) || []
 
 		if(firstTime && food.length === 0) {
