@@ -174,9 +174,7 @@
 	<span>F:{Math.round(fat)}</span>
 </div>
 
-{#if food.length >= 10}
-	<input bind:value={filter} class='bg-gray-200 px-2 py-1 mb-2 mt-3 w-1/2' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
-{/if}
+<input bind:value={filter} class='bg-gray-200 px-2 py-1 mb-2 mt-3 w-1/2' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
 
 <div class="wrapper">
 	{#each filteredFood as { id, name }, i}
