@@ -182,7 +182,9 @@
 	{#each filteredFood as { id, name }, i}
 		<button class='bg-blue-100 p-1' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
 	{/each}
+	<p class="mt-2 text-center" style="grid-column: span 2">(Last 20 items you ate)</p>
 </div>
+
 
 <ul>
 	<li class="first"> <a href="/food">Ate Today</a> </li>
