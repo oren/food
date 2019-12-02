@@ -107,8 +107,6 @@ input:checked + .slider:before {
 
 </script>
 
-isGoal: {isGoal}
-
 <div>
 	<span class="mt-1 mr-2 float-left">Calories Goal:</span>
 	{#if isGoal}
