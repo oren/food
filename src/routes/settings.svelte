@@ -74,20 +74,18 @@ input:checked + .slider:before {
 <script>
 	import { onMount } from 'svelte';
 
-	let isGoal = false
+	let isGoal = true
 	let goal = 2000
-	let columns = "50% 50%"
 
 	onMount(async () => {
-		isGoal = localStorage.getItem('isGoal') || false
+		isGoal = localStorage.getItem('isGoal') ? localStorage.getItem('isGoal') === 'true' : true
 		goal = localStorage.getItem('goal') || 2000
-		columns = localStorage.getItem('columns') || "50% 50%"
 	})
 
 	function toggleGoal () {
-		if(isGoal) {
+		if(isGoal === true) {
 			isGoal = false
-			localStorage.removeItem('isGoal')
+			localStorage.setItem('isGoal', false)
 			return
 		}
 
@@ -108,6 +106,8 @@ input:checked + .slider:before {
 	}
 
 </script>
+
+isGoal: {isGoal}
 
 <div>
 	<span class="mt-1 mr-2 float-left">Calories Goal:</span>
