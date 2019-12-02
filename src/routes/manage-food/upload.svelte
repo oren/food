@@ -8,6 +8,8 @@
   display: inline-block;
   width: 60px;
   height: 34px;
+	float: right;
+	margin-right: 22px;
 }
 
 .switch input {
@@ -81,8 +83,6 @@ input:checked + .slider:before {
 	onMount(async () => {
 		food = JSON.parse(localStorage.getItem('food')) || []
 		ignoreDuplicates = localStorage.getItem('ignoreDuplicates') ? localStorage.getItem('ignoreDuplicates') === 'true' : true
-
-		console.log('ignoreDuplicates', ignoreDuplicates)
 	})
 
 	function handleFile() {
@@ -124,11 +124,7 @@ input:checked + .slider:before {
 					food = addFood(foodItem, food)
 				}
 
-				console.log('food', food)
-
 				localStorage.setItem('food', JSON.stringify(food))
-				//food = food.slice(0,20)
-				//localStorage.setItem('recentFood', JSON.stringify(food))
 				done = true
 			};
 
@@ -140,31 +136,32 @@ input:checked + .slider:before {
 	}
 
 	function toggleIgnoreDuplicates() {
+		done = false
+
 		if(ignoreDuplicates) {
 			ignoreDuplicates = false
 			localStorage.setItem('ignoreDuplicates', false)
-			console.log(ignoreDuplicates)
 			return
 		}
 
 		ignoreDuplicates = true
 		localStorage.setItem('ignoreDuplicates', true)
-		console.log(ignoreDuplicates)
 	}
 </script>
 
-<h2 class="text-xl mb-1">Upload Food</h2>
+<h2 class="text-xl mb-3">Upload Food</h2>
 
-<p class="mb-3">The upload feature is in progress. Currently it deletes all your food and replace it with whatever you have in the text file. Also there is no validation so you might corrput your localStorage and if that's the case, you'll have to delete the website's storage to fix it</p>
+<p class="mb-4">Upload a text file with a list of food. Each row represents a food. For example: milk, 3, 4, 2.</p>
 
 <div class="">
-	<span class="mt-1 mr-2 float-left">Ignore food with the same name:</span>
 	{#if ignoreDuplicates}
+		<span class="mt-1 mr-2 float-left">Ignore food with the same name:</span>
 		<label class="switch">
 			<input type="checkbox" checked on:change={toggleIgnoreDuplicates}>
 			<span class="slider round"></span>
 		</label>
 	{:else}
+		<span class="mt-1 mr-2 float-left">Override food with the same name:</span>
 		<label class="switch">
 			<input type="checkbox" on:change={toggleIgnoreDuplicates}>
 			<span class="slider round"></span>
@@ -172,15 +169,19 @@ input:checked + .slider:before {
 	{/if}
 </div>
 
-<form>
-	 <label for="image_uploads">Choose file to upload (.txt)</label>
+<div style="clear: both;"></div>
+
+<form class="mt-0">
+	<label for="image_uploads">Choose file to upload (.txt)</label>
 	<input id="input" type="file" on:change={handleFile} accept=".txt">
 </form>
 
 {#if done}
-<h2>Summary</h2>
-<p>Valids: {validFood}</p>
-<p>Errors: {errors}</p>
-<p>Overrides: {overrides}</p>
-<p>Ignores: {ignores}</p>
+	<h2 class="mt-5 text-blue-500">Upload Summary:</h2>
+	<p>Food items in the file: {validFood}</p>
+	{#if ignoreDuplicates}
+		<p>Food items that were ignored: {ignores}</p>
+	{:else}
+		<p>Food items that were overrided: {overrides}</p>
+	{/if}
 {/if}
