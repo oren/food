@@ -133,7 +133,7 @@ input:checked + .slider:before {
 
 <ul>
 	<li>
-		Upload Food
+		Offline support
 	</li>
 	<li>
 		Add a Meal
