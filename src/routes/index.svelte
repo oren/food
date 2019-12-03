@@ -61,7 +61,7 @@
   import { trash, plus } from 'svelte-awesome/icons';
 
 	let firstTime = false
-	let isGoal = false
+	let isGoal = true
 	let goal = 2000
 	$: remaining = goal-calories <=0 ? 'remaining' : ''
 	let foodIAte = []
@@ -92,7 +92,7 @@
 		firstTime = localStorage.getItem('firstTime') || 'true'
 		firstTime = (firstTime === 'true'); //localStorage keep everything as string so I convert it to bool
 
-		isGoal = localStorage.getItem('isGoal') || false
+		isGoal = localStorage.getItem('isGoal') ? localStorage.getItem('isGoal') === 'true' : true
 		goal = localStorage.getItem('goal') || 2000
 		food = JSON.parse(localStorage.getItem('food')) || []
 		foodIAte = JSON.parse(localStorage.getItem('ate')) || []
