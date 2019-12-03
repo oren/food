@@ -85,11 +85,17 @@ input:checked + .slider:before {
 		ignoreDuplicates = localStorage.getItem('ignoreDuplicates') ? localStorage.getItem('ignoreDuplicates') === 'true' : true
 	})
 
+	function click() {
+		console.log('click')
+		done = false
+	}
+
 	function handleFile() {
 		validFood = 0
 		overrides = 0
 		ignores = 0
 		errors = 0
+		done = false
 
 		const file = document.getElementById('input').files[0];
 		let foodItem = {}
@@ -173,7 +179,7 @@ input:checked + .slider:before {
 
 <form class="mt-0">
 	<label for="image_uploads">Choose file to upload (.txt)</label>
-	<input id="input" type="file" on:change={handleFile} accept=".txt">
+	<input id="input" type="file" on:change={handleFile} on:click={click} accept=".txt">
 </form>
 
 {#if done}
