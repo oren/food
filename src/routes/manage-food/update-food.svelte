@@ -1,5 +1,5 @@
 <svelte:head>
-	<title>Food</title>
+	<title>Update Food</title>
 </svelte:head>
 
 <style>
