@@ -13,6 +13,7 @@
 		padding: 5px;
 		margin-bottom: 5px;
 		@apply bg-gray-200;
+		font-size: 150%;
 	}
 	input[type='number'] {
 		width: 80px;

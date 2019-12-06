@@ -14,6 +14,7 @@
 		font-size: 100%;
 	}
 	form input {
+		font-size: 150%;
 		padding: 5px;
 		margin-bottom: 5px;
 	}
