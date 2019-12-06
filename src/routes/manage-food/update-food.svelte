@@ -26,7 +26,6 @@
 		display: grid;
 		grid-template-columns: 90% 10%;
 		grid-gap: 5px;
-		padding-bottom: 40px;
 	}
 	.box {
 		@apply bg-blue-100;
@@ -146,6 +145,14 @@
 		showUpdateForm = false
 	}
 
+	const handleDeleteAll = () => {
+		successMessage = 'All food was deleted'
+    localStorage.removeItem('food')
+    localStorage.removeItem('recentFood')
+		food = []
+		filteredFood = []
+	}
+
 	function handleFoodDelete(foodItem) {
 		filteredFood = food
 		filter = ''
@@ -213,7 +220,7 @@
 
 {#if food.length === 0}
 	<p>You have no food.<p>
-	<p> <a href="/food/manage-food/add-food">Add some food first</a>.</p>
+	<p></p>
 {:else}
 	{#if showUpdateForm}
 		<form>
@@ -236,5 +243,6 @@
 				<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button><button class="text-red-400" on:click|preventDefault={() => handleFoodDelete(food[i])}><Icon data={trash}/></button>
 			{/each}
 		</div>
+		<div class="flex justify-end pb-10"><button class="bg-red-400 text-white font-bold py-1 px-3 mt-3" on:click={handleDeleteAll}>Delete All<Icon class="ml-2 mb-1" data={trash}/></button></div>
 	{/if}
 {/if}

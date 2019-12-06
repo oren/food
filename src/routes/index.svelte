@@ -178,8 +178,7 @@
 </script>
 
 {#if food.length === 0}
-	<p>You have no food.</p>
-	<p><a href="/food/manage-food/add-food">Add some food first</a>.</p>
+	<p>You have no food. <a class="text-blue-500" a href="/food/manage-food/add-food">Add food</a> first.</p>
 {:else}
 	{#if isGoal}
 		<div>
@@ -196,7 +195,7 @@
 	</div>
 
 	{#if foodIAte.length > 0}
-		<div><button class="bg-red-400 text-white font-bold py-1 px-3 mt-3 w-1/2" on:click={handleClear}>Clear All</button></div>
+		<div><button class="bg-red-400 text-white font-bold py-1 px-3 mt-3 w-1/2" on:click={handleClear}>Clear All<Icon class="ml-2 mb-1" data={trash}/></button></div>
 	{/if}
 
 	<div class='ate-wrapper mt-1'>
