@@ -16,7 +16,7 @@
 		font-size: 150%;
 	}
 	input[type='number'] {
-		width: 80px;
+		width: 100px;
 	}
 	.filter {
 		font-size: 150%;

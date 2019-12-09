@@ -24,7 +24,7 @@
 		@apply bg-gray-200;
 	}
 	input[type='number'] {
-		width: 80px;
+		width: 100px;
 	}
 </style>
 
