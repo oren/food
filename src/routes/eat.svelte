@@ -34,7 +34,7 @@
 		goal = localStorage.getItem('goal') || 2000
 		columns = localStorage.getItem('columns') || '50% 50%'
 		food = JSON.parse(localStorage.getItem('food')) || []
-		filteredFood = JSON.parse(localStorage.getItem('recentFood')).sort(sortAlpha) || []
+		filteredFood = JSON.parse(localStorage.getItem('recentFood') || '[]').sort(sortAlpha) || []
 		recentFood = filteredFood
 		console.log('recent', filteredFood)
 
@@ -75,7 +75,8 @@
 
 	function handleFilter() {
 		if(filter === '') {
-			filteredFood = food
+			filteredFood = recentFood
+			return
 		}
 
 		filteredFood = food.filter(f => f.name.toLowerCase().includes(filter.toLowerCase()));
