@@ -7,12 +7,7 @@
 		margin-right: 5px
 	}
 	.today {
-		margin-top: 20px;
-	}
-	.clear {
-		font-size: 100%;
-		float: right;
-		margin-bottom: 5px;
+		margin-top: 100px;
 	}
 	.remaining {
 		@apply text-red-700;
@@ -53,6 +48,7 @@
 	ul li.second a {
 		@apply text-center block py-2;
 	}
+
 </style>
 
 <script>
@@ -195,7 +191,7 @@
 	</div>
 
 	{#if foodIAte.length > 0}
-		<div><button class="bg-red-400 text-white font-bold py-1 px-3 mt-3 w-1/2" on:click={handleClear}>Clear All<Icon class="ml-2 mb-1" data={trash}/></button></div>
+		<div><button class="bg-red-400 text-white font-bold py-1 px-3 mt-3 w-1/2" on:click={handleClear}>Clear All<Icon style="margin-left: 0.5rem; margin-bottom: 0.25rem;" data={trash}/></button></div>
 	{/if}
 
 	<div class='ate-wrapper mt-1'>

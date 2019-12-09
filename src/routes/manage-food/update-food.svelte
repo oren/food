@@ -244,6 +244,6 @@
 				<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button><button class="text-red-400" on:click|preventDefault={() => handleFoodDelete(food[i])}><Icon data={trash}/></button>
 			{/each}
 		</div>
-		<div class="flex justify-end pb-10"><button class="bg-red-400 text-white font-bold py-1 px-3 mt-3" on:click={handleDeleteAll}>Delete All<Icon class="ml-2 mb-1" data={trash}/></button></div>
+		<div class="flex justify-end pb-10"><button class="bg-red-400 text-white font-bold py-1 px-3 mt-3" on:click={handleDeleteAll}>Delete All<Icon style="margin-left: 0.5rem; margin-bottom: 0.25rem;" data={trash}/></button></div>
 	{/if}
 {/if}
