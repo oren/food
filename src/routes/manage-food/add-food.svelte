@@ -2,32 +2,6 @@
 	<title>Add Food</title>
 </svelte:head>
 
-<style>
-	.success {
-		color: green;
-	}
-	.error {
-		color: red;
-	}
-
-	input {
-		font-size: 100%;
-	}
-	form input {
-		font-size: 150%;
-		padding: 5px;
-		margin-bottom: 5px;
-	}
-	form input[type=number], form input[type=text] {
-		padding: 5px;
-		margin-bottom: 5px;
-		@apply bg-gray-200;
-	}
-	input[type='number'] {
-		width: 100px;
-	}
-</style>
-
 <script>
 	import { onMount } from 'svelte';
 	import { validate, foodExist } from './validate.js';
@@ -96,6 +70,32 @@
 		fat = Number(tmp.substring(0,5))
 	}
 </script>
+
+<style>
+	.success {
+		color: green;
+	}
+	.error {
+		color: red;
+	}
+
+	input {
+		font-size: 100%;
+	}
+	form input {
+		font-size: 150%;
+		padding: 5px;
+		margin-bottom: 5px;
+	}
+	form input[type=number], form input[type=text] {
+		padding: 5px;
+		margin-bottom: 5px;
+		@apply bg-gray-200;
+	}
+	input[type='number'] {
+		width: 100px;
+	}
+</style>
 
 <h2 class="text-xl">Add Food</h2>
 
