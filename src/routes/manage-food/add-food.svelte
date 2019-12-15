@@ -5,12 +5,14 @@
 <script>
 	import { onMount } from 'svelte';
 	import { validate, foodExist } from './validate.js';
+	import { addFoodToRecent } from './recentFood.js';
 
 	let name = ''
 	let protein = ''
   let carbs = ''
   let fat = ''
 	let food = []
+	let recentFood = []
 	let oldName = ''
 	let errorMessage = ''
 	let successMessage = ''
@@ -39,8 +41,11 @@
 			return
 		}
 
-		allFood.push({name, protein, carbs, fat})
+		const newFood = {name, protein, carbs, fat}
+		allFood.push(newFood)
 		localStorage.setItem('food', JSON.stringify(allFood))
+		addFoodToRecent(newFood, recentFood)
+
 		food = allFood
 		name = ''
 		protein = ''
@@ -51,7 +56,12 @@
 	}
 
 	onMount(async () => {
+		const sortAlpha = (a, b) => {
+			return a.name > b.name
+		}
+
 		food = JSON.parse(localStorage.getItem('food')) || []
+		recentFood = JSON.parse(localStorage.getItem('recentFood') || '[]').sort(sortAlpha) || []
 	})
 
 	function validateProtein() {
