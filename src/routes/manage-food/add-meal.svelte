@@ -5,9 +5,10 @@
 
 <script>
 	import { onMount } from 'svelte';
-	import { validate } from './validate.js';
+	import { validateMeal } from './validate.js';
 	import Icon from 'svelte-awesome/components/Icon.svelte'
   import { trash } from 'svelte-awesome/icons';
+	import { addFoodToRecent } from './recentFood.js';
 
 	let name = ''
 	let protein = ''
@@ -24,20 +25,28 @@
 	let filter = ''
 	let filteredFood = []
 	let recentFood = []
-	let meal = {}
+	let meal = {name: '', protein: 0, carbs: 0, fat: 0, food: []}
+
+
+	onMount(async () => {
+		const sortAlpha = (a, b) => {
+			return a.name > b.name
+		}
+
+		food = JSON.parse(localStorage.getItem('food')).sort(sortAlpha) || []
+		recentFood = JSON.parse(localStorage.getItem('recentFood')) || []
+		filteredFood = food
+	})
 
 	function handleAdd() {
-		let meal = {name: 'breakfast', food: [{name: 'cup oatmeal', protein: 2, cabs: 3, fat:1}, {name: 'cup whole milk', protein: 2, cabs: 3, fat:1}]}
-		meal.push(newFood)
-		/*
 		event.preventDefault()
-
-		let validReturn = {}
 
 		successMessage = ''
 		errorMessage = ''
 
-		validReturn = validate({name, protein, carbs, fat})
+		let validReturn = {}
+		meal.name = name
+		validReturn = validateMeal(meal)
 
 		if(!validReturn.valid) {
 			errorMessage = validReturn.message
@@ -45,6 +54,12 @@
 			return
 		}
 
+		food.push(meal)
+
+		localStorage.setItem('food', JSON.stringify(food))
+		addFoodToRecent(meal, recentFood)
+
+		/*
 		// save in the browser
 		const allFood = JSON.parse(localStorage.getItem('food')) || []
 		const index = foodExist(name, allFood)
@@ -68,99 +83,12 @@
 		*/
 	}
 
-	onMount(async () => {
-		const sortAlpha = (a, b) => {
-			return a.name > b.name
-		}
-
-		food = JSON.parse(localStorage.getItem('food')).sort(sortAlpha) || []
-		recentFood = JSON.parse(localStorage.getItem('recentFood')) || []
-		filteredFood = food
-	})
-
 	function handleFoodClick(food) {
-		/*
-		filteredFood = food
-		filter = ''
+		meal.protein = meal.protein + food.protein
+		meal.carbs = meal.carbs + food.carbs
+		meal.fat = meal.fat + food.fat
 
-		showUpdateForm = true
-
-		successMessage = ''
-		errorMessage = ''
-
-		oldName = food.name
-		name = food.name
-		protein = food.protein
-		carbs = food.carbs
-		fat = food.fat
-		mode = 'update'
-		*/
-	}
-
-	function handleDelete() {
-		filteredFood = food
-		filter = ''
-		successMessage = ''
-		errorMessage = ''
-		let filtered = food.filter(function(f, index, arr){
-			return f.name !== name;
-		});
-
-    localStorage.setItem('food', JSON.stringify(filtered))
-		food = filtered
-
-		filtered = recentFood.filter(function(f, index, arr){
-			return f.name !== name;
-		});
-
-    localStorage.setItem('recentFood', JSON.stringify(filtered))
-		recentFood = filtered
-
-		mode = 'view'
-		name = ''
-		protein = ''
-		carbs = ''
-		fat = ''
-		successMessage = 'Food was deleted'
-		showUpdateForm = false
-	}
-
-	const handleDeleteAll = () => {
-		successMessage = 'All food was deleted'
-    localStorage.removeItem('food')
-    localStorage.removeItem('recentFood')
-		food = []
-		filteredFood = []
-	}
-
-	function handleFoodDelete(foodItem) {
-		filteredFood = food
-		filter = ''
-		successMessage = ''
-		errorMessage = ''
-
-		let filtered = food.filter(function(f, index, arr){
-			return f.name !== foodItem.name;
-		});
-
-    localStorage.setItem('food', JSON.stringify(filtered))
-		food = filtered
-		filteredFood = filtered
-
-		filtered = recentFood.filter(function(f, index, arr){
-			return f.name !== foodItem.name;
-		});
-
-    localStorage.setItem('recentFood', JSON.stringify(filtered))
-		recentFood = filtered
-
-		mode = 'view'
-		name = ''
-		protein = ''
-		carbs = ''
-		fat = ''
-		successMessage = 'Food was deleted'
-		showUpdateForm = false
+		meal.food.push(food)
 	}
 
 	function handleFilter() {
@@ -195,14 +123,11 @@
 	.error {
 		color: red;
 	}
-	form input[type=number], form input[type=text] {
+	form input[type=text] {
 		padding: 5px;
 		margin-bottom: 5px;
 		@apply bg-gray-200;
 		font-size: 150%;
-	}
-	input[type='number'] {
-		width: 100px;
 	}
 	.filter {
 		font-size: 150%;

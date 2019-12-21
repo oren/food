@@ -50,4 +50,16 @@ const addFood = (foodItem, food) => {
   return food
 }
 
-export { validate, foodExist, deleteFood, addFood }
+function validateMeal(meal) {
+  if (!meal.name) {
+    return { valid: false, message: 'Name is missing' }
+  }
+
+  if (!meal.food || meal.food.length === 0) {
+    return { valid: false, message: 'Food is missing' }
+  }
+
+  return { valid: true, message: '' }
+}
+
+export { validate, foodExist, deleteFood, addFood, validateMeal }
