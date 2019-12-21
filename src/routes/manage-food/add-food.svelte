@@ -107,7 +107,7 @@
 	}
 </style>
 
-<h2 class="text-xl">Add Food</h2>
+<h2 class="text-xl mb-2">Add Food</h2>
 
 {#if successMessage !== ''}
 	<p class='success'>{successMessage}</p>

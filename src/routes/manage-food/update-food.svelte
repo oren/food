@@ -20,7 +20,6 @@
 	}
 	.filter {
 		font-size: 150%;
-		margin-top: 20px;
 		margin-bottom: 10px;
 	}
 	.wrapper {
@@ -209,7 +208,7 @@
 	}
 </script>
 
-<h2 class="text-xl">Update Food</h2>
+<h2 class="text-xl mb-2">Update Food</h2>
 
 {#if successMessage !== ''}
 	<p class='success'>{successMessage}</p>
