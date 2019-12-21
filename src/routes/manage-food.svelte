@@ -23,6 +23,7 @@
 
 <nav class="text-white font-bold text-center">
 	<a href="/food/manage-food/add-food">Add Food<Icon style="margin-left: 0.5rem;" data={plus}/></a>
+	<a href="/food/manage-food/add-meal">Add Meal<Icon style="margin-left: 0.5rem;" data={plus}/></a>
 {#if (food.length !== 0)}
 	<a href="/food/manage-food/update-food">Update Food<Icon style="margin-left: 0.5rem;" data={edit}/></a>
 	<a href="/food/manage-food/download">Download Food<Icon style="margin-left: 0.5rem;" data={download}/></a>
