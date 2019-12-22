@@ -25,7 +25,7 @@
 	let filteredFood = []
 	let recentFood = []
 	let meal = {name: '', protein: 0, carbs: 0, fat: 0, food: []}
-
+	let foodForMeal = []
 
 	onMount(async () => {
 		const sortAlpha = (a, b) => {
@@ -57,6 +57,7 @@
 
 		localStorage.setItem('food', JSON.stringify(food))
 		addFoodToRecent(meal, recentFood)
+		foodForMeal = []
 
 		/*
 		// save in the browser
@@ -83,6 +84,11 @@
 	}
 
 	function handleFoodClick(food) {
+		// if food exist +1
+		foodForMeal.push(food)
+		foodForMeal = foodForMeal
+
+		console.log(foodForMeal)
 		meal.protein = meal.protein + food.protein
 		meal.carbs = meal.carbs + food.carbs
 		meal.fat = meal.fat + food.fat
@@ -154,13 +160,14 @@
 	<p></p>
 {:else}
 	<input type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/>
+	{#each foodForMeal as { id, name }, i}
+		<div class=''>{name}</div>
+	{/each}
 	<button class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 mb-3" on:click|preventDefault={handleAdd}>Add</button>
 	<input bind:value={filter} class='filter bg-gray-200 w-24 px-2' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
 	<div class="pb-6">
 		{#each filteredFood as { id, name }, i}
-		<div class='box'>
-			<button on:click={() => handleFoodClick(food[i])}>{name}</button>
-		</div>
+			<button class='box w-full' on:click={() => handleFoodClick(food[i])}>{name}</button>
 		{/each}
 	</div>
 {/if}
