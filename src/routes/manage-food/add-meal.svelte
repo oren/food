@@ -2,7 +2,6 @@
 	<title>Update Food</title>
 </svelte:head>
 
-
 <script>
 	import { onMount } from 'svelte';
 	import { validateMeal } from './validate.js';
@@ -123,7 +122,7 @@
 	.error {
 		color: red;
 	}
-	form input[type=text] {
+	input[type=text] {
 		padding: 5px;
 		margin-bottom: 5px;
 		@apply bg-gray-200;
@@ -154,20 +153,14 @@
 	<p>You have no food.<p>
 	<p></p>
 {:else}
-		<form>
-			<div><input class="" type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/></div>
-
-			<div class="mt-3">
-				<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3" on:click|preventDefault={handleAdd}>Add</button>
-			</div>
-		</form>
-
-		<input bind:value={filter} class='filter bg-gray-200 w-24 px-2' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
-		<div style="margin-top: {food.length >=10 ? 0 : 20}px;">
-			{#each filteredFood as { id, name }, i}
-			<div class='box'>
-				<button on:click={() => handleFoodClick(food[i])}>{name}</button>
-			</div>
-			{/each}
+	<input type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/>
+	<button class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 mb-3" on:click|preventDefault={handleAdd}>Add</button>
+	<input bind:value={filter} class='filter bg-gray-200 w-24 px-2' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
+	<div class="pb-6">
+		{#each filteredFood as { id, name }, i}
+		<div class='box'>
+			<button on:click={() => handleFoodClick(food[i])}>{name}</button>
 		</div>
+		{/each}
+	</div>
 {/if}
