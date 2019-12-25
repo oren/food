@@ -2,55 +2,6 @@
 	<title>Eat</title>
 </svelte:head>
 
-<style>
-	span {
-		margin-right: 5px
-	}
-	.today {
-		margin-top: 100px;
-	}
-	.remaining {
-		@apply text-red-700;
-	}
-	.add {
-		margin-top: 20px;
-	}
-	.filter {
-		float: right;
-		font-size: 150%;
-		margin-top: 20px;
-		margin-bottom: 10px;
-		@apply bg-gray-200 w-24 px-2;
-	}
-	.ate {
-		color: green;
-	}
-	.ate-wrapper {
-		display: grid;
-		grid-template-columns: 25px 70% 5% auto;
-		padding-bottom: 75px;
-		grid-row-gap: 4px;
-	}
-	.box {
-		padding: 3px;
-		@apply bg-blue-100;
-	}
-	ul {
-		@apply flex fixed w-full bottom-0 mb-10 mt-20 z-50 bg-white border-t border-gray-200;
-		margin-left: -12px;
-	}
-	ul li {
-		@apply flex-1;
-	}
-	ul li.first {
-		@apply text-center block py-2 text-blue-500
-	}
-	ul li.second a {
-		@apply text-center block py-2;
-	}
-
-</style>
-
 <script>
 	import { onMount } from 'svelte';
 	import Icon from 'svelte-awesome/components/Icon.svelte'
@@ -172,6 +123,54 @@
 		fat = foodIAte.reduce(sumFat, 0)
 	}
 </script>
+
+<style>
+	span {
+		margin-right: 5px
+	}
+	.today {
+		margin-top: 100px;
+	}
+	.remaining {
+		@apply text-red-700;
+	}
+	.add {
+		margin-top: 20px;
+	}
+	.filter {
+		float: right;
+		font-size: 150%;
+		margin-top: 20px;
+		margin-bottom: 10px;
+		@apply bg-gray-200 w-24 px-2;
+	}
+	.ate {
+		color: green;
+	}
+	.ate-wrapper {
+		display: grid;
+		grid-template-columns: 25px 70% 5% auto;
+		padding-bottom: 75px;
+		grid-row-gap: 4px;
+	}
+	.box {
+		padding: 3px;
+		@apply bg-blue-100;
+	}
+	ul {
+		@apply flex fixed w-full bottom-0 mb-10 mt-20 z-50 bg-white border-t border-gray-200;
+		margin-left: -12px;
+	}
+	ul li {
+		@apply flex-1;
+	}
+	ul li.first {
+		@apply text-center block py-2 text-blue-500
+	}
+	ul li.second a {
+		@apply text-center block py-2;
+	}
+</style>
 
 {#if food.length === 0}
 	<p>You have no food. <a class="text-blue-500" a href="/food/manage-food/add-food">Add food</a> first.</p>
