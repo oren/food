@@ -19,8 +19,6 @@
 	let errorMessage = ''
 	let successMessage = ''
 	let showUpdateForm = false
-
-
 	let filter = ''
 	let filteredFood = []
 	let recentFood = []
@@ -64,35 +62,19 @@
 		localStorage.setItem('food', JSON.stringify(food))
 		addFoodToRecent(meal, recentFood)
 		foodForMeal = []
-
-		/*
-		// save in the browser
-		const allFood = JSON.parse(localStorage.getItem('food')) || []
-		const index = foodExist(name, allFood)
-		if (index !== -1) {
-			errorMessage = "Food with this name already exist"
-			return
-		}
-
-		const newFood = {name, protein, carbs, fat}
-		allFood.push(newFood)
-		localStorage.setItem('food', JSON.stringify(allFood))
-		addFoodToRecent(newFood, recentFood)
-
-		food = allFood
-		name = ''
-		protein = ''
-		carbs = ''
-		fat = ''
-		successMessage = 'Food was added'
-		return
-		*/
 	}
 
 	function handleFoodClick(food) {
+		// if food exist, increment the count
+		const index = foodExist(food.name, foodForMeal)
+		if (index !== -1) {
+			foodForMeal[index].count = foodForMeal[index].count + 1
+		} else {
+			food.count = 1
+			foodForMeal.push(food)
+		}
 
-		foodForMeal.push(food)
-		foodForMeal = foodForMeal
+		foodForMeal = foodForMeal // needed for svelte
 
 		console.log(foodForMeal)
 		meal.protein = meal.protein + food.protein
@@ -166,8 +148,8 @@
 	<p></p>
 {:else}
 	<input type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/>
-	{#each foodForMeal as { id, name }, i}
-		<div class=''>{name}</div>
+	{#each foodForMeal as { id, name, count }, i}
+	<div class=''>{name} - {count}</div>
 	{/each}
 	<button class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 mb-3" on:click|preventDefault={handleAdd}>Add</button>
 	<input bind:value={filter} class='filter bg-gray-200 w-24 px-2' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
