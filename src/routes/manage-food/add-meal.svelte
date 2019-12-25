@@ -4,7 +4,7 @@
 
 <script>
 	import { onMount } from 'svelte';
-	import { validateMeal } from './validate.js';
+	import { validateMeal, foodExist } from './validate.js';
 	import Icon from 'svelte-awesome/components/Icon.svelte'
   import { trash } from 'svelte-awesome/icons';
 	import { addFoodToRecent } from './recentFood.js';
@@ -42,6 +42,12 @@
 
 		successMessage = ''
 		errorMessage = ''
+
+		const index = foodExist(name, food)
+		if (index !== -1) {
+			errorMessage = "Food with this name already exist"
+			return
+		}
 
 		let validReturn = {}
 		meal.name = name
@@ -84,7 +90,7 @@
 	}
 
 	function handleFoodClick(food) {
-		// if food exist +1
+
 		foodForMeal.push(food)
 		foodForMeal = foodForMeal
 
