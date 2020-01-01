@@ -6,7 +6,7 @@
 	import { onMount } from 'svelte';
 	import { validateMeal, foodExist } from './validate.js';
 	import Icon from 'svelte-awesome/components/Icon.svelte'
-  import { trash } from 'svelte-awesome/icons';
+  import { plus, trash } from 'svelte-awesome/icons';
 	import { addFoodToRecent } from './recentFood.js';
 
 	let name = ''
@@ -42,6 +42,9 @@
 		errorMessage = ''
 
 		const index = foodExist(name, food)
+		console.log(name)
+		console.log(food)
+		console.log(index)
 		if (index !== -1) {
 			errorMessage = "Food with this name already exist"
 			return
@@ -107,6 +110,24 @@
 		let tmp = String(fat)
 		fat = Number(tmp.substring(0,5))
 	}
+
+	function handleDelete(foodItem) {
+		let filtered = foodForMeal.filter(function(f, index, arr){
+			return f.name !== foodItem.name;
+		});
+
+		foodForMeal = filtered
+
+		//countCalories(foodIAte)
+	}
+
+	function handlePlus(foodClicked) {
+		let index = foodForMeal.findIndex(f => f.name === foodClicked.name);
+
+		foodForMeal[index].count = foodForMeal[index].count + 1
+
+		//countCalories(foodIAte)
+	}
 </script>
 
 <style>
@@ -131,6 +152,12 @@
 		padding: 10px;
 		margin-bottom: 10px;
 	}
+	.ate-wrapper {
+		display: grid;
+		grid-template-columns: 25px 70% 5% auto;
+		padding-bottom: 75px;
+		grid-row-gap: 4px;
+	}
 </style>
 
 <h2 class="text-xl mb-2">Add Meal</h2>
@@ -148,9 +175,14 @@
 	<p></p>
 {:else}
 	<input type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/>
-	{#each foodForMeal as { id, name, count }, i}
-	<div class=''>{name} - {count}</div>
-	{/each}
+	<div class='ate-wrapper'>
+		{#each foodForMeal as { id, name, count }, i}
+			<button class="text-red-400 text-left" href="#" on:click|preventDefault={() => handleDelete(foodForMeal[i])}><Icon data={trash}/></button>
+			<div>{name}</div>
+			<div class="">{count}</div>
+			<button class="" href="#" on:click|preventDefault={() => handlePlus(foodForMeal[i])}><Icon data={plus}/></button>
+		{/each}
+	</div>
 	<button class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 mb-3" on:click|preventDefault={handleAdd}>Add</button>
 	<input bind:value={filter} class='filter bg-gray-200 w-24 px-2' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
 	<div class="pb-6">
