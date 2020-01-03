@@ -190,12 +190,14 @@
 	<p></p>
 {:else}
 	<input type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/>
-	<div>
-		<span>Cal:{Math.round(calories)}</span>
-		<span>P:{Math.round(protein)}</span>
-		<span>C:{Math.round(carbs)}</span>
-		<span>F:{Math.round(fat)}</span>
-	</div>
+	{#if foodForMeal.length !== 0}
+		<div>
+			<span>Cal:{Math.round(calories)}</span>
+			<span>P:{Math.round(protein)}</span>
+			<span>C:{Math.round(carbs)}</span>
+			<span>F:{Math.round(fat)}</span>
+		</div>
+	{/if}
 	<div class='ate-wrapper'>
 		{#each foodForMeal as { id, name, count }, i}
 			<button class="text-red-400 text-left" href="#" on:click|preventDefault={() => handleDelete(foodForMeal[i])}><Icon data={trash}/></button>
