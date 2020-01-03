@@ -2,37 +2,6 @@
 	<title>Update Food</title>
 </svelte:head>
 
-<style>
-	.success {
-		color: green;
-	}
-	.error {
-		color: red;
-	}
-	form input[type=number], form input[type=text] {
-		padding: 5px;
-		margin-bottom: 5px;
-		@apply bg-gray-200;
-		font-size: 150%;
-	}
-	input[type='number'] {
-		width: 100px;
-	}
-	.filter {
-		font-size: 150%;
-		margin-bottom: 10px;
-	}
-	.wrapper {
-		display: grid;
-		grid-template-columns: 10% 90%;
-		grid-gap: 5px;
-	}
-	.box {
-		@apply bg-blue-100;
-		padding: 10px;
-	}
-</style>
-
 <script>
 	import { onMount } from 'svelte';
 	import { validate } from './validate.js';
@@ -48,7 +17,8 @@
 	let oldName = ''
 	let errorMessage = ''
 	let successMessage = ''
-	let showUpdateForm = false
+	let updatingMeal = false
+	let formType = 'food' // updatingFood / updatingMeal
 
 	let filter = ''
 	let filteredFood = []
@@ -78,7 +48,7 @@
 		localStorage.setItem('food', JSON.stringify(food))
 
 		successMessage = 'Food was updated'
-		showUpdateForm = false
+		formType = 'food'
 
 		// update recent food
 		index = recentFood.findIndex(f => f.name === oldName);
@@ -104,7 +74,12 @@
 		filteredFood = food
 		filter = ''
 
-		showUpdateForm = true
+		// if meal - show meal form
+		if(food.food) {
+			formType = 'updatingMeal'
+		} else {
+			formType = 'updatingFood'
+		}
 
 		successMessage = ''
 		errorMessage = ''
@@ -142,7 +117,7 @@
 		carbs = ''
 		fat = ''
 		successMessage = 'Food was deleted'
-		showUpdateForm = false
+		formType = 'food'
 	}
 
 	const handleDeleteAll = () => {
@@ -180,7 +155,7 @@
 		carbs = ''
 		fat = ''
 		successMessage = 'Food was deleted'
-		showUpdateForm = false
+		formType = 'food'
 	}
 
 	function handleFilter() {
@@ -208,6 +183,37 @@
 	}
 </script>
 
+<style>
+	.success {
+		color: green;
+	}
+	.error {
+		color: red;
+	}
+	form input[type=number], form input[type=text] {
+		padding: 5px;
+		margin-bottom: 5px;
+		@apply bg-gray-200;
+		font-size: 150%;
+	}
+	input[type='number'] {
+		width: 100px;
+	}
+	.filter {
+		font-size: 150%;
+		margin-bottom: 10px;
+	}
+	.wrapper {
+		display: grid;
+		grid-template-columns: 10% 90%;
+		grid-gap: 5px;
+	}
+	.box {
+		@apply bg-blue-100;
+		padding: 10px;
+	}
+</style>
+
 <h2 class="text-xl mb-2">Update Food</h2>
 
 {#if successMessage !== ''}
@@ -222,7 +228,7 @@
 	<p>You have no food.<p>
 	<p></p>
 {:else}
-	{#if showUpdateForm}
+	{#if formType === 'updatingFood'}
 		<form>
 			<div><input class="" type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/></div>
 			<div><input type="number" bind:value={protein} placeholder="Protein" on:keyup={validateProtein} min="0" max="999"/></div>
@@ -236,7 +242,7 @@
 		</form>
 	{/if}
 
-	{#if !showUpdateForm}
+	{#if formType === 'food'}
 		<input bind:value={filter} class='filter bg-gray-200 w-24 px-2' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
 		<div class="wrapper" style="margin-top: {food.length >=10 ? 0 : 20}px;">
 			{#each filteredFood as { id, name }, i}
@@ -244,5 +250,9 @@
 			{/each}
 		</div>
 		<div class="pb-10"><button class="bg-red-400 text-white font-bold py-1 px-3 mt-3" on:click={handleDeleteAll}>Delete All<Icon style="margin-left: 0.5rem; margin-bottom: 0.25rem;" data={trash}/></button></div>
+	{/if}
+
+	{#if formType === 'updatingMeal'}
+		<p>form for meal</p>
 	{/if}
 {/if}
