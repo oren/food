@@ -8,11 +8,9 @@
 	import Icon from 'svelte-awesome/components/Icon.svelte'
   import { plus, trash } from 'svelte-awesome/icons';
 	import { addFoodToRecent } from './recentFood.js';
+	import { countCalories } from './helpers.js';
 
 	let name = ''
-	let protein = ''
-  let carbs = ''
-  let fat = ''
 	let food = []
 	let mode = 'view'
 	let oldName = ''
@@ -24,6 +22,11 @@
 	let recentFood = []
 	let meal = {name: '', protein: 0, carbs: 0, fat: 0, food: []}
 	let foodForMeal = []
+
+	let protein = 0
+	let carbs = 0
+	let fat = 0
+	$: calories = parseFloat(Number(protein*4 + carbs*4 + fat*9).toFixed(1))
 
 	onMount(async () => {
 		const sortAlpha = (a, b) => {
@@ -79,12 +82,16 @@
 
 		foodForMeal = foodForMeal // needed for svelte
 
-		console.log(foodForMeal)
 		meal.protein = meal.protein + food.protein
 		meal.carbs = meal.carbs + food.carbs
 		meal.fat = meal.fat + food.fat
 
 		meal.food.push(food)
+
+		const result = countCalories(foodForMeal)
+		protein = result.protein
+		carbs = result.carbs
+		fat = result.fat
 	}
 
 	function handleFilter() {
@@ -93,6 +100,7 @@
 		}
 
 		filteredFood = food.filter(f => f.name.toLowerCase().includes(filter.toLowerCase()));
+
 	}
 
 	function validateProtein() {
@@ -118,7 +126,10 @@
 
 		foodForMeal = filtered
 
-		//countCalories(foodIAte)
+		const result = countCalories(foodForMeal)
+		protein = result.protein
+		carbs = result.carbs
+		fat = result.fat
 	}
 
 	function handlePlus(foodClicked) {
@@ -126,7 +137,11 @@
 
 		foodForMeal[index].count = foodForMeal[index].count + 1
 
-		//countCalories(foodIAte)
+		const result = countCalories(foodForMeal)
+		protein = result.protein
+		carbs = result.carbs
+		fat = result.fat
+
 	}
 </script>
 
@@ -175,6 +190,12 @@
 	<p></p>
 {:else}
 	<input type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/>
+	<div>
+		<span>Cal:{Math.round(calories)}</span>
+		<span>P:{Math.round(protein)}</span>
+		<span>C:{Math.round(carbs)}</span>
+		<span>F:{Math.round(fat)}</span>
+	</div>
 	<div class='ate-wrapper'>
 		{#each foodForMeal as { id, name, count }, i}
 			<button class="text-red-400 text-left" href="#" on:click|preventDefault={() => handleDelete(foodForMeal[i])}><Icon data={trash}/></button>
