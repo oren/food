@@ -24,7 +24,7 @@
 	}
 	.wrapper {
 		display: grid;
-		grid-template-columns: 90% 10%;
+		grid-template-columns: 10% 90%;
 		grid-gap: 5px;
 	}
 	.box {
@@ -240,9 +240,9 @@
 		<input bind:value={filter} class='filter bg-gray-200 w-24 px-2' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
 		<div class="wrapper" style="margin-top: {food.length >=10 ? 0 : 20}px;">
 			{#each filteredFood as { id, name }, i}
-				<button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button><button class="text-red-400" on:click|preventDefault={() => handleFoodDelete(food[i])}><Icon data={trash}/></button>
+				<button class="text-red-400" on:click|preventDefault={() => handleFoodDelete(food[i])}><Icon data={trash}/></button><button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button>
 			{/each}
 		</div>
-		<div class="flex justify-end pb-10"><button class="bg-red-400 text-white font-bold py-1 px-3 mt-3" on:click={handleDeleteAll}>Delete All<Icon style="margin-left: 0.5rem; margin-bottom: 0.25rem;" data={trash}/></button></div>
+		<div class="pb-10"><button class="bg-red-400 text-white font-bold py-1 px-3 mt-3" on:click={handleDeleteAll}>Delete All<Icon style="margin-left: 0.5rem; margin-bottom: 0.25rem;" data={trash}/></button></div>
 	{/if}
 {/if}
