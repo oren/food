@@ -24,6 +24,16 @@
 	let filteredFood = []
 	let recentFood = []
 
+	onMount(async () => {
+		const sortAlpha = (a, b) => {
+			return a.name > b.name
+		}
+
+		food = JSON.parse(localStorage.getItem('food')).sort(sortAlpha) || []
+		recentFood = JSON.parse(localStorage.getItem('recentFood')) || []
+		filteredFood = food
+	})
+
 	function handleUpdate() {
 		filteredFood = food
 		filter = ''
@@ -59,16 +69,6 @@
 		recentFood[index].fat = fat
 		localStorage.setItem('recentFood', JSON.stringify(recentFood))
 	}
-
-	onMount(async () => {
-		const sortAlpha = (a, b) => {
-			return a.name > b.name
-		}
-
-		food = JSON.parse(localStorage.getItem('food')).sort(sortAlpha) || []
-		recentFood = JSON.parse(localStorage.getItem('recentFood')) || []
-		filteredFood = food
-	})
 
 	function handleFoodClick(food) {
 		filteredFood = food
