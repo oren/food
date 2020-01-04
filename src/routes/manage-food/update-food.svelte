@@ -6,12 +6,10 @@
 	import { onMount } from 'svelte';
 	import { validate } from './validate.js';
 	import Icon from 'svelte-awesome/components/Icon.svelte'
-  import { trash } from 'svelte-awesome/icons';
+  import { trash, plus } from 'svelte-awesome/icons';
+	import { countCalories } from './helpers.js';
 
 	let name = ''
-	let protein = ''
-  let carbs = ''
-  let fat = ''
 	let food = []
 	let mode = 'view'
 	let oldName = ''
@@ -23,6 +21,12 @@
 	let filter = ''
 	let filteredFood = []
 	let recentFood = []
+	let foodForMeal = []
+
+	let protein = 0
+	let carbs = 0
+	let fat = 0
+	$: calories = parseFloat(Number(protein*4 + carbs*4 + fat*9).toFixed(1))
 
 	onMount(async () => {
 		const sortAlpha = (a, b) => {
@@ -71,12 +75,14 @@
 	}
 
 	function handleFoodClick(food) {
+		console.log(food)
 		filteredFood = food
 		filter = ''
 
 		// if meal - show meal form
 		if(food.food) {
 			formType = 'updatingMeal'
+			foodForMeal = food.food
 		} else {
 			formType = 'updatingFood'
 		}
@@ -181,6 +187,49 @@
 		let tmp = String(fat)
 		fat = Number(tmp.substring(0,5))
 	}
+
+	// Update Meal
+	function handleAdd() {
+		event.preventDefault()
+
+		successMessage = ''
+		errorMessage = ''
+
+		const index = foodExist(name, food)
+		console.log(name)
+		console.log(food)
+		console.log(index)
+		if (index !== -1) {
+			errorMessage = "Food with this name already exist"
+			return
+		}
+
+		let validReturn = {}
+		meal.name = name
+		validReturn = validateMeal(meal)
+
+		if(!validReturn.valid) {
+			errorMessage = validReturn.message
+			console.log('error', errorMessage)
+			return
+		}
+
+		food.push(meal)
+
+		localStorage.setItem('food', JSON.stringify(food))
+		addFoodToRecent(meal, recentFood)
+		foodForMeal = []
+	}
+	function handlePlus(foodClicked) {
+		let index = foodForMeal.findIndex(f => f.name === foodClicked.name);
+
+		foodForMeal[index].count = foodForMeal[index].count + 1
+
+		const result = countCalories(foodForMeal)
+		protein = result.protein
+		carbs = result.carbs
+		fat = result.fat
+	}
 </script>
 
 <style>
@@ -189,6 +238,12 @@
 	}
 	.error {
 		color: red;
+	}
+	input.name {
+		padding: 5px;
+		margin-bottom: 5px;
+		@apply bg-gray-200;
+		font-size: 150%;
 	}
 	form input[type=number], form input[type=text] {
 		padding: 5px;
@@ -212,9 +267,19 @@
 		@apply bg-blue-100;
 		padding: 10px;
 	}
+	.ate-wrapper {
+		display: grid;
+		grid-template-columns: 25px 70% 5% auto;
+		padding-bottom: 75px;
+		grid-row-gap: 4px;
+	}
 </style>
 
+{#if formType === 'updatingMeal'}
+<h2 class="text-xl mb-2">Update Meal</h2>
+{:else}
 <h2 class="text-xl mb-2">Update Food</h2>
+{/if}
 
 {#if successMessage !== ''}
 	<p class='success'>{successMessage}</p>
@@ -246,13 +311,36 @@
 		<input bind:value={filter} class='filter bg-gray-200 w-24 px-2' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
 		<div class="wrapper" style="margin-top: {food.length >=10 ? 0 : 20}px;">
 			{#each filteredFood as { id, name }, i}
-				<button class="text-red-400" on:click|preventDefault={() => handleFoodDelete(food[i])}><Icon data={trash}/></button><button class='box' on:click={() => handleFoodClick(food[i])}>{name}</button>
+				<button class="text-red-400" on:click|preventDefault={() => handleFoodDelete(filteredFood[i])}><Icon data={trash}/></button><button class='box' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
 			{/each}
 		</div>
 		<div class="pb-10"><button class="bg-red-400 text-white font-bold py-1 px-3 mt-3" on:click={handleDeleteAll}>Delete All<Icon style="margin-left: 0.5rem; margin-bottom: 0.25rem;" data={trash}/></button></div>
 	{/if}
 
 	{#if formType === 'updatingMeal'}
-		<p>form for meal</p>
+		<input class="name" type="text" bind:value={name} placeholder="Name" maxlength="20" size="20"/>
+		{#if foodForMeal.length !== 0}
+			<div>
+				<span>Cal:{Math.round(calories)}</span>
+				<span>P:{Math.round(protein)}</span>
+				<span>C:{Math.round(carbs)}</span>
+				<span>F:{Math.round(fat)}</span>
+			</div>
+		{/if}
+		<div class='ate-wrapper'>
+			{#each foodForMeal as { id, name, count }, i}
+				<button class="text-red-400 text-left" href="#" on:click|preventDefault={() => handleDelete(foodForMeal[i])}><Icon data={trash}/></button>
+				<div>{name}</div>
+				<div class="">{count}</div>
+				<button class="" href="#" on:click|preventDefault={() => handlePlus(foodForMeal[i])}><Icon data={plus}/></button>
+			{/each}
+		</div>
+		<button class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 mb-3" on:click|preventDefault={handleAdd}>Update</button>
+		<input bind:value={filter} class='filter bg-gray-200 w-24 px-2' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
+		<div class="pb-6">
+			{#each filteredFood as { id, name }, i}
+				<button class='box w-full' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
+			{/each}
+		</div>
 	{/if}
 {/if}
