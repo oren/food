@@ -45,14 +45,12 @@
 		errorMessage = ''
 
 		const index = foodExist(name, food)
-		console.log(name)
-		console.log(food)
-		console.log(index)
 		if (index !== -1) {
 			errorMessage = "Food with this name already exist"
 			return
 		}
 
+		meal.food = foodForMeal
 		let validReturn = {}
 		meal.name = name
 		validReturn = validateMeal(meal)
@@ -85,8 +83,6 @@
 		meal.protein = meal.protein + food.protein
 		meal.carbs = meal.carbs + food.carbs
 		meal.fat = meal.fat + food.fat
-
-		meal.food.push(food)
 
 		const result = countCalories(foodForMeal)
 		protein = result.protein
