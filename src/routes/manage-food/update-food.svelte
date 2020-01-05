@@ -11,7 +11,6 @@
 
 	let name = ''
 	let food = []
-	let mode = 'view'
 	let oldName = ''
 	let errorMessage = ''
 	let successMessage = ''
@@ -74,8 +73,11 @@
 		localStorage.setItem('recentFood', JSON.stringify(recentFood))
 	}
 
+	function handleMealUpdate() {
+		// TODO
+	}
+
 	function handleFoodClick(food) {
-		console.log(food)
 		filteredFood = food
 		filter = ''
 
@@ -95,7 +97,6 @@
 		protein = food.protein
 		carbs = food.carbs
 		fat = food.fat
-		mode = 'update'
 	}
 
 	function handleDelete() {
@@ -117,7 +118,6 @@
     localStorage.setItem('recentFood', JSON.stringify(filtered))
 		recentFood = filtered
 
-		mode = 'view'
 		name = ''
 		protein = ''
 		carbs = ''
@@ -155,7 +155,6 @@
     localStorage.setItem('recentFood', JSON.stringify(filtered))
 		recentFood = filtered
 
-		mode = 'view'
 		name = ''
 		protein = ''
 		carbs = ''
@@ -335,7 +334,7 @@
 				<button class="" href="#" on:click|preventDefault={() => handlePlus(foodForMeal[i])}><Icon data={plus}/></button>
 			{/each}
 		</div>
-		<button class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 mb-3" on:click|preventDefault={handleAdd}>Update</button>
+		<button class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 mb-3" on:click|preventDefault={handleMealUpdate}>Update</button>
 		<input bind:value={filter} class='filter bg-gray-200 w-24 px-2' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
 		<div class="pb-6">
 			{#each filteredFood as { id, name }, i}
