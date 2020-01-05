@@ -78,7 +78,6 @@
 	}
 
 	function handleFoodClick(food) {
-		filteredFood = food
 		filter = ''
 
 		// if meal - show meal form
@@ -88,6 +87,7 @@
 		} else {
 			formType = 'updatingFood'
 		}
+
 
 		successMessage = ''
 		errorMessage = ''
@@ -262,6 +262,11 @@
 		grid-template-columns: 10% 90%;
 		grid-gap: 5px;
 	}
+	.wrapper-meal {
+		display: grid;
+		grid-template-columns: 100%;
+		grid-gap: 5px;
+	}
 	.box {
 		@apply bg-blue-100;
 		padding: 10px;
@@ -275,9 +280,9 @@
 </style>
 
 {#if formType === 'updatingMeal'}
-<h2 class="text-xl mb-2">Update Meal</h2>
+	<h2 class="text-xl mb-2">Update Meal</h2>
 {:else}
-<h2 class="text-xl mb-2">Update Food</h2>
+	<h2 class="text-xl mb-2">Update Food</h2>
 {/if}
 
 {#if successMessage !== ''}
@@ -336,7 +341,7 @@
 		</div>
 		<button class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 mb-3" on:click|preventDefault={handleMealUpdate}>Update</button>
 		<input bind:value={filter} class='filter bg-gray-200 w-24 px-2' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
-		<div class="pb-6">
+		<div class="wrapper-meal pb-6">
 			{#each filteredFood as { id, name }, i}
 				<button class='box w-full' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
 			{/each}
