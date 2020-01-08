@@ -4,11 +4,10 @@
 
 <script>
 	import { onMount } from 'svelte';
-	import Icon from 'svelte-awesome/components/Icon.svelte'
-  import { trash, plus } from 'svelte-awesome/icons';
 
 	let firstTime = false
-	let isGoal = true
+	let columns = '50% 50%'
+	let isGoal = false
 	let goal = 2000
 	$: remaining = goal-calories <=0 ? 'remaining' : ''
 	let foodIAte = []
@@ -18,30 +17,26 @@
 	let fat = 0
 	$: calories = parseFloat(Number(protein*4 + carbs*4 + fat*9).toFixed(1))
 	let filter = ''
+	let filteredFood = []
+	let recentFood = []
 	let font = window.screen.width <= 360 ? 'text-sm' : '' // small text for food on small phones
-
-	function handleFoodClick(foodClicked) {
-		let index = foodIAte.findIndex(f => f.name === foodClicked.name);
-
-		// first time you eat this food - add to array
-		if(index === -1) {
-			foodClicked.count = 1
-			foodIAte = [...foodIAte, foodClicked ]
-		} else {
-			foodIAte[index].count = foodIAte[index].count + 1
-		}
-
-		localStorage.setItem('ate', JSON.stringify(foodIAte))
-		countCalories(foodIAte)
-	}
+  $: screenWidth = window.screen.availWidth
 
 	onMount(async () => {
+		const sortAlpha = (a, b) => {
+			return a.name > b.name
+		}
+
 		firstTime = localStorage.getItem('firstTime') || 'true'
 		firstTime = (firstTime === 'true'); //localStorage keep everything as string so I convert it to bool
 
-		isGoal = localStorage.getItem('isGoal') ? localStorage.getItem('isGoal') === 'true' : true
+		isGoal = localStorage.getItem('isGoal') || false
 		goal = localStorage.getItem('goal') || 2000
+		columns = localStorage.getItem('columns') || '50% 50%'
 		food = JSON.parse(localStorage.getItem('food')) || []
+		filteredFood = JSON.parse(localStorage.getItem('recentFood') || '[]').sort(sortAlpha) || []
+		recentFood = filteredFood
+
 		foodIAte = JSON.parse(localStorage.getItem('ate')) || []
 
 		if(firstTime && food.length === 0) {
@@ -71,38 +66,53 @@
 
 			localStorage.setItem('firstTime', 'false')
 			localStorage.setItem('food', JSON.stringify(food))
-			localStorage.setItem('recentFood', JSON.stringify(food))
+		  filteredFood = food
 		}
 
 		countCalories(foodIAte)
 	})
 
-	function handleClear() {
-		localStorage.removeItem('ate')
-		protein = 0
-		carbs = 0
-		fat = 0
-		foodIAte = []
+	function handleFilter() {
+		if(filter === '') {
+			filteredFood = recentFood
+			return
+		}
+
+		filteredFood = food.filter(f => f.name.toLowerCase().includes(filter.toLowerCase()));
 	}
 
-	function handleDelete(foodItem) {
-		let filtered = foodIAte.filter(function(f, index, arr){
-			return f.name !== foodItem.name;
-		});
-
-		foodIAte = filtered
-
-    localStorage.setItem('ate', JSON.stringify(filtered))
-		countCalories(foodIAte)
-	}
-
-	function handlePlus(foodClicked) {
+	function handleFoodClick(foodClicked) {
 		let index = foodIAte.findIndex(f => f.name === foodClicked.name);
 
-		foodIAte[index].count = foodIAte[index].count + 1
+		// first time you eat this food - add to array
+		if(index === -1) {
+			foodClicked.count = 1
+			foodIAte = [...foodIAte, foodClicked ]
+		} else {
+			foodIAte[index].count = foodIAte[index].count + 1
+		}
 
 		localStorage.setItem('ate', JSON.stringify(foodIAte))
 		countCalories(foodIAte)
+
+		updateRecent(foodClicked)
+	}
+
+	const updateRecent = (foodClicked) => {
+		// remove food
+		let filtered = recentFood.filter(function(f, index, arr){
+			return f.name !== foodClicked.name;
+		});
+
+		// add to top
+		filtered.unshift(foodClicked)
+
+		// cut last food if there are more than 20
+		if(filtered.length > 20) {
+			filtered.splice(-1, 1)
+		}
+
+		localStorage.setItem('recentFood', JSON.stringify(filtered))
 	}
 
 	const countCalories = (food) => {
@@ -128,34 +138,14 @@
 	span {
 		margin-right: 5px
 	}
-	.today {
-		margin-top: 100px;
+	.wrapper {
+		display: grid;
+		grid-template-columns: 50% 50%;
+		grid-gap: 3px;
+		padding-bottom: 75px;
 	}
 	.remaining {
 		@apply text-red-700;
-	}
-	.add {
-		margin-top: 20px;
-	}
-	.filter {
-		float: right;
-		font-size: 150%;
-		margin-top: 20px;
-		margin-bottom: 10px;
-		@apply bg-gray-200 w-24 px-2;
-	}
-	.ate {
-		color: green;
-	}
-	.ate-wrapper {
-		display: grid;
-		grid-template-columns: 25px 70% 5% auto;
-		padding-bottom: 75px;
-		grid-row-gap: 4px;
-	}
-	.box {
-		padding: 3px;
-		@apply bg-blue-100;
 	}
 	ul {
 		@apply flex fixed w-full bottom-0 mb-10 mt-20 z-50 bg-white border-t border-gray-200;
@@ -165,49 +155,38 @@
 		@apply flex-1;
 	}
 	ul li.first {
-		@apply text-center block py-2 text-blue-500
+		@apply text-center block py-2 text-blue-500;
 	}
-	ul li.second a {
+ li.second a {
 		@apply text-center block py-2;
 	}
 </style>
 
-{#if food.length === 0}
-	<p>You have no food. <a class="text-blue-500" a href="/food/manage-food/add-food">Add food</a> first.</p>
-{:else}
-	{#if isGoal}
-		<div>
-			<span>Goal:{goal}</span>
-			<span class={remaining}>Left:</span><span class={remaining}>{Math.round(goal-calories)}</span>
-		</div>
-	{/if}
-
+{#if isGoal}
 	<div>
-		<span>Cal:{Math.round(calories)}</span>
-		<span>P:{Math.round(protein)}</span>
-		<span>C:{Math.round(carbs)}</span>
-		<span>F:{Math.round(fat)}</span>
+		<span>Goal:{goal}</span>
+		<span class={remaining}>Left:</span><span class={remaining}>{Math.round(goal-calories)}</span>
 	</div>
-
-	{#if foodIAte.length > 0}
-		<div><button class="bg-red-400 text-white font-bold py-1 px-3 mt-3 w-1/2" on:click={handleClear}>Clear All<Icon style="margin-left: 0.5rem; margin-bottom: 0.25rem;" data={trash}/></button></div>
-	{/if}
-
-	<div class='ate-wrapper mt-1'>
-		{#each foodIAte as { id, name, count }, i}
-			<button class="text-red-400 text-left" href="#" on:click|preventDefault={() => handleDelete(foodIAte[i])}><Icon data={trash}/></button>
-			<div>{name}</div>
-			<div class="">{count}</div>
-			<button class="" href="#" on:click|preventDefault={() => handlePlus(foodIAte[i])}><Icon data={plus}/></button>
-		{/each}
-	</div>
-	<ul>
-		<li class="first">Ate Today</li>
-		<li class="second"> <a href="/food/eat">Choose Food</a></li>
-	</ul>
 {/if}
 
-<!-- the following links are not available to the sapper export command since they are only available if food exist. Hiding them here ensure that hiting refresh on production don't throws 404. -->
-<a class="invisible" href="/food/eat">Choose Food</a>
-<a class="invisible" href="/food/manage-food/update-food">Update Food</a>
-<a class="invisible" href="/food/manage-food/download">Export Food</a>
+<div>
+	<span>Cal:{Math.round(calories)}</span>
+	<span>P:{Math.round(protein)}</span>
+	<span>C:{Math.round(carbs)}</span>
+	<span>F:{Math.round(fat)}</span>
+</div>
+
+<input bind:value={filter} class='bg-gray-200 px-2 py-1 mb-2 mt-3 w-1/2' type='text' placeholder='Search' on:input={handleFilter} maxlength="5" size="3" />
+
+<div class="wrapper">
+	{#each filteredFood as { id, name }, i}
+		<button class='bg-blue-100 p-1' on:click={() => handleFoodClick(filteredFood[i])}>{name}</button>
+	{/each}
+	<p class="mt-2 text-center" style="grid-column: span 2">(Last 20 items you ate)</p>
+</div>
+
+
+<ul>
+	<li class="first">Choose Food </li>
+	<li class="second"> <a href="/food/eat">Ate Today</a> </li>
+</ul>
