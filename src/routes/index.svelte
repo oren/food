@@ -7,7 +7,7 @@
 
 	let firstTime = false
 	let columns = '50% 50%'
-	let isGoal = false
+	let isGoal = true
 	let goal = 2000
 	$: remaining = goal-calories <=0 ? 'remaining' : ''
 	let foodIAte = []
@@ -30,8 +30,9 @@
 		firstTime = localStorage.getItem('firstTime') || 'true'
 		firstTime = (firstTime === 'true'); //localStorage keep everything as string so I convert it to bool
 
-		isGoal = localStorage.getItem('isGoal') || false
+		isGoal = localStorage.getItem('isGoal') === "true" || false
 		goal = localStorage.getItem('goal') || 2000
+
 		columns = localStorage.getItem('columns') || '50% 50%'
 		food = JSON.parse(localStorage.getItem('food')) || []
 		filteredFood = JSON.parse(localStorage.getItem('recentFood') || '[]').sort(sortAlpha) || []
@@ -65,6 +66,7 @@
 			]
 
 			localStorage.setItem('firstTime', 'false')
+			localStorage.setItem('isGoal', 'true')
 			localStorage.setItem('food', JSON.stringify(food))
 		  filteredFood = food
 		}
