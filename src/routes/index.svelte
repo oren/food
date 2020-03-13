@@ -68,6 +68,7 @@
 			localStorage.setItem('firstTime', 'false')
 			localStorage.setItem('isGoal', 'true')
 			localStorage.setItem('food', JSON.stringify(food))
+			localStorage.setItem('recentFood', JSON.stringify(food))
 		  filteredFood = food
 		}
 
