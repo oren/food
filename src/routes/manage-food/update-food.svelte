@@ -74,7 +74,7 @@
 	}
 
 	function handleMealUpdate() {
-		// TODO
+		localStorage.setItem('food', JSON.stringify(food))
 	}
 
 	function handleFoodClick(food) {
@@ -219,6 +219,7 @@
 		addFoodToRecent(meal, recentFood)
 		foodForMeal = []
 	}
+
 	function handlePlus(foodClicked) {
 		let index = foodForMeal.findIndex(f => f.name === foodClicked.name);
 
