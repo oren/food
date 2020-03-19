@@ -74,6 +74,8 @@
 	}
 
 	function handleMealUpdate() {
+		let index = food.findIndex(f => f.name === name);
+		food[index].food = foodForMeal
 		localStorage.setItem('food', JSON.stringify(food))
 	}
 
@@ -195,9 +197,6 @@
 		errorMessage = ''
 
 		const index = foodExist(name, food)
-		console.log(name)
-		console.log(food)
-		console.log(index)
 		if (index !== -1) {
 			errorMessage = "Food with this name already exist"
 			return
@@ -229,6 +228,10 @@
 		protein = result.protein
 		carbs = result.carbs
 		fat = result.fat
+	}
+
+	function handleDeleteFoodInMeal(foodToDelete) {
+		foodForMeal = foodForMeal.filter(f => f.name !== foodToDelete.name)
 	}
 </script>
 
@@ -334,7 +337,7 @@
 		{/if}
 		<div class='ate-wrapper'>
 			{#each foodForMeal as { id, name, count }, i}
-				<button class="text-red-400 text-left" href="#" on:click|preventDefault={() => handleDelete(foodForMeal[i])}><Icon data={trash}/></button>
+				<button class="text-red-400 text-left" href="#" on:click|preventDefault={() => handleDeleteFoodInMeal(foodForMeal[i])}><Icon data={trash}/></button>
 				<div>{name}</div>
 				<div class="">{count}</div>
 				<button class="" href="#" on:click|preventDefault={() => handlePlus(foodForMeal[i])}><Icon data={plus}/></button>
