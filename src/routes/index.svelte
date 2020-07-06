@@ -56,6 +56,8 @@
 				{name: '1 tbsp peanut butter', protein: 4, carbs: 3, fat: 8},
 				{name: 'tuna can', protein: 39, carbs: 0, fat: 0},
 				{name: 'sardins can', protein: 18, carbs: 0, fat: 11},
+				{name: '5 olives', protein: 0.1, carbs: 0.5, fat: 2},
+				{name: 'scoop protein powder', protein: 20, carbs: 5, fat: 2},
 				{name: '150g drum sticks', protein: 1, carbs: 5.8, fat: 3},
 				{name: 'apple', protein: 1, carbs: 5.8, fat: 3},
 				{name: '100g salmon', protein: 1, carbs: 5.8, fat: 3},
