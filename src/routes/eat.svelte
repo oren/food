@@ -97,15 +97,6 @@
 		countCalories(foodIAte)
 	}
 
-	function handlePlus(foodClicked) {
-		let index = foodIAte.findIndex(f => f.name === foodClicked.name);
-
-		foodIAte[index].count = foodIAte[index].count + 1
-
-		localStorage.setItem('ate', JSON.stringify(foodIAte))
-		countCalories(foodIAte)
-	}
-
 	const countCalories = (food) => {
 		function sumProtein(total, f) {
 			return total + (f.protein * f.count)
