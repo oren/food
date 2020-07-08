@@ -161,7 +161,7 @@
 	}
 	.ate-wrapper {
 		display: grid;
-		grid-template-columns: 25px 70% 5% auto;
+		grid-template-columns: 25px 70% auto;
 		padding-bottom: 75px;
 		grid-row-gap: 4px;
 	}
@@ -210,7 +210,6 @@
 			<button class="text-red-400 text-left" href="#" on:click|preventDefault={() => handleDelete(foodIAte[i])}><Icon data={trash}/></button>
 			<div>{name}</div>
 			<input class="bg-gray-200 w-12" type="text" on:keyup={(e) => handleEdit(foodIAte[i], e.target.value)} value={count} />
-			<button class="" href="#" on:click|preventDefault={() => handlePlus(foodIAte[i])}><Icon data={plus}/></button>
 		{/each}
 	</div>
 	<ul>
