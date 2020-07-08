@@ -209,7 +209,7 @@
 		{#each foodIAte as { id, name, count }, i}
 			<button class="text-red-400 text-left" href="#" on:click|preventDefault={() => handleDelete(foodIAte[i])}><Icon data={trash}/></button>
 			<div>{name}</div>
-			<input class="bg-gray-200 w-10" type="text" on:keyup={(e) => handleEdit(foodIAte[i], e.target.value)} value={count} />
+			<input class="bg-gray-200 w-12" type="text" on:keyup={(e) => handleEdit(foodIAte[i], e.target.value)} value={count} />
 			<button class="" href="#" on:click|preventDefault={() => handlePlus(foodIAte[i])}><Icon data={plus}/></button>
 		{/each}
 	</div>
