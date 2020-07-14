@@ -120,7 +120,7 @@
 
 		console.log('count', count)
 
-		foodIAte[index].count = count
+		foodIAte[index].count = Number(count)
 
 		localStorage.setItem('ate', JSON.stringify(foodIAte))
 		countCalories(foodIAte)
