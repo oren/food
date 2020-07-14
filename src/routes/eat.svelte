@@ -118,8 +118,6 @@
 	function handleEdit(foodClicked, count) {
 		let index = foodIAte.findIndex(f => f.name === foodClicked.name);
 
-		console.log('count', count)
-
 		foodIAte[index].count = Number(count)
 
 		localStorage.setItem('ate', JSON.stringify(foodIAte))
